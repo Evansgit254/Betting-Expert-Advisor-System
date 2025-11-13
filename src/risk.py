@@ -11,7 +11,7 @@ from decimal import ROUND_HALF_UP, Decimal, InvalidOperation
 from typing import Any, Dict, Optional
 
 from src.config import settings
-from src.db import get_consecutive_losses, get_current_bankroll, get_peak_bankroll, get_session
+from src.db import get_consecutive_losses, get_current_bankroll, get_peak_bankroll, handle_db_errors
 from src.logging_config import get_logger
 from src.monitoring import send_alert
 
@@ -170,7 +170,7 @@ def check_risk_limits(
 
     # 6. CRITICAL FIX: Check consecutive losses circuit breaker (skip for dry-run)
     if not is_dry_run:
-        with get_session() as session:
+        with handle_db_errors() as session:
             consecutive_losses = get_consecutive_losses(session, max_recent=10)
             max_consecutive = 5  # Configurable threshold
 
@@ -195,7 +195,7 @@ def check_risk_limits(
 
     # 7. CRITICAL FIX: Check drawdown protection (skip for dry-run)
     if not is_dry_run:
-        with get_session() as session:
+        with handle_db_errors() as session:
             peak_bankroll = get_peak_bankroll(session, days=30)
             current_bankroll = get_current_bankroll()
 
