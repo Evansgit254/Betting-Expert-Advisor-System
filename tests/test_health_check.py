@@ -60,21 +60,21 @@ class TestCheckDatabase:
         assert result.name == "database"
         assert result.status in ["healthy", "unhealthy"]
 
-    @patch("src.health_check.get_session")
-    def test_database_connection_success(self, mock_get_session):
+    @patch("src.health_check.handle_db_errors")
+    def test_database_connection_success(self, mock_handle_db_errors):
         """Test database check with successful connection."""
         mock_session = MagicMock()
         mock_session.query.return_value.count.return_value = 10
-        mock_get_session.return_value.__enter__.return_value = mock_session
+        mock_handle_db_errors.return_value.__enter__.return_value = mock_session
 
         result = check_database()
         assert result.status == "healthy"
         assert result.details["bet_count"] == 10
 
-    @patch("src.health_check.get_session")
-    def test_database_connection_failure(self, mock_get_session):
+    @patch("src.health_check.handle_db_errors")
+    def test_database_connection_failure(self, mock_handle_db_errors):
         """Test database check with connection failure."""
-        mock_get_session.side_effect = Exception("Connection failed")
+        mock_handle_db_errors.side_effect = Exception("Connection failed")
 
         result = check_database()
         assert result.status == "unhealthy"

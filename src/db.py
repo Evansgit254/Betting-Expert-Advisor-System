@@ -589,7 +589,7 @@ def get_strategy_performance(
     end_date: Optional[datetime] = None,
 ) -> List[Dict[str, Any]]:
     """Get performance metrics for one or all strategies."""
-    with get_session() as session:
+    with handle_db_errors() as session:
         query = session.query(StrategyPerformance)
 
         if strategy_name:
@@ -630,7 +630,7 @@ def get_strategy_performance(
 @db_retry(retry_on=(SQLAlchemyError,))
 def get_current_bankroll() -> float:
     """Calculate current bankroll based on all settled bets."""
-    with get_session() as session:
+    with handle_db_errors() as session:
         try:
             result = (
                 session.query(func.coalesce(func.sum(BetRecord.profit_loss), 0.0))
