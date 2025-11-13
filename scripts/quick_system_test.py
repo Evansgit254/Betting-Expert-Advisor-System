@@ -8,7 +8,7 @@ import numpy as np  # noqa: E402
 import pandas as pd  # noqa: E402
 
 from src.backtest import Backtester  # noqa: E402
-from src.db import BetRecord, get_session, init_db, save_bet, update_bet_result  # noqa: E402
+from src.db import BetRecord, handle_db_errors, init_db, save_bet, update_bet_result  # noqa: E402
 from src.executor import Executor  # noqa: E402
 from src.risk import kelly_fraction, validate_bet  # noqa: E402
 
@@ -25,7 +25,7 @@ def test_complete_workflow():
     print("1. Testing Database...")
     try:
         init_db()
-        with get_session() as session:
+        with handle_db_errors() as session:
             count = session.query(BetRecord).count()
         print(f"   ✅ Database working ({count} existing bets)")
         results["database"] = True
@@ -86,7 +86,7 @@ def test_complete_workflow():
         print(f"   Bet updated: {success}")
 
         # Query it
-        with get_session() as session:
+        with handle_db_errors() as session:
             bet = session.query(BetRecord).filter(BetRecord.id == bet_id).first()
             if bet:
                 print(f"   Retrieved: {bet.market_id} - Result: {bet.result}")

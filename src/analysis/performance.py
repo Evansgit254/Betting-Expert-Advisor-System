@@ -7,7 +7,7 @@ from typing import Any, Dict, List, Optional
 import matplotlib.pyplot as plt
 import pandas as pd
 
-from src.db import BetRecord, get_session
+from src.db import BetRecord, handle_db_errors
 
 
 class PerformanceMetric(Enum):
@@ -86,7 +86,7 @@ class StrategyAnalyzer:
         Returns:
             Self for method chaining
         """
-        with get_session() as session:
+        with handle_db_errors() as session:
             # Load trades
             query = session.query(BetRecord).filter(BetRecord.strategy == self.strategy_name)
 

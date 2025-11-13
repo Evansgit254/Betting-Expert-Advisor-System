@@ -6,7 +6,7 @@ from datetime import datetime
 
 try:
     from src.cache import CachedFixture, CachedOdds
-    from src.db import BetRecord, ModelMetadata, get_session
+    from src.db import BetRecord, ModelMetadata, handle_db_errors
     from src.logging_config import get_logger
     from src.paths import PAPER_TRADING_FILE
 except ModuleNotFoundError:  # pragma: no cover - fallback for direct execution
@@ -14,7 +14,7 @@ except ModuleNotFoundError:  # pragma: no cover - fallback for direct execution
     if PROJECT_ROOT not in sys.path:
         sys.path.insert(0, PROJECT_ROOT)
     from src.cache import CachedFixture, CachedOdds
-    from src.db import BetRecord, ModelMetadata, get_session
+    from src.db import BetRecord, ModelMetadata, handle_db_errors
     from src.logging_config import get_logger
     from src.paths import PAPER_TRADING_FILE
 
@@ -30,7 +30,7 @@ class Dashboard:
 
     def get_cache_stats(self):
         """Get cache statistics."""
-        with get_session() as session:
+        with handle_db_errors() as session:
             fixtures_count = session.query(CachedFixture).count()
             odds_count = session.query(CachedOdds).count()
 
@@ -54,7 +54,7 @@ class Dashboard:
 
     def get_betting_stats(self):
         """Get betting statistics from database."""
-        with get_session() as session:
+        with handle_db_errors() as session:
             total_bets = session.query(BetRecord).count()
 
             if total_bets == 0:
@@ -118,7 +118,7 @@ class Dashboard:
 
     def get_model_info(self):
         """Get latest model information."""
-        with get_session() as session:
+        with handle_db_errors() as session:
             latest_model = (
                 session.query(ModelMetadata).order_by(ModelMetadata.trained_at.desc()).first()
             )

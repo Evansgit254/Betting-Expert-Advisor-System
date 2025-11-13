@@ -10,7 +10,7 @@ import numpy as np  # noqa: E402
 import pandas as pd  # noqa: E402
 
 from src.backtest import Backtester  # noqa: E402
-from src.db import BetRecord, get_session, init_db, save_bet, update_bet_result  # noqa: E402
+from src.db import BetRecord, handle_db_errors, init_db, save_bet, update_bet_result  # noqa: E402
 from src.executor import Executor  # noqa: E402
 from src.feature import add_odds_features, add_temporal_features  # noqa: E402
 from src.risk import kelly_fraction, validate_bet  # noqa: E402
@@ -35,7 +35,7 @@ def test_1_database_initialization():
         print("✅ Database initialized successfully")
 
         # Test session creation
-        with get_session() as session:
+        with handle_db_errors() as session:
             count = session.query(BetRecord).count()
             print(f"✅ Database session working (found {count} existing bets)")
 
@@ -255,7 +255,7 @@ def test_6_database_persistence():
         print(f"✅ Bet result updated: {'Success' if success else 'Failed'}")
 
         # Query the bet
-        with get_session() as session:
+        with handle_db_errors() as session:
             bet = session.query(BetRecord).filter(BetRecord.id == bet_id).first()
             if bet:
                 print("\n✅ Bet retrieved from database:")
@@ -416,7 +416,7 @@ def test_8_end_to_end_workflow():
         print(f"   Status: {'✅ SUCCESS' if executed_count > 0 else '⚠️  NO BETS'}")
 
         # 6. Check database
-        with get_session() as session:
+        with handle_db_errors() as session:
             recent_bets = session.query(BetRecord).filter(BetRecord.market_id.like("E2E_%")).count()
             print(f"\n6️⃣  Database Check: {recent_bets} bets persisted")
 

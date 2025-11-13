@@ -9,7 +9,7 @@ import numpy as np
 
 try:
     from src.backtest import Backtester
-    from src.db import ModelMetadata, get_session
+    from src.db import ModelMetadata, handle_db_errors
     from src.feature import build_features
     from src.logging_config import get_logger
     from src.ml_pipeline import MLPipeline
@@ -22,7 +22,7 @@ except ModuleNotFoundError:  # pragma: no cover - fallback for direct script exe
         sys.path.insert(0, str(PROJECT_ROOT))
 
     from src.backtest import Backtester
-    from src.db import ModelMetadata, get_session
+    from src.db import ModelMetadata, handle_db_errors
     from src.feature import build_features
     from src.logging_config import get_logger
     from src.ml_pipeline import MLPipeline
@@ -280,7 +280,7 @@ class AutomatedPipeline:
         try:
             from datetime import timezone as tz
 
-            with get_session() as session:
+            with handle_db_errors() as session:
                 metadata = ModelMetadata(
                     model_name=f"lgbm_automated_{timestamp}",
                     version=timestamp,

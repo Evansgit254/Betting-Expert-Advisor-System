@@ -8,7 +8,7 @@ from pathlib import Path
 from typing import Any, Dict
 
 from src.config import settings
-from src.db import BetRecord, get_session
+from src.db import BetRecord, handle_db_errors
 from src.logging_config import get_logger
 
 logger = get_logger(__name__)
@@ -55,7 +55,7 @@ def check_database() -> HealthCheckResult:
         HealthCheckResult with database status
     """
     try:
-        with get_session() as session:
+        with handle_db_errors() as session:
             # Try a simple query
             count = session.query(BetRecord).count()
 
