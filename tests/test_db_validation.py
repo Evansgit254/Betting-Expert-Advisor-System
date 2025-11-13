@@ -1,6 +1,7 @@
 """Tests for database validation and error handling."""
 import pytest
-from src.db import save_bet, update_bet_result, get_daily_loss, get_open_bets_count
+
+from src.db import get_daily_loss, get_open_bets_count, save_bet, update_bet_result
 
 
 class TestSaveBetValidation:

@@ -1,10 +1,10 @@
 """Tests for advanced staking algorithms."""
 from src.staking import (
-    fractional_kelly,
     cvar_adjusted_stake,
-    portfolio_allocate,
-    geometric_mean_staking,
     dynamic_staking,
+    fractional_kelly,
+    geometric_mean_staking,
+    portfolio_allocate,
 )
 
 

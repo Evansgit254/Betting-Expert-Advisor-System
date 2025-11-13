@@ -1,19 +1,20 @@
 """Tests for enhanced database operations with error handling and retries."""
-import pytest
 import random
-from datetime import datetime, timezone
-from unittest.mock import patch, MagicMock
-from sqlalchemy.exc import OperationalError
 import time
+from datetime import datetime, timezone
+from unittest.mock import MagicMock, patch
+
+import pytest
+from sqlalchemy.exc import OperationalError
 
 from src.db import (
+    BetRecord,
+    get_current_bankroll,
+    get_daily_loss,
+    get_open_bets_count,
+    get_session,
     save_bet,
     update_bet_result,
-    get_daily_loss,
-    get_session,
-    get_open_bets_count,
-    get_current_bankroll,
-    BetRecord,
 )
 from src.utils import utc_now
 

@@ -1,6 +1,7 @@
 """Tests for Pinnacle client."""
 import sys
-from unittest.mock import patch, MagicMock
+from unittest.mock import MagicMock, patch
+
 import pytest
 from requests.exceptions import HTTPError
 from tenacity import RetryError
@@ -114,8 +115,9 @@ def test_pinnacle_client_place_bet_success(setup_env):
 
 def test_pinnacle_client_place_bet_http_error(setup_env, caplog):
     """Test bet placement with HTTP error that triggers retry."""
-    from src.adapters.pinnacle_client import PinnacleClient
     from tenacity import RetryError
+
+    from src.adapters.pinnacle_client import PinnacleClient
 
     # Create a mock response with status code 400 and error text
     mock_response = MagicMock()
@@ -232,8 +234,9 @@ def test_pinnacle_client_place_bet_http_error(setup_env, caplog):
 
 def test_pinnacle_client_place_bet_http_error_direct(setup_env, caplog):
     """Test direct HTTP error handling in place_bet method."""
-    from src.adapters.pinnacle_client import PinnacleClient
     from requests.exceptions import HTTPError
+
+    from src.adapters.pinnacle_client import PinnacleClient
 
     # Create a mock response with status code 400 and error text
     mock_response = MagicMock()

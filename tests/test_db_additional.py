@@ -1,19 +1,20 @@
 """Additional tests for database module to improve coverage."""
-import pytest
 from datetime import datetime, timezone
-from unittest.mock import patch, MagicMock
-from sqlalchemy.exc import SQLAlchemyError, OperationalError
+from unittest.mock import MagicMock, patch
+
+import pytest
+from sqlalchemy.exc import OperationalError, SQLAlchemyError
 
 from src.db import (
-    get_session,
-    save_bet,
-    update_bet_result,
+    BetRecord,
+    db_retry,
+    get_current_bankroll,
     get_daily_loss,
     get_open_bets_count,
-    get_current_bankroll,
-    BetRecord,
+    get_session,
     handle_db_errors,
-    db_retry,
+    save_bet,
+    update_bet_result,
 )
 
 

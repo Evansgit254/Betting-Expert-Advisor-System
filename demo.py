@@ -1,15 +1,16 @@
 """Simple demo of the Betting Expert Advisor system."""
 import sys
-import pandas as pd
-import numpy as np
 from datetime import datetime, timedelta
 
+import numpy as np
+import pandas as pd
+
 # Add to path
-from src.db import init_db, save_bet, get_session, BetRecord
-from src.risk import kelly_fraction, validate_bet
+from src.db import BetRecord, get_session, init_db, save_bet
 from src.executor import Executor
-from src.utils import setup_logging
 from src.logging_config import get_logger
+from src.risk import kelly_fraction, validate_bet
+from src.utils import setup_logging
 
 setup_logging()
 logger = get_logger(__name__)

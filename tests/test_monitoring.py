@@ -1,6 +1,7 @@
 """Tests for monitoring module."""
 import pytest
 from fastapi.testclient import TestClient
+
 from src.monitoring import app, update_metrics
 
 

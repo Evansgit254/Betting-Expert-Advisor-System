@@ -1,9 +1,9 @@
 """Automated training, testing, and deployment pipeline."""
 import json
 import os
+import sys
 from datetime import datetime
 from pathlib import Path
-import sys
 
 import numpy as np
 
@@ -11,11 +11,11 @@ try:
     from src.backtest import Backtester
     from src.db import ModelMetadata, get_session
     from src.feature import build_features
+    from src.logging_config import get_logger
     from src.ml_pipeline import MLPipeline
     from src.model import ModelWrapper
     from src.paths import RESULTS_DIR
     from src.tools.synthetic_data import generate_complete_dataset
-    from src.logging_config import get_logger
 except ModuleNotFoundError:  # pragma: no cover - fallback for direct script execution
     PROJECT_ROOT = Path(__file__).resolve().parent.parent
     if str(PROJECT_ROOT) not in sys.path:
@@ -24,11 +24,11 @@ except ModuleNotFoundError:  # pragma: no cover - fallback for direct script exe
     from src.backtest import Backtester
     from src.db import ModelMetadata, get_session
     from src.feature import build_features
+    from src.logging_config import get_logger
     from src.ml_pipeline import MLPipeline
     from src.model import ModelWrapper
     from src.paths import RESULTS_DIR
     from src.tools.synthetic_data import generate_complete_dataset
-    from src.logging_config import get_logger
 
 logger = get_logger(__name__)
 

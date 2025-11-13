@@ -1,14 +1,14 @@
 """Tests for health check system."""
-from unittest.mock import patch, MagicMock
+from unittest.mock import MagicMock, patch
 
 from src.health_check import (
     HealthCheckResult,
+    check_configuration,
     check_database,
     check_disk_space,
-    check_configuration,
     check_models,
-    run_all_health_checks,
     print_health_status,
+    run_all_health_checks,
 )
 
 

@@ -1,6 +1,7 @@
 """Tests for configuration management."""
 import os
 from unittest.mock import patch
+
 import pytest
 from pydantic import ValidationError
 
@@ -93,7 +94,8 @@ def test_settings_validation():
 
 def test_settings_singleton():
     """Test that settings is a singleton instance."""
-    from src.config import settings as settings1, settings as settings2
+    from src.config import settings as settings1
+    from src.config import settings as settings2
 
     assert settings1 is settings2  # Should be the same instance
 

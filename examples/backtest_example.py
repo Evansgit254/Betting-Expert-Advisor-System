@@ -1,19 +1,19 @@
 """
 Example script demonstrating how to use the backtesting engine with a sample strategy.
 """
-import numpy as np
-import pandas as pd
-import matplotlib.pyplot as plt
-from datetime import datetime, timedelta
-
 # Add the project root to the Python path
 import sys
+from datetime import datetime, timedelta
 from pathlib import Path
+
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
 
 sys.path.append(str(Path(__file__).parent.parent))
 
 from src.backtesting.engine import BacktestEngine, TradeDirection
-from src.backtesting.strategies import MeanReversionStrategy, MomentumStrategy, BreakoutStrategy
+from src.backtesting.strategies import BreakoutStrategy, MeanReversionStrategy, MomentumStrategy
 
 
 def generate_sample_data(

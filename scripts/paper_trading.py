@@ -9,10 +9,10 @@ try:
     from src.config import settings
     from src.data_fetcher import DataFetcher
     from src.feature import build_features, select_features
+    from src.logging_config import get_logger
     from src.model import ModelWrapper
     from src.paths import PAPER_TRADING_DIR, PAPER_TRADING_FILE
     from src.strategy import apply_bet_filters, find_value_bets
-    from src.logging_config import get_logger
 except ModuleNotFoundError:  # pragma: no cover - fallback for direct script execution
     PROJECT_ROOT = Path(__file__).resolve().parent.parent
     if str(PROJECT_ROOT) not in sys.path:
@@ -22,10 +22,10 @@ except ModuleNotFoundError:  # pragma: no cover - fallback for direct script exe
     from src.config import settings
     from src.data_fetcher import DataFetcher
     from src.feature import build_features, select_features
+    from src.logging_config import get_logger
     from src.model import ModelWrapper
     from src.paths import PAPER_TRADING_DIR, PAPER_TRADING_FILE
     from src.strategy import apply_bet_filters, find_value_bets
-    from src.logging_config import get_logger
 
 logger = get_logger(__name__)
 

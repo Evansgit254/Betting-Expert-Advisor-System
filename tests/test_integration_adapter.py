@@ -1,7 +1,7 @@
 """Integration tests for data adapters and pipeline."""
-from src.tools.synthetic_data import generate_synthetic_fixtures, generate_synthetic_odds
 from src.feature import build_features
 from src.strategy import find_value_bets
+from src.tools.synthetic_data import generate_synthetic_fixtures, generate_synthetic_odds
 
 
 def test_integration_pipeline():
@@ -74,8 +74,8 @@ def test_feature_building_with_synthetic_data():
 
 def test_end_to_end_with_execution():
     """Test complete flow including execution."""
-    from src.executor import Executor
     from src.db import init_db
+    from src.executor import Executor
 
     init_db()
 

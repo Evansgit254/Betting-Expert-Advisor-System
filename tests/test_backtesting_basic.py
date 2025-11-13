@@ -1,15 +1,15 @@
 """Basic tests for backtesting modules to improve coverage."""
-import pytest
 import pandas as pd
+import pytest
 
 # Import backtesting modules
 try:
-    from src.backtesting.engine import BacktestEngine
     from src.backtesting.betting_strategies import (
-        ValueBettingStrategy,
-        KellyCriterionStrategy,
         ArbitrageStrategy,
+        KellyCriterionStrategy,
+        ValueBettingStrategy,
     )
+    from src.backtesting.engine import BacktestEngine
 
     BACKTESTING_AVAILABLE = True
 except ImportError:

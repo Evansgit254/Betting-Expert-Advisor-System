@@ -13,7 +13,6 @@ from typing import List, Optional
 from pydantic import Field, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -107,9 +106,7 @@ class Settings(BaseSettings):
         missing = self.validate_live_mode_requirements()
         if missing:
             missing_list = ", ".join(missing)
-            raise ValueError(
-                "Cannot enable LIVE mode without configuration: " + missing_list
-            )
+            raise ValueError("Cannot enable LIVE mode without configuration: " + missing_list)
 
 
 @lru_cache(maxsize=1)

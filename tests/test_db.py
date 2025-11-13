@@ -1,17 +1,19 @@
 """Tests for database operations."""
-import pytest
 from datetime import datetime, timezone
 from unittest.mock import patch
+
+import pytest
+
 from src.db import (
-    init_db,
-    get_session,
-    save_bet,
-    update_bet_result,
+    BetRecord,
+    DailyStats,
+    ModelMetadata,
     get_daily_loss,
     get_open_bets_count,
-    BetRecord,
-    ModelMetadata,
-    DailyStats,
+    get_session,
+    init_db,
+    save_bet,
+    update_bet_result,
 )
 
 

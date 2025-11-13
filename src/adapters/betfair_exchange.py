@@ -24,6 +24,7 @@ APP_KEY = os.getenv("BETFAIR_APP_KEY")
 SESSION_TOKEN = os.getenv("BETFAIR_SESSION_TOKEN")
 TIMEOUT = int(os.getenv("HTTP_TIMEOUT", "10"))
 
+
 @retry(wait=wait_exponential(min=1, max=4), stop=stop_after_attempt(3))
 def _post(
     path: str,

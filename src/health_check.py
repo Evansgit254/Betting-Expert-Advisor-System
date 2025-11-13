@@ -3,7 +3,6 @@
 This module provides health check functions to verify that all system
 components are functioning correctly.
 """
-import logging
 from datetime import datetime
 from pathlib import Path
 from typing import Any, Dict

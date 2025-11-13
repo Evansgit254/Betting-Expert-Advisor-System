@@ -17,6 +17,7 @@ BASE = os.getenv("BOOKIE_API_BASE_URL")
 KEY = os.getenv("BOOKIE_API_KEY")
 TIMEOUT = int(os.getenv("HTTP_TIMEOUT", "10"))
 
+
 @retry(wait=wait_exponential(min=1, max=4), stop=stop_after_attempt(3))
 def _post(
     path: str,

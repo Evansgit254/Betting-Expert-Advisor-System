@@ -1,15 +1,16 @@
 """Tests for performance profiling utilities."""
-import pytest
-import time
 import tempfile
+import time
 from pathlib import Path
 
+import pytest
+
 from src.tools.profiler import (
-    timeit,
-    profile_function,
     PerformanceMonitor,
     benchmark,
     log_slow_queries,
+    profile_function,
+    timeit,
 )
 
 

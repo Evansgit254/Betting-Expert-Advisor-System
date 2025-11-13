@@ -1,15 +1,17 @@
 """Tests for feature engineering module."""
-import pytest
-import pandas as pd
-import numpy as np
 from unittest.mock import patch
+
+import numpy as np
+import pandas as pd
+import pytest
+
 from src.feature import (
-    build_features,
     add_odds_features,
-    add_temporal_features,
     add_team_features,
-    select_features,
+    add_temporal_features,
+    build_features,
     prepare_training_data,
+    select_features,
 )
 
 

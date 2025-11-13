@@ -7,16 +7,16 @@ from datetime import datetime
 try:
     from src.cache import CachedFixture, CachedOdds
     from src.db import BetRecord, ModelMetadata, get_session
-    from src.paths import PAPER_TRADING_FILE
     from src.logging_config import get_logger
+    from src.paths import PAPER_TRADING_FILE
 except ModuleNotFoundError:  # pragma: no cover - fallback for direct execution
     PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     if PROJECT_ROOT not in sys.path:
         sys.path.insert(0, PROJECT_ROOT)
     from src.cache import CachedFixture, CachedOdds
     from src.db import BetRecord, ModelMetadata, get_session
-    from src.paths import PAPER_TRADING_FILE
     from src.logging_config import get_logger
+    from src.paths import PAPER_TRADING_FILE
 
 logger = get_logger(__name__)
 

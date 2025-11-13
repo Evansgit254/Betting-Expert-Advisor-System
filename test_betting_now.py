@@ -1,17 +1,18 @@
 #!/usr/bin/env python3
 """Simplified test - just show the bets without complex filters"""
 
-import sys
 import os
+import sys
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-import pandas as pd
 import numpy as np
-from src.tools.synthetic_data import generate_synthetic_fixtures, generate_synthetic_odds
+import pandas as pd
+
 from src.feature import add_temporal_features
-from src.strategy import find_value_bets
 from src.risk import calculate_expected_value
+from src.strategy import find_value_bets
+from src.tools.synthetic_data import generate_synthetic_fixtures, generate_synthetic_odds
 
 print("=" * 80)
 print("  🎯 SIMPLIFIED WORKING TEST")

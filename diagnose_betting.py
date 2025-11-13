@@ -1,17 +1,18 @@
 #!/usr/bin/env python3
 """Diagnostic script to find out why no bets are being placed"""
 
-import sys
 import os
+import sys
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-import pandas as pd
 import numpy as np
-from src.tools.synthetic_data import generate_synthetic_fixtures, generate_synthetic_odds
+import pandas as pd
+
 from src.feature import build_features
-from src.strategy import find_value_bets
 from src.risk import calculate_expected_value, stake_from_bankroll
+from src.strategy import find_value_bets
+from src.tools.synthetic_data import generate_synthetic_fixtures, generate_synthetic_odds
 
 print("=" * 70)
 print("  🔍 BETTING DIAGNOSTICS")

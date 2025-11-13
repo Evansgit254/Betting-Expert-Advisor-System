@@ -3,15 +3,15 @@ from unittest.mock import patch
 
 import pytest
 
-from src.risk import (
-    stake_from_bankroll,
-    kelly_fraction,
-    validate_bet,
-    calculate_expected_value,
-    calculate_variance,
-    calculate_sharpe_ratio,
-)
 from src.config import settings
+from src.risk import (
+    calculate_expected_value,
+    calculate_sharpe_ratio,
+    calculate_variance,
+    kelly_fraction,
+    stake_from_bankroll,
+    validate_bet,
+)
 
 
 def test_stake_non_negative():

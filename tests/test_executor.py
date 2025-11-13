@@ -1,7 +1,8 @@
 """Tests for bet execution module."""
 import pytest
+
+from src.db import BetRecord, get_session, init_db
 from src.executor import Executor, MockBookie
-from src.db import init_db, get_session, BetRecord
 
 
 @pytest.fixture

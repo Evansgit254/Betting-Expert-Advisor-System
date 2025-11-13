@@ -6,8 +6,8 @@ import numpy as np
 import pandas as pd
 
 from src.db import get_daily_loss, get_open_bets_count
-from src.risk import calculate_expected_value, stake_from_bankroll, validate_bet
 from src.logging_config import get_logger
+from src.risk import calculate_expected_value, stake_from_bankroll, validate_bet
 
 logger = get_logger(__name__)
 
@@ -309,11 +309,11 @@ def apply_bet_filters(
     # Debug preview of top picks
     for i, bet in enumerate(filtered[:5], 1):
         logger.info(
-                f"✅ #{i}: {bet.get('home', 'Home')} vs {bet.get('away', 'Away')} "
-                f"({bet.get('league', 'Unknown')}) | {bet.get('selection', 'home')} "
-                f"@ {bet.get('odds', 0):.2f} | EV={bet.get('ev', 0):.3f}, "
-                f"p={bet.get('p', 0):.3f}, Sharpe={bet.get('sharpe', 0):.2f}, "
-                f"Stake=${bet.get('stake', 0):.2f}"
+            f"✅ #{i}: {bet.get('home', 'Home')} vs {bet.get('away', 'Away')} "
+            f"({bet.get('league', 'Unknown')}) | {bet.get('selection', 'home')} "
+            f"@ {bet.get('odds', 0):.2f} | EV={bet.get('ev', 0):.3f}, "
+            f"p={bet.get('p', 0):.3f}, Sharpe={bet.get('sharpe', 0):.2f}, "
+            f"Stake=${bet.get('stake', 0):.2f}"
         )
 
     return filtered

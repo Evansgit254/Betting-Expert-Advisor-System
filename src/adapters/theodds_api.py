@@ -2,15 +2,13 @@
 
 from __future__ import annotations
 
-import logging
+import inspect
 import os
 from datetime import datetime, timezone
 from typing import Any, Dict, List, Optional
 
 import requests
 from tenacity import RetryError, retry, stop_after_attempt, wait_exponential
-
-import inspect
 
 try:  # pragma: no cover - used only in test environments
     from unittest.mock import MagicMock  # type: ignore
@@ -54,7 +52,9 @@ def _get(path: str, params: Optional[Dict[str, Any]] = None) -> Any:
                     maybe = caller.f_locals.get("mock_response")
                     if maybe is not None and hasattr(maybe, "json"):
                         value = maybe.json.return_value
-                        if value is not None and not (MagicMock is not None and isinstance(value, MagicMock)):
+                        if value is not None and not (
+                            MagicMock is not None and isinstance(value, MagicMock)
+                        ):
                             return value
                     caller = caller.f_back
             finally:
@@ -100,7 +100,9 @@ class TheOddsAPIAdapter:
         globals()["HTTP_TIMEOUT"] = self.timeout
 
         if not self.api_key:
-            logger.warning("TheOddsAPI key not configured - set THEODDS_API_KEY environment variable")
+            logger.warning(
+                "TheOddsAPI key not configured - set THEODDS_API_KEY environment variable"
+            )
 
     def fetch_fixtures(
         self,
@@ -214,4 +216,3 @@ def get_available_sports() -> List[Dict[str, Any]]:
 
 
 __all__ = ["TheOddsAPIAdapter", "_get", "get_available_sports"]
-

@@ -8,8 +8,8 @@ from sklearn.metrics import accuracy_score, brier_score_loss, log_loss, roc_auc_
 try:
     from src.backtest import Backtester
     from src.feature import build_features
-    from src.model import ModelWrapper
     from src.logging_config import get_logger
+    from src.model import ModelWrapper
 except ModuleNotFoundError:  # pragma: no cover - fallback for direct execution
     import os
     import sys
@@ -19,8 +19,8 @@ except ModuleNotFoundError:  # pragma: no cover - fallback for direct execution
         sys.path.insert(0, PROJECT_ROOT)
     from src.backtest import Backtester
     from src.feature import build_features
-    from src.model import ModelWrapper
     from src.logging_config import get_logger
+    from src.model import ModelWrapper
 
 logger = get_logger(__name__)
 

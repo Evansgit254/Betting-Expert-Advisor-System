@@ -1,17 +1,18 @@
 """Complete ML betting pipeline demonstration."""
 import sys
-import pandas as pd
-import numpy as np
 from datetime import datetime
 
-from src.tools.synthetic_data import generate_complete_dataset
+import numpy as np
+import pandas as pd
+
+from src.db import BetRecord, get_session, init_db
+from src.executor import Executor
 from src.feature import build_features
 from src.model import ModelWrapper
-from src.strategy import find_value_bets
 from src.risk import kelly_fraction
-from src.executor import Executor
-from src.db import init_db, get_session, BetRecord
-from src.utils import setup_logging, get_logger
+from src.strategy import find_value_bets
+from src.tools.synthetic_data import generate_complete_dataset
+from src.utils import get_logger, setup_logging
 
 setup_logging()
 logger = get_logger(__name__)

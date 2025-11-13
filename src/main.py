@@ -8,11 +8,11 @@ from src.data_fetcher import DataFetcher, MockDataSource
 from src.db import init_db
 from src.executor import Executor
 from src.feature import build_features
+from src.logging_config import get_logger
 from src.ml_pipeline import MLPipeline
 from src.model import ModelWrapper
 from src.strategy import find_value_bets
 from src.tools.synthetic_data import generate_complete_dataset
-from src.logging_config import get_logger
 from src.utils import setup_logging
 
 # Setup logging

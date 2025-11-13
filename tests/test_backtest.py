@@ -1,11 +1,13 @@
 """Tests for backtesting module."""
-import pytest
-import pandas as pd
 import os
-from datetime import timezone
 import tempfile
+from datetime import timezone
 from pathlib import Path
-from unittest.mock import patch, MagicMock
+from unittest.mock import MagicMock, patch
+
+import pandas as pd
+import pytest
+
 from src.backtest import Backtester, run_backtest
 
 

@@ -1,9 +1,10 @@
 """Tests for database session management."""
-import pytest
-from unittest.mock import patch, MagicMock
-from sqlalchemy.exc import SQLAlchemyError, OperationalError
+from unittest.mock import MagicMock, patch
 
-from src.db import get_session, BetRecord
+import pytest
+from sqlalchemy.exc import OperationalError, SQLAlchemyError
+
+from src.db import BetRecord, get_session
 
 
 def test_get_session_success():

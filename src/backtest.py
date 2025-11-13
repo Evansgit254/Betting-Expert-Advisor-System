@@ -1,15 +1,15 @@
 """Backtesting module for historical simulation."""
+import sys
 from pathlib import Path
 from typing import Any, Dict, List, Optional
-import sys
 
 import pandas as pd
 
 try:
     from src.feature import build_features
+    from src.logging_config import get_logger
     from src.strategy import find_value_bets
     from src.tools.synthetic_data import generate_complete_dataset
-    from src.logging_config import get_logger
     from src.utils import setup_logging
 except ModuleNotFoundError:  # pragma: no cover - fallback for direct execution
     PROJECT_ROOT = Path(__file__).resolve().parent.parent
@@ -17,9 +17,9 @@ except ModuleNotFoundError:  # pragma: no cover - fallback for direct execution
         sys.path.insert(0, str(PROJECT_ROOT))
 
     from src.feature import build_features
+    from src.logging_config import get_logger
     from src.strategy import find_value_bets
     from src.tools.synthetic_data import generate_complete_dataset
-    from src.logging_config import get_logger
     from src.utils import setup_logging
 
 setup_logging()

@@ -1,6 +1,6 @@
 """Comprehensive model analysis and feature testing."""
-from pathlib import Path
 import sys
+from pathlib import Path
 
 import joblib
 import numpy as np

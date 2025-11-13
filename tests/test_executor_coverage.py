@@ -1,5 +1,6 @@
 """Tests to improve executor.py coverage."""
-from unittest.mock import patch, MagicMock
+from unittest.mock import MagicMock, patch
+
 from src.executor import Executor, MockBookie
 
 

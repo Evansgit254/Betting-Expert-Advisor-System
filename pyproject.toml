@@ -35,6 +35,7 @@ exclude = '''
 /(
     \.git
   | \.venv
+  | venv
   | build
   | dist
 )/

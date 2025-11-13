@@ -1,7 +1,8 @@
 """Tests for TheOddsAPI adapter."""
 import sys
 from datetime import datetime, timezone
-from unittest.mock import patch, MagicMock
+from unittest.mock import MagicMock, patch
+
 import pytest
 from requests.exceptions import HTTPError
 from tenacity import RetryError

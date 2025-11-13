@@ -1,16 +1,11 @@
 """Test edge cases for database operations."""
-import pytest
 from datetime import datetime, timedelta, timezone
 from unittest.mock import MagicMock
-from sqlalchemy.exc import SQLAlchemyError, OperationalError
 
-from src.db import (
-    save_bet,
-    update_bet_result,
-    get_daily_loss,
-    handle_db_errors,
-    db_retry,
-)
+import pytest
+from sqlalchemy.exc import OperationalError, SQLAlchemyError
+
+from src.db import db_retry, get_daily_loss, handle_db_errors, save_bet, update_bet_result
 
 
 def test_save_bet_invalid_input():
@@ -92,8 +87,8 @@ def test_db_retry_decorator():
 
 def test_concurrent_bet_updates():
     """Test that concurrent bet updates are handled correctly."""
-    from concurrent.futures import ThreadPoolExecutor
     import random
+    from concurrent.futures import ThreadPoolExecutor
 
     # Create a test bet
     bet = save_bet(

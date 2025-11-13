@@ -1,12 +1,12 @@
 """Tests for logging configuration."""
-import logging
 import json
+import logging
+import os
+import tempfile
 from pathlib import Path
 from unittest.mock import patch
-import tempfile
-import os
 
-from src.logging_config import JSONFormatter, setup_logging, get_logger
+from src.logging_config import JSONFormatter, get_logger, setup_logging
 
 
 class TestJSONFormatter:

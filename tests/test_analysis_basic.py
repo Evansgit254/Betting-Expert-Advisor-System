@@ -1,16 +1,16 @@
 """Basic tests for analysis modules to improve coverage."""
-import pytest
-import pandas as pd
 import numpy as np
+import pandas as pd
+import pytest
 
 # Import analysis modules
 try:
     from src.analysis.performance_utils import (
+        PerformanceAnalyzer,
+        calculate_max_drawdown,
         calculate_roi,
         calculate_sharpe_ratio,
-        calculate_max_drawdown,
         calculate_win_rate,
-        PerformanceAnalyzer,
     )
 
     PERFORMANCE_AVAILABLE = True

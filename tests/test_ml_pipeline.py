@@ -1,10 +1,12 @@
 """Tests for ML pipeline module."""
-import pytest
-import numpy as np
-import pandas as pd
 import tempfile
 from pathlib import Path
+
+import numpy as np
+import pandas as pd
+import pytest
 from sklearn.datasets import make_classification
+
 from src.ml_pipeline import MLPipeline
 
 

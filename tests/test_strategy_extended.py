@@ -1,14 +1,11 @@
 """Extended tests for the betting strategy module."""
-import pytest
-import pandas as pd
-import numpy as np
 from unittest.mock import patch
-from src.strategy import (
-    find_value_bets,
-    apply_bet_filters,
-    filter_bets_by_sharpe,
-    diversify_bets,
-)
+
+import numpy as np
+import pandas as pd
+import pytest
+
+from src.strategy import apply_bet_filters, diversify_bets, filter_bets_by_sharpe, find_value_bets
 
 
 # Mock the database and risk modules

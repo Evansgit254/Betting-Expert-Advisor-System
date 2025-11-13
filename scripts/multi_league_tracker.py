@@ -13,10 +13,10 @@ from src.adapters.theodds_api import TheOddsAPIAdapter  # noqa: E402
 from src.config import settings  # noqa: E402
 from src.data_fetcher import DataFetcher  # noqa: E402
 from src.feature import build_features, select_features  # noqa: E402
+from src.logging_config import get_logger  # noqa: E402
 from src.model import ModelWrapper  # noqa: E402
 from src.paths import MULTI_LEAGUE_OPPORTUNITIES_FILE  # noqa: E402
 from src.strategy import apply_bet_filters, find_value_bets  # noqa: E402
-from src.logging_config import get_logger  # noqa: E402
 
 # --- Optional: systemd watchdog support
 try:

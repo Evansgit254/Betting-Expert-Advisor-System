@@ -1,9 +1,11 @@
 """Tests for ML model wrapper."""
-import pytest
-import numpy as np
 import tempfile
 from pathlib import Path
+
+import numpy as np
+import pytest
 from sklearn.datasets import make_classification
+
 from src.model import ModelWrapper
 
 

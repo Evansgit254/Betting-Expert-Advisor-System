@@ -1,8 +1,10 @@
 """Tests for data fetching module."""
-import pytest
-import pandas as pd
 from datetime import datetime, timezone
-from src.data_fetcher import DataSourceInterface, MockDataSource, DataFetcher
+
+import pandas as pd
+import pytest
+
+from src.data_fetcher import DataFetcher, DataSourceInterface, MockDataSource
 
 
 def test_mock_data_source_fetch_fixtures():

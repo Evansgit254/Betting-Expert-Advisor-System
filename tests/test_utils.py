@@ -1,18 +1,20 @@
 """Tests for utility functions."""
-import pytest
-import logging
 import json
-from unittest.mock import patch
+import logging
 from datetime import datetime, timezone
+from unittest.mock import patch
+
+import pytest
+
 from src.utils import (
-    setup_logging,
+    calculate_ev,
+    format_currency,
     get_logger,
+    log_structured,
+    setup_logging,
     utc_now,
     validate_odds,
     validate_stake,
-    log_structured,
-    calculate_ev,
-    format_currency,
 )
 
 

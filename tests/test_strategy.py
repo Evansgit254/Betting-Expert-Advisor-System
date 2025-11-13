@@ -1,10 +1,11 @@
 """Tests for betting strategy module."""
 import pandas as pd
+
 from src.strategy import (
-    find_value_bets,
-    filter_bets_by_sharpe,
-    filter_bets_by_confidence,
     diversify_bets,
+    filter_bets_by_confidence,
+    filter_bets_by_sharpe,
+    find_value_bets,
 )
 
 

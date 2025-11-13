@@ -1,6 +1,7 @@
 """Tests for Betfair Exchange API client."""
+from unittest.mock import MagicMock, patch
+
 import pytest
-from unittest.mock import patch, MagicMock
 from requests.exceptions import HTTPError
 from tenacity import RetryError
 

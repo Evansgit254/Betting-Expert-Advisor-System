@@ -1,24 +1,23 @@
 """Alembic environment configuration."""
-from logging.config import fileConfig
 import os
 import sys
-
-from sqlalchemy import engine_from_config
-from sqlalchemy import pool
+from logging.config import fileConfig
 
 from alembic import context
+from sqlalchemy import engine_from_config, pool
 
 # Add the project root to the path
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
+from src.config import settings
+
 # Import the Base and models
 from src.db import Base, BetRecord
-from src.config import settings
 
 # Import all models to ensure they're registered with Base.metadata
 # This allows Alembic to detect all tables
 try:
-    from src.db import ModelMetadata, StrategyPerformance, DailyStats
+    from src.db import DailyStats, ModelMetadata, StrategyPerformance
 except ImportError:
     # These models may not exist yet
     pass
