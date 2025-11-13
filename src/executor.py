@@ -15,7 +15,7 @@ from enum import Enum
 from typing import Any, Dict, Optional
 
 from src.config import settings
-from src.db import BetRecord, get_daily_loss, get_open_bets_count, get_session, init_db, save_bet
+from src.db import BetRecord, get_daily_loss, get_open_bets_count, handle_db_errors, init_db, save_bet
 from src.logging_config import get_logger
 from src.monitoring import send_alert
 from src.risk import check_risk_limits, validate_bet_parameters
@@ -212,7 +212,7 @@ class Executor:
         idempotency_key = self._generate_idempotency_key(bet)
 
         # Get current state for risk checks
-        with get_session() as session:
+        with handle_db_errors() as session:
             open_bets = get_open_bets_count(exclude_dry_run=True)
             daily_loss = get_daily_loss()
             bankroll = bet.get("bankroll", 10000.0)
@@ -239,7 +239,7 @@ class Executor:
 
         # Phase 2: Save to DB as PENDING
         try:
-            with get_session() as session:
+            with handle_db_errors() as session:
                 try:
                     meta_payload = {
                         "status": BetStatus.PENDING.value,
