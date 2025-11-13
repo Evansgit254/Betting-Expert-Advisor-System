@@ -6,7 +6,7 @@ import numpy as np
 import pandas as pd
 
 # Add to path
-from src.db import BetRecord, get_session, init_db, save_bet
+from src.db import BetRecord, handle_db_errors, init_db, save_bet
 from src.executor import Executor
 from src.logging_config import get_logger
 from src.risk import kelly_fraction, validate_bet
@@ -118,7 +118,7 @@ def demo_complete_workflow():
 
     # Query database
     print("7️⃣  Checking database...")
-    with get_session() as session:
+    with handle_db_errors() as session:
         recent_bets = session.query(BetRecord).filter(BetRecord.market_id.like("demo_%")).all()
         print(f"   Found {len(recent_bets)} demo bets in database")
 
@@ -138,7 +138,7 @@ def demo_complete_workflow():
     np.random.seed(42)
     total_profit = 0.0
 
-    with get_session() as session:
+    with handle_db_errors() as session:
         for bet_id in bet_ids:
             bet = session.query(BetRecord).filter(BetRecord.id == bet_id).first()
             if bet and not bet.result:

@@ -5,7 +5,7 @@ from datetime import datetime
 import numpy as np
 import pandas as pd
 
-from src.db import BetRecord, get_session, init_db
+from src.db import BetRecord, handle_db_errors, init_db
 from src.executor import Executor
 from src.feature import build_features
 from src.model import ModelWrapper

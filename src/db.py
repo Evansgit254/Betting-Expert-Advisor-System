@@ -243,13 +243,6 @@ def init_db():
     Base.metadata.create_all(bind=engine)
 
 
-@contextmanager
-def get_session() -> Generator[Session, None, None]:
-    """Context manager for database sessions with automatic cleanup."""
-    with handle_db_errors() as session:
-        yield session
-
-
 @db_retry(retry_on=(SQLAlchemyError, OperationalError))
 def save_bet(
     market_id: str,
