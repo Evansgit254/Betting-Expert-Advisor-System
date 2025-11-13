@@ -11,7 +11,6 @@ from src.db import (
     get_current_bankroll,
     get_daily_loss,
     get_open_bets_count,
-    get_session,
     handle_db_errors,
     save_bet,
     update_bet_result,
@@ -42,7 +41,7 @@ class TestHandleDbErrors:
             session.add(bet)
 
         # Verify bet was committed
-        with get_session() as session:
+        with handle_db_errors() as session:
             saved_bet = (
                 session.query(BetRecord).filter_by(idempotency_key="test_commit_key").first()
             )
@@ -186,7 +185,7 @@ class TestUpdateBetResultEdgeCases:
         assert result is True
 
         # Verify the update
-        with get_session() as session:
+        with handle_db_errors() as session:
             updated_bet = session.query(BetRecord).filter_by(id=bet.id).first()
             assert updated_bet.result == "void"
             assert updated_bet.profit_loss == 0.0
@@ -229,7 +228,7 @@ class TestGetDailyLossEdgeCases:
     def test_get_daily_loss_with_dry_run_bet(self):
         """Test daily loss calculation with dry run bets."""
         # Clear all bets first
-        with get_session() as session:
+        with handle_db_errors() as session:
             session.query(BetRecord).delete()
             session.commit()
 
@@ -257,7 +256,7 @@ class TestGetOpenBetsCountEdgeCases:
     def test_get_open_bets_count_with_mixed_bets(self):
         """Test counting open bets with mix of open and settled."""
         # Clear all bets first
-        with get_session() as session:
+        with handle_db_errors() as session:
             session.query(BetRecord).delete()
             session.commit()
 
@@ -289,7 +288,7 @@ class TestGetOpenBetsCountEdgeCases:
     def test_get_open_bets_count_with_dry_run(self):
         """Test counting open bets with dry run bets."""
         # Clear all bets first
-        with get_session() as session:
+        with handle_db_errors() as session:
             session.query(BetRecord).delete()
             session.commit()
 
@@ -316,7 +315,7 @@ class TestGetCurrentBankrollEdgeCases:
     def test_get_current_bankroll_with_no_bets(self):
         """Test bankroll calculation with no settled bets."""
         # Clear all bets
-        with get_session() as session:
+        with handle_db_errors() as session:
             session.query(BetRecord).delete()
             session.commit()
 
@@ -326,7 +325,7 @@ class TestGetCurrentBankrollEdgeCases:
     def test_get_current_bankroll_excludes_pending(self):
         """Test that pending bets don't affect bankroll."""
         # Clear all bets
-        with get_session() as session:
+        with handle_db_errors() as session:
             session.query(BetRecord).delete()
             session.commit()
 
@@ -347,7 +346,7 @@ class TestGetCurrentBankrollEdgeCases:
     def test_get_current_bankroll_with_mixed_results(self):
         """Test bankroll with wins, losses, and voids."""
         # Clear all bets
-        with get_session() as session:
+        with handle_db_errors() as session:
             session.query(BetRecord).delete()
             session.commit()
 
@@ -401,7 +400,7 @@ class TestBetRecordModel:
     def test_bet_record_default_values(self):
         """Test BetRecord default values."""
         # Create and save to database to get defaults
-        with get_session() as session:
+        with handle_db_errors() as session:
             bet = BetRecord(
                 market_id="test_defaults",
                 selection="away",

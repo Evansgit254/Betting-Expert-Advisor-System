@@ -12,7 +12,7 @@ from src.db import (
     get_current_bankroll,
     get_daily_loss,
     get_open_bets_count,
-    get_session,
+    handle_db_errors,
     save_bet,
     update_bet_result,
 )
@@ -55,7 +55,7 @@ def test_save_bet_concurrent_idempotency():
 def test_update_bet_result_concurrent():
     """Test that concurrent updates to the same bet are handled correctly."""
     # Clear any existing bets first
-    with get_session() as session:
+    with handle_db_errors() as session:
         session.query(BetRecord).delete()
         session.commit()
 
@@ -98,7 +98,7 @@ def test_update_bet_result_concurrent():
     assert success_count >= 1, f"Expected at least one successful update, got {success_count}"
 
     # Verify the bet was updated with one of the results
-    with get_session() as session:
+    with handle_db_errors() as session:
         updated_bet = session.query(BetRecord).filter_by(id=bet.id).first()
         assert updated_bet.result in (
             "win",
@@ -167,7 +167,7 @@ def test_error_handling_logging(caplog):
 def test_get_current_bankroll():
     """Test bankroll calculation with various bet outcomes."""
     # Clear existing bets
-    with get_session() as session:
+    with handle_db_errors() as session:
         session.query(BetRecord).delete()
         session.commit()
 
@@ -219,7 +219,7 @@ def test_get_current_bankroll():
 def test_get_daily_loss_with_timezone():
     """Test that daily loss calculation handles timezones correctly."""
     # Clear any existing bets
-    with get_session() as session:
+    with handle_db_errors() as session:
         session.query(BetRecord).delete()
         session.commit()
 
@@ -237,7 +237,7 @@ def test_get_daily_loss_with_timezone():
     )
 
     # Set the settled_at time to the test date (will be treated as UTC)
-    with get_session() as session:
+    with handle_db_errors() as session:
         bet = session.query(BetRecord).filter_by(id=bet.id).first()
         bet.result = "loss"
         bet.profit_loss = 100.0  # Positive value for loss

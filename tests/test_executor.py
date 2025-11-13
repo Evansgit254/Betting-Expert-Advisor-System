@@ -1,7 +1,7 @@
 """Tests for bet execution module."""
 import pytest
 
-from src.db import BetRecord, get_session, init_db
+from src.db import BetRecord, handle_db_errors, init_db
 from src.executor import Executor, MockBookie
 
 
@@ -62,7 +62,7 @@ def test_executor_persists_to_db(executor, sample_bet):
     assert "db_id" in result
 
     # Verify in database
-    with get_session() as session:
+    with handle_db_errors() as session:
         bet_record = session.query(BetRecord).filter_by(id=result["db_id"]).first()
         assert bet_record is not None
         assert bet_record.market_id == "test_market_1"
@@ -126,7 +126,7 @@ def test_executor_metadata_preserved(executor, sample_bet):
 
     assert "db_id" in result
 
-    with get_session() as session:
+    with handle_db_errors() as session:
         bet_record = session.query(BetRecord).filter_by(id=result["db_id"]).first()
         assert bet_record.meta is not None
         assert "ev" in bet_record.meta

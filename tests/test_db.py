@@ -10,7 +10,7 @@ from src.db import (
     ModelMetadata,
     get_daily_loss,
     get_open_bets_count,
-    get_session,
+    handle_db_errors,
     init_db,
     save_bet,
     update_bet_result,
@@ -34,7 +34,7 @@ def test_init_db():
 
 def test_get_session_context_manager():
     """Test session context manager."""
-    with get_session() as session:
+    with handle_db_errors() as session:
         assert session is not None
         # Can perform queries
         result = session.query(BetRecord).count()
@@ -44,7 +44,7 @@ def test_get_session_context_manager():
 def test_get_session_rollback_on_error():
     """Test that session rolls back on error."""
     try:
-        with get_session() as session:
+        with handle_db_errors() as session:
             # Create invalid record (should fail)
             bet = BetRecord(market_id=None)  # Required field
             session.add(bet)
@@ -54,7 +54,7 @@ def test_get_session_rollback_on_error():
         pass
 
     # Session should have rolled back
-    with get_session() as session:
+    with handle_db_errors() as session:
         count = session.query(BetRecord).count()
         # Count should not have increased
         assert count >= 0
@@ -125,7 +125,7 @@ def test_save_bet_minimal():
 def test_update_bet_result():
     """Test updating bet result after settlement."""
     # Clear any existing bets to ensure a clean state
-    with get_session() as session:
+    with handle_db_errors() as session:
         session.query(BetRecord).delete()
         session.commit()
 
@@ -141,7 +141,7 @@ def test_update_bet_result():
     bet_id = bet.id
 
     # Verify the bet is in pending state
-    with get_session() as session:
+    with handle_db_errors() as session:
         new_bet = session.query(BetRecord).filter_by(id=bet_id).first()
         assert new_bet.result == "pending", "New bet should be in pending state"
         assert new_bet.settled_at is None, "New bet should not have a settled_at time"
@@ -151,7 +151,7 @@ def test_update_bet_result():
     assert success is True, "First update should succeed"
 
     # Verify update
-    with get_session() as session:
+    with handle_db_errors() as session:
         updated_bet = session.query(BetRecord).filter_by(id=bet_id).first()
         assert updated_bet.result == "win", "Bet result should be updated to 'win'"
         assert updated_bet.profit_loss == 50.0, "Profit/loss should be updated to 50.0"
@@ -174,7 +174,7 @@ def test_update_bet_result_loss():
 
     update_bet_result(bet.id, result="loss", profit_loss=-100.0)
 
-    with get_session() as session:
+    with handle_db_errors() as session:
         updated_bet = session.query(BetRecord).filter_by(id=bet.id).first()
         assert updated_bet.result == "loss"
         assert updated_bet.profit_loss == -100.0
@@ -192,7 +192,7 @@ def test_update_bet_result_void():
 
     update_bet_result(bet.id, result="void", profit_loss=0.0)
 
-    with get_session() as session:
+    with handle_db_errors() as session:
         updated_bet = session.query(BetRecord).filter_by(id=bet.id).first()
         assert updated_bet.result == "void"
         assert updated_bet.profit_loss == 0.0
@@ -208,7 +208,7 @@ def test_update_bet_result_nonexistent():
 def test_get_daily_loss():
     """Test calculating daily loss."""
     # Clear any existing bets
-    with get_session() as session:
+    with handle_db_errors() as session:
         session.query(BetRecord).delete()
         session.commit()
 
@@ -248,7 +248,7 @@ def test_get_daily_loss_no_bets():
 def test_get_daily_loss_none_date():
     """Test get_daily_loss when date is None (should use current date)."""
     # Clear any existing bets
-    with get_session() as session:
+    with handle_db_errors() as session:
         session.query(BetRecord).delete()
         session.commit()
 
@@ -269,7 +269,7 @@ def test_get_daily_loss_none_date():
             idempotency_key="test_key_4",
         )
         # Explicitly set placed_at to ensure it matches our test datetime
-        with get_session() as session:
+        with handle_db_errors() as session:
             db_bet = session.query(BetRecord).filter_by(id=bet.id).first()
             db_bet.placed_at = test_datetime
             session.commit()
@@ -285,7 +285,7 @@ def test_get_daily_loss_none_date():
             idempotency_key="test_key_5",
         )
         # Explicitly set placed_at to ensure it matches our test datetime
-        with get_session() as session:
+        with handle_db_errors() as session:
             db_bet2 = session.query(BetRecord).filter_by(id=bet2.id).first()
             db_bet2.placed_at = test_datetime
             session.commit()
@@ -301,7 +301,7 @@ def test_get_daily_loss_none_date():
             idempotency_key="test_key_6",
         )
         # Explicitly set placed_at to ensure it matches our test datetime
-        with get_session() as session:
+        with handle_db_errors() as session:
             db_bet3 = session.query(BetRecord).filter_by(id=bet3.id).first()
             db_bet3.placed_at = test_datetime
             session.commit()
@@ -319,7 +319,7 @@ def test_get_daily_loss_none_date():
 def test_get_daily_loss_dry_run_filter():
     """Test that dry run bets are excluded from daily loss calculation."""
     # Clear any existing bets
-    with get_session() as session:
+    with handle_db_errors() as session:
         session.query(BetRecord).delete()
         session.commit()
 
@@ -443,7 +443,7 @@ def test_bet_record_repr():
 
 def test_model_metadata_creation():
     """Test creating model metadata record."""
-    with get_session() as session:
+    with handle_db_errors() as session:
         metadata = ModelMetadata(
             model_name="test_model",
             version="1.0.0",
@@ -460,7 +460,7 @@ def test_model_metadata_creation():
 
 def test_daily_stats_creation():
     """Test creating daily stats record."""
-    with get_session() as session:
+    with handle_db_errors() as session:
         stats = DailyStats(
             date=datetime.now(timezone.utc),
             total_bets=10,
@@ -481,7 +481,7 @@ def test_daily_stats_creation():
 
 def test_daily_stats_repr():
     """Test DailyStats string representation."""
-    with get_session() as session:
+    with handle_db_errors() as session:
         stats = DailyStats(date=datetime.now(timezone.utc), total_bets=5, total_profit_loss=100.0)
         session.add(stats)
         session.flush()

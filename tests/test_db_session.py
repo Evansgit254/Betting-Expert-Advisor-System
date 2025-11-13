@@ -4,12 +4,12 @@ from unittest.mock import MagicMock, patch
 import pytest
 from sqlalchemy.exc import OperationalError, SQLAlchemyError
 
-from src.db import BetRecord, get_session
+from src.db import BetRecord, handle_db_errors
 
 
 def test_get_session_success():
     """Test that get_session works correctly in the happy path."""
-    with get_session() as session:
+    with handle_db_errors() as session:
         assert session is not None
         # Verify we can perform a simple query
         result = session.query(BetRecord).first()
@@ -19,7 +19,7 @@ def test_get_session_success():
 def test_get_session_rollback_on_error():
     """Test that session rolls back on error."""
     # Create a test bet
-    with get_session() as session:
+    with handle_db_errors() as session:
         bet = BetRecord(
             market_id="test_market", selection="home", stake=100.0, odds=2.0, is_dry_run=True
         )
@@ -29,7 +29,7 @@ def test_get_session_rollback_on_error():
 
     # Now try to update in a session that will fail
     try:
-        with get_session() as session:
+        with handle_db_errors() as session:
             bet = session.query(BetRecord).filter_by(id=bet_id).first()
             bet.stake = 200.0
             # Force an error
@@ -38,7 +38,7 @@ def test_get_session_rollback_on_error():
         pass
 
     # Verify the change was rolled back
-    with get_session() as session:
+    with handle_db_errors() as session:
         bet = session.query(BetRecord).filter_by(id=bet_id).first()
         assert bet.stake == 100.0  # Should still be the original value
 
@@ -52,7 +52,7 @@ def test_get_session_database_error():
         mock_session_local.return_value = mock_session
 
         with pytest.raises(SQLAlchemyError):
-            with get_session() as session:
+            with handle_db_errors() as session:
                 session.query(BetRecord).first()
 
         # Verify rollback was called
@@ -68,7 +68,7 @@ def test_get_session_close_on_exception():
         mock_session_local.return_value = mock_session
 
         try:
-            with get_session():
+            with handle_db_errors():
                 raise ValueError("Test error")
         except ValueError:
             pass
@@ -80,7 +80,7 @@ def test_get_session_close_on_exception():
 def test_get_session_nested_transactions():
     """Test that nested sessions work correctly."""
     # Create a bet in the first session
-    with get_session() as session1:
+    with handle_db_errors() as session1:
         bet = BetRecord(
             market_id="nested_test", selection="home", stake=100.0, odds=2.0, is_dry_run=True
         )
@@ -89,7 +89,7 @@ def test_get_session_nested_transactions():
         bet_id = bet.id
 
     # Verify the bet exists in a new session
-    with get_session() as session2:
+    with handle_db_errors() as session2:
         bet = session2.query(BetRecord).filter_by(id=bet_id).first()
         assert bet is not None
         assert bet.market_id == "nested_test"
@@ -99,7 +99,7 @@ def test_get_session_nested_transactions():
         session2.commit()
 
     # Verify the update was saved
-    with get_session() as session3:
+    with handle_db_errors() as session3:
         bet = session3.query(BetRecord).filter_by(id=bet_id).first()
         assert bet.stake == 200.0
 
@@ -109,7 +109,7 @@ def test_get_session_nested_transactions():
 def cleanup_after_tests():
     """Clean up any test data after each test."""
     yield
-    with get_session() as session:
+    with handle_db_errors() as session:
         session.query(BetRecord).filter(
             (BetRecord.market_id == "test_market") | (BetRecord.market_id == "nested_test")
         ).delete(synchronize_session=False)
