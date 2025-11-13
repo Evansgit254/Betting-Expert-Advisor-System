@@ -6,7 +6,6 @@ memory usage, and identifying bottlenecks.
 import cProfile
 import functools
 import io
-import logging
 import pstats
 import time
 from pathlib import Path

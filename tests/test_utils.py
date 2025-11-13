@@ -9,13 +9,13 @@ import pytest
 from src.utils import (
     calculate_ev,
     format_currency,
-    get_logger,
     log_structured,
     setup_logging,
     utc_now,
     validate_odds,
     validate_stake,
 )
+from src.logging_config import get_logger
 
 
 def test_setup_logging():
