@@ -1,0 +1,23 @@
+[Unit]
+Description=Betting Expert Advisor - Automated Betting System
+After=network.target
+
+[Service]
+Type=simple
+User=%u
+WorkingDirectory=%h/Projects/Betting Expert Advisor
+Environment="PATH=%h/Projects/Betting Expert Advisor/venv/bin:/usr/bin:/bin"
+ExecStart=%h/Projects/Betting Expert Advisor/venv/bin/python scripts/multi_league_tracker.py --interval 3600
+Restart=on-failure
+RestartSec=10
+StartLimitIntervalSec=500
+StartLimitBurst=5
+WatchdogSec=120
+NotifyAccess=all
+StandardOutput=append:%h/Projects/Betting Expert Advisor/logs/daemon.log
+StandardError=append:%h/Projects/Betting Expert Advisor/logs/daemon-error.log
+MemoryMax=512M
+CPUQuota=50%
+
+[Install]
+WantedBy=multi-user.target

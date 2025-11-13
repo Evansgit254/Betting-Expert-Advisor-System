@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: betting-advisor-app
+    environment:
+      - ENV=development
+      - MODE=DRY_RUN
+      - DB_URL=sqlite:////app/data/bets.db
+      - DEFAULT_KELLY_FRACTION=0.2
+      - MAX_STAKE_FRAC=0.05
+      - DAILY_LOSS_LIMIT=1000
+      - MAX_OPEN_BETS=10
+      - LOG_LEVEL=INFO
+    volumes:
+      - ./data:/app/data
+      - ./models:/app/models
+      - ./logs:/app/logs
+      - .:/app
+    command: ["python", "src/main.py", "--mode", "simulate", "--dry-run"]
+    networks:
+      - betting-network
+
+  monitoring:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: betting-advisor-monitoring
+    environment:
+      - ENV=development
+      - MODE=DRY_RUN
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    command: ["python", "-m", "uvicorn", "src.monitoring:app", "--host", "0.0.0.0", "--port", "8000"]
+    networks:
+      - betting-network
+
+networks:
+  betting-network:
+    driver: bridge

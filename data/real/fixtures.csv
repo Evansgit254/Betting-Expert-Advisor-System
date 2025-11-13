@@ -1,0 +1,1141 @@
+market_id,home,away,start,sport,league
+real_0,Burnley,Man City,2023-08-11,soccer,Premier League
+real_1,Arsenal,Nott'm Forest,2023-08-12,soccer,Premier League
+real_2,Bournemouth,West Ham,2023-08-12,soccer,Premier League
+real_3,Brighton,Luton,2023-08-12,soccer,Premier League
+real_4,Everton,Fulham,2023-08-12,soccer,Premier League
+real_5,Sheffield United,Crystal Palace,2023-08-12,soccer,Premier League
+real_6,Newcastle,Aston Villa,2023-08-12,soccer,Premier League
+real_7,Brentford,Tottenham,2023-08-13,soccer,Premier League
+real_8,Chelsea,Liverpool,2023-08-13,soccer,Premier League
+real_9,Man United,Wolves,2023-08-14,soccer,Premier League
+real_10,Nott'm Forest,Sheffield United,2023-08-18,soccer,Premier League
+real_11,Fulham,Brentford,2023-08-19,soccer,Premier League
+real_12,Liverpool,Bournemouth,2023-08-19,soccer,Premier League
+real_13,Wolves,Brighton,2023-08-19,soccer,Premier League
+real_14,Tottenham,Man United,2023-08-19,soccer,Premier League
+real_15,Man City,Newcastle,2023-08-19,soccer,Premier League
+real_16,Aston Villa,Everton,2023-08-20,soccer,Premier League
+real_17,West Ham,Chelsea,2023-08-20,soccer,Premier League
+real_18,Crystal Palace,Arsenal,2023-08-21,soccer,Premier League
+real_19,Chelsea,Luton,2023-08-25,soccer,Premier League
+real_20,Bournemouth,Tottenham,2023-08-26,soccer,Premier League
+real_21,Arsenal,Fulham,2023-08-26,soccer,Premier League
+real_22,Brentford,Crystal Palace,2023-08-26,soccer,Premier League
+real_23,Everton,Wolves,2023-08-26,soccer,Premier League
+real_24,Man United,Nott'm Forest,2023-08-26,soccer,Premier League
+real_25,Brighton,West Ham,2023-08-26,soccer,Premier League
+real_26,Burnley,Aston Villa,2023-08-27,soccer,Premier League
+real_27,Sheffield United,Man City,2023-08-27,soccer,Premier League
+real_28,Newcastle,Liverpool,2023-08-27,soccer,Premier League
+real_29,Luton,West Ham,2023-09-01,soccer,Premier League
+real_30,Sheffield United,Everton,2023-09-02,soccer,Premier League
+real_31,Brentford,Bournemouth,2023-09-02,soccer,Premier League
+real_32,Burnley,Tottenham,2023-09-02,soccer,Premier League
+real_33,Chelsea,Nott'm Forest,2023-09-02,soccer,Premier League
+real_34,Man City,Fulham,2023-09-02,soccer,Premier League
+real_35,Brighton,Newcastle,2023-09-02,soccer,Premier League
+real_36,Crystal Palace,Wolves,2023-09-03,soccer,Premier League
+real_37,Liverpool,Aston Villa,2023-09-03,soccer,Premier League
+real_38,Arsenal,Man United,2023-09-03,soccer,Premier League
+real_39,Wolves,Liverpool,2023-09-16,soccer,Premier League
+real_40,Aston Villa,Crystal Palace,2023-09-16,soccer,Premier League
+real_41,Fulham,Luton,2023-09-16,soccer,Premier League
+real_42,Man United,Brighton,2023-09-16,soccer,Premier League
+real_43,Tottenham,Sheffield United,2023-09-16,soccer,Premier League
+real_44,West Ham,Man City,2023-09-16,soccer,Premier League
+real_45,Newcastle,Brentford,2023-09-16,soccer,Premier League
+real_46,Bournemouth,Chelsea,2023-09-17,soccer,Premier League
+real_47,Everton,Arsenal,2023-09-17,soccer,Premier League
+real_48,Nott'm Forest,Burnley,2023-09-18,soccer,Premier League
+real_49,Crystal Palace,Fulham,2023-09-23,soccer,Premier League
+real_50,Luton,Wolves,2023-09-23,soccer,Premier League
+real_51,Man City,Nott'm Forest,2023-09-23,soccer,Premier League
+real_52,Brentford,Everton,2023-09-23,soccer,Premier League
+real_53,Burnley,Man United,2023-09-23,soccer,Premier League
+real_54,Arsenal,Tottenham,2023-09-24,soccer,Premier League
+real_55,Brighton,Bournemouth,2023-09-24,soccer,Premier League
+real_56,Chelsea,Aston Villa,2023-09-24,soccer,Premier League
+real_57,Liverpool,West Ham,2023-09-24,soccer,Premier League
+real_58,Sheffield United,Newcastle,2023-09-24,soccer,Premier League
+real_59,Aston Villa,Brighton,2023-09-30,soccer,Premier League
+real_60,Bournemouth,Arsenal,2023-09-30,soccer,Premier League
+real_61,Everton,Luton,2023-09-30,soccer,Premier League
+real_62,Man United,Crystal Palace,2023-09-30,soccer,Premier League
+real_63,Newcastle,Burnley,2023-09-30,soccer,Premier League
+real_64,West Ham,Sheffield United,2023-09-30,soccer,Premier League
+real_65,Wolves,Man City,2023-09-30,soccer,Premier League
+real_66,Tottenham,Liverpool,2023-09-30,soccer,Premier League
+real_67,Nott'm Forest,Brentford,2023-10-01,soccer,Premier League
+real_68,Fulham,Chelsea,2023-10-02,soccer,Premier League
+real_69,Luton,Burnley,2023-10-03,soccer,Premier League
+real_70,Luton,Tottenham,2023-10-07,soccer,Premier League
+real_71,Burnley,Chelsea,2023-10-07,soccer,Premier League
+real_72,Everton,Bournemouth,2023-10-07,soccer,Premier League
+real_73,Fulham,Sheffield United,2023-10-07,soccer,Premier League
+real_74,Man United,Brentford,2023-10-07,soccer,Premier League
+real_75,Crystal Palace,Nott'm Forest,2023-10-07,soccer,Premier League
+real_76,Brighton,Liverpool,2023-10-08,soccer,Premier League
+real_77,West Ham,Newcastle,2023-10-08,soccer,Premier League
+real_78,Wolves,Aston Villa,2023-10-08,soccer,Premier League
+real_79,Arsenal,Man City,2023-10-08,soccer,Premier League
+real_80,Liverpool,Everton,2023-10-21,soccer,Premier League
+real_81,Bournemouth,Wolves,2023-10-21,soccer,Premier League
+real_82,Brentford,Burnley,2023-10-21,soccer,Premier League
+real_83,Man City,Brighton,2023-10-21,soccer,Premier League
+real_84,Newcastle,Crystal Palace,2023-10-21,soccer,Premier League
+real_85,Nott'm Forest,Luton,2023-10-21,soccer,Premier League
+real_86,Chelsea,Arsenal,2023-10-21,soccer,Premier League
+real_87,Sheffield United,Man United,2023-10-21,soccer,Premier League
+real_88,Aston Villa,West Ham,2023-10-22,soccer,Premier League
+real_89,Tottenham,Fulham,2023-10-23,soccer,Premier League
+real_90,Crystal Palace,Tottenham,2023-10-27,soccer,Premier League
+real_91,Chelsea,Brentford,2023-10-28,soccer,Premier League
+real_92,Arsenal,Sheffield United,2023-10-28,soccer,Premier League
+real_93,Bournemouth,Burnley,2023-10-28,soccer,Premier League
+real_94,Wolves,Newcastle,2023-10-28,soccer,Premier League
+real_95,West Ham,Everton,2023-10-29,soccer,Premier League
+real_96,Aston Villa,Luton,2023-10-29,soccer,Premier League
+real_97,Brighton,Fulham,2023-10-29,soccer,Premier League
+real_98,Liverpool,Nott'm Forest,2023-10-29,soccer,Premier League
+real_99,Man United,Man City,2023-10-29,soccer,Premier League
+real_100,Fulham,Man United,2023-11-04,soccer,Premier League
+real_101,Brentford,West Ham,2023-11-04,soccer,Premier League
+real_102,Burnley,Crystal Palace,2023-11-04,soccer,Premier League
+real_103,Everton,Brighton,2023-11-04,soccer,Premier League
+real_104,Man City,Bournemouth,2023-11-04,soccer,Premier League
+real_105,Sheffield United,Wolves,2023-11-04,soccer,Premier League
+real_106,Newcastle,Arsenal,2023-11-04,soccer,Premier League
+real_107,Nott'm Forest,Aston Villa,2023-11-05,soccer,Premier League
+real_108,Luton,Liverpool,2023-11-05,soccer,Premier League
+real_109,Tottenham,Chelsea,2023-11-06,soccer,Premier League
+real_110,Wolves,Tottenham,2023-11-11,soccer,Premier League
+real_111,Arsenal,Burnley,2023-11-11,soccer,Premier League
+real_112,Crystal Palace,Everton,2023-11-11,soccer,Premier League
+real_113,Man United,Luton,2023-11-11,soccer,Premier League
+real_114,Bournemouth,Newcastle,2023-11-11,soccer,Premier League
+real_115,Aston Villa,Fulham,2023-11-12,soccer,Premier League
+real_116,Brighton,Sheffield United,2023-11-12,soccer,Premier League
+real_117,Liverpool,Brentford,2023-11-12,soccer,Premier League
+real_118,West Ham,Nott'm Forest,2023-11-12,soccer,Premier League
+real_119,Chelsea,Man City,2023-11-12,soccer,Premier League
+real_120,Man City,Liverpool,2023-11-25,soccer,Premier League
+real_121,Burnley,West Ham,2023-11-25,soccer,Premier League
+real_122,Luton,Crystal Palace,2023-11-25,soccer,Premier League
+real_123,Newcastle,Chelsea,2023-11-25,soccer,Premier League
+real_124,Nott'm Forest,Brighton,2023-11-25,soccer,Premier League
+real_125,Sheffield United,Bournemouth,2023-11-25,soccer,Premier League
+real_126,Brentford,Arsenal,2023-11-25,soccer,Premier League
+real_127,Tottenham,Aston Villa,2023-11-26,soccer,Premier League
+real_128,Everton,Man United,2023-11-26,soccer,Premier League
+real_129,Fulham,Wolves,2023-11-27,soccer,Premier League
+real_130,Arsenal,Wolves,2023-12-02,soccer,Premier League
+real_131,Brentford,Luton,2023-12-02,soccer,Premier League
+real_132,Burnley,Sheffield United,2023-12-02,soccer,Premier League
+real_133,Nott'm Forest,Everton,2023-12-02,soccer,Premier League
+real_134,Newcastle,Man United,2023-12-02,soccer,Premier League
+real_135,Bournemouth,Aston Villa,2023-12-03,soccer,Premier League
+real_136,Chelsea,Brighton,2023-12-03,soccer,Premier League
+real_137,Liverpool,Fulham,2023-12-03,soccer,Premier League
+real_138,West Ham,Crystal Palace,2023-12-03,soccer,Premier League
+real_139,Man City,Tottenham,2023-12-03,soccer,Premier League
+real_140,Wolves,Burnley,2023-12-05,soccer,Premier League
+real_141,Luton,Arsenal,2023-12-05,soccer,Premier League
+real_142,Brighton,Brentford,2023-12-06,soccer,Premier League
+real_143,Crystal Palace,Bournemouth,2023-12-06,soccer,Premier League
+real_144,Fulham,Nott'm Forest,2023-12-06,soccer,Premier League
+real_145,Sheffield United,Liverpool,2023-12-06,soccer,Premier League
+real_146,Aston Villa,Man City,2023-12-06,soccer,Premier League
+real_147,Man United,Chelsea,2023-12-06,soccer,Premier League
+real_148,Everton,Newcastle,2023-12-07,soccer,Premier League
+real_149,Tottenham,West Ham,2023-12-07,soccer,Premier League
+real_150,Crystal Palace,Liverpool,2023-12-09,soccer,Premier League
+real_151,Brighton,Burnley,2023-12-09,soccer,Premier League
+real_152,Man United,Bournemouth,2023-12-09,soccer,Premier League
+real_153,Sheffield United,Brentford,2023-12-09,soccer,Premier League
+real_154,Wolves,Nott'm Forest,2023-12-09,soccer,Premier League
+real_155,Aston Villa,Arsenal,2023-12-09,soccer,Premier League
+real_156,Everton,Chelsea,2023-12-10,soccer,Premier League
+real_157,Fulham,West Ham,2023-12-10,soccer,Premier League
+real_158,Luton,Man City,2023-12-10,soccer,Premier League
+real_159,Tottenham,Newcastle,2023-12-10,soccer,Premier League
+real_160,Nott'm Forest,Tottenham,2023-12-15,soccer,Premier League
+real_161,Chelsea,Sheffield United,2023-12-16,soccer,Premier League
+real_162,Man City,Crystal Palace,2023-12-16,soccer,Premier League
+real_163,Newcastle,Fulham,2023-12-16,soccer,Premier League
+real_164,Burnley,Everton,2023-12-16,soccer,Premier League
+real_165,Arsenal,Brighton,2023-12-17,soccer,Premier League
+real_166,Brentford,Aston Villa,2023-12-17,soccer,Premier League
+real_167,West Ham,Wolves,2023-12-17,soccer,Premier League
+real_168,Liverpool,Man United,2023-12-17,soccer,Premier League
+real_169,Crystal Palace,Brighton,2023-12-21,soccer,Premier League
+real_170,Aston Villa,Sheffield United,2023-12-22,soccer,Premier League
+real_171,West Ham,Man United,2023-12-23,soccer,Premier League
+real_172,Fulham,Burnley,2023-12-23,soccer,Premier League
+real_173,Luton,Newcastle,2023-12-23,soccer,Premier League
+real_174,Nott'm Forest,Bournemouth,2023-12-23,soccer,Premier League
+real_175,Tottenham,Everton,2023-12-23,soccer,Premier League
+real_176,Liverpool,Arsenal,2023-12-23,soccer,Premier League
+real_177,Wolves,Chelsea,2023-12-24,soccer,Premier League
+real_178,Newcastle,Nott'm Forest,2023-12-26,soccer,Premier League
+real_179,Bournemouth,Fulham,2023-12-26,soccer,Premier League
+real_180,Sheffield United,Luton,2023-12-26,soccer,Premier League
+real_181,Burnley,Liverpool,2023-12-26,soccer,Premier League
+real_182,Man United,Aston Villa,2023-12-26,soccer,Premier League
+real_183,Brentford,Wolves,2023-12-27,soccer,Premier League
+real_184,Chelsea,Crystal Palace,2023-12-27,soccer,Premier League
+real_185,Everton,Man City,2023-12-27,soccer,Premier League
+real_186,Brighton,Tottenham,2023-12-28,soccer,Premier League
+real_187,Arsenal,West Ham,2023-12-28,soccer,Premier League
+real_188,Luton,Chelsea,2023-12-30,soccer,Premier League
+real_189,Aston Villa,Burnley,2023-12-30,soccer,Premier League
+real_190,Crystal Palace,Brentford,2023-12-30,soccer,Premier League
+real_191,Man City,Sheffield United,2023-12-30,soccer,Premier League
+real_192,Wolves,Everton,2023-12-30,soccer,Premier League
+real_193,Nott'm Forest,Man United,2023-12-30,soccer,Premier League
+real_194,Fulham,Arsenal,2023-12-31,soccer,Premier League
+real_195,Tottenham,Bournemouth,2023-12-31,soccer,Premier League
+real_196,Liverpool,Newcastle,2024-01-01,soccer,Premier League
+real_197,West Ham,Brighton,2024-01-02,soccer,Premier League
+real_198,Burnley,Luton,2024-01-12,soccer,Premier League
+real_199,Chelsea,Fulham,2024-01-13,soccer,Premier League
+real_200,Newcastle,Man City,2024-01-13,soccer,Premier League
+real_201,Everton,Aston Villa,2024-01-14,soccer,Premier League
+real_202,Man United,Tottenham,2024-01-14,soccer,Premier League
+real_203,Arsenal,Crystal Palace,2024-01-20,soccer,Premier League
+real_204,Brentford,Nott'm Forest,2024-01-20,soccer,Premier League
+real_205,Sheffield United,West Ham,2024-01-21,soccer,Premier League
+real_206,Bournemouth,Liverpool,2024-01-21,soccer,Premier League
+real_207,Brighton,Wolves,2024-01-22,soccer,Premier League
+real_208,Nott'm Forest,Arsenal,2024-01-30,soccer,Premier League
+real_209,Fulham,Everton,2024-01-30,soccer,Premier League
+real_210,Luton,Brighton,2024-01-30,soccer,Premier League
+real_211,Crystal Palace,Sheffield United,2024-01-30,soccer,Premier League
+real_212,Aston Villa,Newcastle,2024-01-30,soccer,Premier League
+real_213,Man City,Burnley,2024-01-31,soccer,Premier League
+real_214,Tottenham,Brentford,2024-01-31,soccer,Premier League
+real_215,Liverpool,Chelsea,2024-01-31,soccer,Premier League
+real_216,West Ham,Bournemouth,2024-02-01,soccer,Premier League
+real_217,Wolves,Man United,2024-02-01,soccer,Premier League
+real_218,Everton,Tottenham,2024-02-03,soccer,Premier League
+real_219,Brighton,Crystal Palace,2024-02-03,soccer,Premier League
+real_220,Burnley,Fulham,2024-02-03,soccer,Premier League
+real_221,Newcastle,Luton,2024-02-03,soccer,Premier League
+real_222,Sheffield United,Aston Villa,2024-02-03,soccer,Premier League
+real_223,Bournemouth,Nott'm Forest,2024-02-04,soccer,Premier League
+real_224,Chelsea,Wolves,2024-02-04,soccer,Premier League
+real_225,Man United,West Ham,2024-02-04,soccer,Premier League
+real_226,Arsenal,Liverpool,2024-02-04,soccer,Premier League
+real_227,Brentford,Man City,2024-02-05,soccer,Premier League
+real_228,Man City,Everton,2024-02-10,soccer,Premier League
+real_229,Fulham,Bournemouth,2024-02-10,soccer,Premier League
+real_230,Liverpool,Burnley,2024-02-10,soccer,Premier League
+real_231,Luton,Sheffield United,2024-02-10,soccer,Premier League
+real_232,Tottenham,Brighton,2024-02-10,soccer,Premier League
+real_233,Wolves,Brentford,2024-02-10,soccer,Premier League
+real_234,Nott'm Forest,Newcastle,2024-02-10,soccer,Premier League
+real_235,West Ham,Arsenal,2024-02-11,soccer,Premier League
+real_236,Aston Villa,Man United,2024-02-11,soccer,Premier League
+real_237,Crystal Palace,Chelsea,2024-02-12,soccer,Premier League
+real_238,Brentford,Liverpool,2024-02-17,soccer,Premier League
+real_239,Burnley,Arsenal,2024-02-17,soccer,Premier League
+real_240,Fulham,Aston Villa,2024-02-17,soccer,Premier League
+real_241,Newcastle,Bournemouth,2024-02-17,soccer,Premier League
+real_242,Nott'm Forest,West Ham,2024-02-17,soccer,Premier League
+real_243,Tottenham,Wolves,2024-02-17,soccer,Premier League
+real_244,Man City,Chelsea,2024-02-17,soccer,Premier League
+real_245,Sheffield United,Brighton,2024-02-18,soccer,Premier League
+real_246,Luton,Man United,2024-02-18,soccer,Premier League
+real_247,Everton,Crystal Palace,2024-02-19,soccer,Premier League
+real_248,Man City,Brentford,2024-02-20,soccer,Premier League
+real_249,Liverpool,Luton,2024-02-21,soccer,Premier League
+real_250,Aston Villa,Nott'm Forest,2024-02-24,soccer,Premier League
+real_251,Brighton,Everton,2024-02-24,soccer,Premier League
+real_252,Crystal Palace,Burnley,2024-02-24,soccer,Premier League
+real_253,Man United,Fulham,2024-02-24,soccer,Premier League
+real_254,Bournemouth,Man City,2024-02-24,soccer,Premier League
+real_255,Arsenal,Newcastle,2024-02-24,soccer,Premier League
+real_256,Wolves,Sheffield United,2024-02-25,soccer,Premier League
+real_257,West Ham,Brentford,2024-02-26,soccer,Premier League
+real_258,Brentford,Chelsea,2024-03-02,soccer,Premier League
+real_259,Everton,West Ham,2024-03-02,soccer,Premier League
+real_260,Fulham,Brighton,2024-03-02,soccer,Premier League
+real_261,Newcastle,Wolves,2024-03-02,soccer,Premier League
+real_262,Nott'm Forest,Liverpool,2024-03-02,soccer,Premier League
+real_263,Tottenham,Crystal Palace,2024-03-02,soccer,Premier League
+real_264,Luton,Aston Villa,2024-03-02,soccer,Premier League
+real_265,Burnley,Bournemouth,2024-03-03,soccer,Premier League
+real_266,Man City,Man United,2024-03-03,soccer,Premier League
+real_267,Sheffield United,Arsenal,2024-03-04,soccer,Premier League
+real_268,Man United,Everton,2024-03-09,soccer,Premier League
+real_269,Bournemouth,Sheffield United,2024-03-09,soccer,Premier League
+real_270,Crystal Palace,Luton,2024-03-09,soccer,Premier League
+real_271,Wolves,Fulham,2024-03-09,soccer,Premier League
+real_272,Arsenal,Brentford,2024-03-09,soccer,Premier League
+real_273,Aston Villa,Tottenham,2024-03-10,soccer,Premier League
+real_274,Brighton,Nott'm Forest,2024-03-10,soccer,Premier League
+real_275,West Ham,Burnley,2024-03-10,soccer,Premier League
+real_276,Liverpool,Man City,2024-03-10,soccer,Premier League
+real_277,Chelsea,Newcastle,2024-03-11,soccer,Premier League
+real_278,Bournemouth,Luton,2024-03-13,soccer,Premier League
+real_279,Burnley,Brentford,2024-03-16,soccer,Premier League
+real_280,Luton,Nott'm Forest,2024-03-16,soccer,Premier League
+real_281,Fulham,Tottenham,2024-03-16,soccer,Premier League
+real_282,West Ham,Aston Villa,2024-03-17,soccer,Premier League
+real_283,Newcastle,West Ham,2024-03-30,soccer,Premier League
+real_284,Bournemouth,Everton,2024-03-30,soccer,Premier League
+real_285,Chelsea,Burnley,2024-03-30,soccer,Premier League
+real_286,Nott'm Forest,Crystal Palace,2024-03-30,soccer,Premier League
+real_287,Sheffield United,Fulham,2024-03-30,soccer,Premier League
+real_288,Tottenham,Luton,2024-03-30,soccer,Premier League
+real_289,Aston Villa,Wolves,2024-03-30,soccer,Premier League
+real_290,Brentford,Man United,2024-03-30,soccer,Premier League
+real_291,Liverpool,Brighton,2024-03-31,soccer,Premier League
+real_292,Man City,Arsenal,2024-03-31,soccer,Premier League
+real_293,Newcastle,Everton,2024-04-02,soccer,Premier League
+real_294,Nott'm Forest,Fulham,2024-04-02,soccer,Premier League
+real_295,Bournemouth,Crystal Palace,2024-04-02,soccer,Premier League
+real_296,Burnley,Wolves,2024-04-02,soccer,Premier League
+real_297,West Ham,Tottenham,2024-04-02,soccer,Premier League
+real_298,Arsenal,Luton,2024-04-03,soccer,Premier League
+real_299,Brentford,Brighton,2024-04-03,soccer,Premier League
+real_300,Man City,Aston Villa,2024-04-03,soccer,Premier League
+real_301,Liverpool,Sheffield United,2024-04-04,soccer,Premier League
+real_302,Chelsea,Man United,2024-04-04,soccer,Premier League
+real_303,Crystal Palace,Man City,2024-04-06,soccer,Premier League
+real_304,Aston Villa,Brentford,2024-04-06,soccer,Premier League
+real_305,Everton,Burnley,2024-04-06,soccer,Premier League
+real_306,Fulham,Newcastle,2024-04-06,soccer,Premier League
+real_307,Luton,Bournemouth,2024-04-06,soccer,Premier League
+real_308,Wolves,West Ham,2024-04-06,soccer,Premier League
+real_309,Brighton,Arsenal,2024-04-06,soccer,Premier League
+real_310,Man United,Liverpool,2024-04-07,soccer,Premier League
+real_311,Sheffield United,Chelsea,2024-04-07,soccer,Premier League
+real_312,Tottenham,Nott'm Forest,2024-04-07,soccer,Premier League
+real_313,Newcastle,Tottenham,2024-04-13,soccer,Premier League
+real_314,Brentford,Sheffield United,2024-04-13,soccer,Premier League
+real_315,Burnley,Brighton,2024-04-13,soccer,Premier League
+real_316,Man City,Luton,2024-04-13,soccer,Premier League
+real_317,Nott'm Forest,Wolves,2024-04-13,soccer,Premier League
+real_318,Bournemouth,Man United,2024-04-13,soccer,Premier League
+real_319,Liverpool,Crystal Palace,2024-04-14,soccer,Premier League
+real_320,West Ham,Fulham,2024-04-14,soccer,Premier League
+real_321,Arsenal,Aston Villa,2024-04-14,soccer,Premier League
+real_322,Chelsea,Everton,2024-04-15,soccer,Premier League
+real_323,Luton,Brentford,2024-04-20,soccer,Premier League
+real_324,Sheffield United,Burnley,2024-04-20,soccer,Premier League
+real_325,Wolves,Arsenal,2024-04-20,soccer,Premier League
+real_326,Everton,Nott'm Forest,2024-04-21,soccer,Premier League
+real_327,Aston Villa,Bournemouth,2024-04-21,soccer,Premier League
+real_328,Crystal Palace,West Ham,2024-04-21,soccer,Premier League
+real_329,Fulham,Liverpool,2024-04-21,soccer,Premier League
+real_330,Arsenal,Chelsea,2024-04-23,soccer,Premier League
+real_331,Wolves,Bournemouth,2024-04-24,soccer,Premier League
+real_332,Crystal Palace,Newcastle,2024-04-24,soccer,Premier League
+real_333,Everton,Liverpool,2024-04-24,soccer,Premier League
+real_334,Man United,Sheffield United,2024-04-24,soccer,Premier League
+real_335,Brighton,Man City,2024-04-25,soccer,Premier League
+real_336,West Ham,Liverpool,2024-04-27,soccer,Premier League
+real_337,Fulham,Crystal Palace,2024-04-27,soccer,Premier League
+real_338,Man United,Burnley,2024-04-27,soccer,Premier League
+real_339,Newcastle,Sheffield United,2024-04-27,soccer,Premier League
+real_340,Wolves,Luton,2024-04-27,soccer,Premier League
+real_341,Everton,Brentford,2024-04-27,soccer,Premier League
+real_342,Aston Villa,Chelsea,2024-04-27,soccer,Premier League
+real_343,Bournemouth,Brighton,2024-04-28,soccer,Premier League
+real_344,Tottenham,Arsenal,2024-04-28,soccer,Premier League
+real_345,Nott'm Forest,Man City,2024-04-28,soccer,Premier League
+real_346,Chelsea,Tottenham,2024-05-02,soccer,Premier League
+real_347,Luton,Everton,2024-05-03,soccer,Premier League
+real_348,Arsenal,Bournemouth,2024-05-04,soccer,Premier League
+real_349,Brentford,Fulham,2024-05-04,soccer,Premier League
+real_350,Burnley,Newcastle,2024-05-04,soccer,Premier League
+real_351,Sheffield United,Nott'm Forest,2024-05-04,soccer,Premier League
+real_352,Man City,Wolves,2024-05-04,soccer,Premier League
+real_353,Brighton,Aston Villa,2024-05-05,soccer,Premier League
+real_354,Chelsea,West Ham,2024-05-05,soccer,Premier League
+real_355,Liverpool,Tottenham,2024-05-05,soccer,Premier League
+real_356,Crystal Palace,Man United,2024-05-06,soccer,Premier League
+real_357,Fulham,Man City,2024-05-11,soccer,Premier League
+real_358,Bournemouth,Brentford,2024-05-11,soccer,Premier League
+real_359,Everton,Sheffield United,2024-05-11,soccer,Premier League
+real_360,Newcastle,Brighton,2024-05-11,soccer,Premier League
+real_361,Tottenham,Burnley,2024-05-11,soccer,Premier League
+real_362,West Ham,Luton,2024-05-11,soccer,Premier League
+real_363,Wolves,Crystal Palace,2024-05-11,soccer,Premier League
+real_364,Nott'm Forest,Chelsea,2024-05-11,soccer,Premier League
+real_365,Man United,Arsenal,2024-05-12,soccer,Premier League
+real_366,Aston Villa,Liverpool,2024-05-13,soccer,Premier League
+real_367,Tottenham,Man City,2024-05-14,soccer,Premier League
+real_368,Brighton,Chelsea,2024-05-15,soccer,Premier League
+real_369,Man United,Newcastle,2024-05-15,soccer,Premier League
+real_370,Arsenal,Everton,2024-05-19,soccer,Premier League
+real_371,Brentford,Newcastle,2024-05-19,soccer,Premier League
+real_372,Brighton,Man United,2024-05-19,soccer,Premier League
+real_373,Burnley,Nott'm Forest,2024-05-19,soccer,Premier League
+real_374,Chelsea,Bournemouth,2024-05-19,soccer,Premier League
+real_375,Crystal Palace,Aston Villa,2024-05-19,soccer,Premier League
+real_376,Liverpool,Wolves,2024-05-19,soccer,Premier League
+real_377,Luton,Fulham,2024-05-19,soccer,Premier League
+real_378,Man City,West Ham,2024-05-19,soccer,Premier League
+real_379,Sheffield United,Tottenham,2024-05-19,soccer,Premier League
+real_380,Crystal Palace,Arsenal,2022-08-05,soccer,Premier League
+real_381,Fulham,Liverpool,2022-08-06,soccer,Premier League
+real_382,Bournemouth,Aston Villa,2022-08-06,soccer,Premier League
+real_383,Leeds,Wolves,2022-08-06,soccer,Premier League
+real_384,Newcastle,Nott'm Forest,2022-08-06,soccer,Premier League
+real_385,Tottenham,Southampton,2022-08-06,soccer,Premier League
+real_386,Everton,Chelsea,2022-08-06,soccer,Premier League
+real_387,Leicester,Brentford,2022-08-07,soccer,Premier League
+real_388,Man United,Brighton,2022-08-07,soccer,Premier League
+real_389,West Ham,Man City,2022-08-07,soccer,Premier League
+real_390,Aston Villa,Everton,2022-08-13,soccer,Premier League
+real_391,Arsenal,Leicester,2022-08-13,soccer,Premier League
+real_392,Brighton,Newcastle,2022-08-13,soccer,Premier League
+real_393,Man City,Bournemouth,2022-08-13,soccer,Premier League
+real_394,Southampton,Leeds,2022-08-13,soccer,Premier League
+real_395,Wolves,Fulham,2022-08-13,soccer,Premier League
+real_396,Brentford,Man United,2022-08-13,soccer,Premier League
+real_397,Nott'm Forest,West Ham,2022-08-14,soccer,Premier League
+real_398,Chelsea,Tottenham,2022-08-14,soccer,Premier League
+real_399,Liverpool,Crystal Palace,2022-08-15,soccer,Premier League
+real_400,Tottenham,Wolves,2022-08-20,soccer,Premier League
+real_401,Crystal Palace,Aston Villa,2022-08-20,soccer,Premier League
+real_402,Everton,Nott'm Forest,2022-08-20,soccer,Premier League
+real_403,Fulham,Brentford,2022-08-20,soccer,Premier League
+real_404,Leicester,Southampton,2022-08-20,soccer,Premier League
+real_405,Bournemouth,Arsenal,2022-08-20,soccer,Premier League
+real_406,Leeds,Chelsea,2022-08-21,soccer,Premier League
+real_407,West Ham,Brighton,2022-08-21,soccer,Premier League
+real_408,Newcastle,Man City,2022-08-21,soccer,Premier League
+real_409,Man United,Liverpool,2022-08-22,soccer,Premier League
+real_410,Southampton,Man United,2022-08-27,soccer,Premier League
+real_411,Brentford,Everton,2022-08-27,soccer,Premier League
+real_412,Brighton,Leeds,2022-08-27,soccer,Premier League
+real_413,Chelsea,Leicester,2022-08-27,soccer,Premier League
+real_414,Liverpool,Bournemouth,2022-08-27,soccer,Premier League
+real_415,Man City,Crystal Palace,2022-08-27,soccer,Premier League
+real_416,Arsenal,Fulham,2022-08-27,soccer,Premier League
+real_417,Aston Villa,West Ham,2022-08-28,soccer,Premier League
+real_418,Wolves,Newcastle,2022-08-28,soccer,Premier League
+real_419,Nott'm Forest,Tottenham,2022-08-28,soccer,Premier League
+real_420,Crystal Palace,Brentford,2022-08-30,soccer,Premier League
+real_421,Fulham,Brighton,2022-08-30,soccer,Premier League
+real_422,Southampton,Chelsea,2022-08-30,soccer,Premier League
+real_423,Leeds,Everton,2022-08-30,soccer,Premier League
+real_424,Arsenal,Aston Villa,2022-08-31,soccer,Premier League
+real_425,Bournemouth,Wolves,2022-08-31,soccer,Premier League
+real_426,Man City,Nott'm Forest,2022-08-31,soccer,Premier League
+real_427,West Ham,Tottenham,2022-08-31,soccer,Premier League
+real_428,Liverpool,Newcastle,2022-08-31,soccer,Premier League
+real_429,Leicester,Man United,2022-09-01,soccer,Premier League
+real_430,Everton,Liverpool,2022-09-03,soccer,Premier League
+real_431,Brentford,Leeds,2022-09-03,soccer,Premier League
+real_432,Chelsea,West Ham,2022-09-03,soccer,Premier League
+real_433,Newcastle,Crystal Palace,2022-09-03,soccer,Premier League
+real_434,Nott'm Forest,Bournemouth,2022-09-03,soccer,Premier League
+real_435,Tottenham,Fulham,2022-09-03,soccer,Premier League
+real_436,Wolves,Southampton,2022-09-03,soccer,Premier League
+real_437,Aston Villa,Man City,2022-09-03,soccer,Premier League
+real_438,Brighton,Leicester,2022-09-04,soccer,Premier League
+real_439,Man United,Arsenal,2022-09-04,soccer,Premier League
+real_440,Aston Villa,Southampton,2022-09-16,soccer,Premier League
+real_441,Nott'm Forest,Fulham,2022-09-16,soccer,Premier League
+real_442,Wolves,Man City,2022-09-17,soccer,Premier League
+real_443,Newcastle,Bournemouth,2022-09-17,soccer,Premier League
+real_444,Tottenham,Leicester,2022-09-17,soccer,Premier League
+real_445,Brentford,Arsenal,2022-09-18,soccer,Premier League
+real_446,Everton,West Ham,2022-09-18,soccer,Premier League
+real_447,Arsenal,Tottenham,2022-10-01,soccer,Premier League
+real_448,Bournemouth,Brentford,2022-10-01,soccer,Premier League
+real_449,Crystal Palace,Chelsea,2022-10-01,soccer,Premier League
+real_450,Fulham,Newcastle,2022-10-01,soccer,Premier League
+real_451,Liverpool,Brighton,2022-10-01,soccer,Premier League
+real_452,Southampton,Everton,2022-10-01,soccer,Premier League
+real_453,West Ham,Wolves,2022-10-01,soccer,Premier League
+real_454,Man City,Man United,2022-10-02,soccer,Premier League
+real_455,Leeds,Aston Villa,2022-10-02,soccer,Premier League
+real_456,Leicester,Nott'm Forest,2022-10-03,soccer,Premier League
+real_457,Bournemouth,Leicester,2022-10-08,soccer,Premier League
+real_458,Chelsea,Wolves,2022-10-08,soccer,Premier League
+real_459,Man City,Southampton,2022-10-08,soccer,Premier League
+real_460,Newcastle,Brentford,2022-10-08,soccer,Premier League
+real_461,Brighton,Tottenham,2022-10-08,soccer,Premier League
+real_462,Crystal Palace,Leeds,2022-10-09,soccer,Premier League
+real_463,West Ham,Fulham,2022-10-09,soccer,Premier League
+real_464,Arsenal,Liverpool,2022-10-09,soccer,Premier League
+real_465,Everton,Man United,2022-10-09,soccer,Premier League
+real_466,Nott'm Forest,Aston Villa,2022-10-10,soccer,Premier League
+real_467,Brentford,Brighton,2022-10-14,soccer,Premier League
+real_468,Leicester,Crystal Palace,2022-10-15,soccer,Premier League
+real_469,Fulham,Bournemouth,2022-10-15,soccer,Premier League
+real_470,Wolves,Nott'm Forest,2022-10-15,soccer,Premier League
+real_471,Tottenham,Everton,2022-10-15,soccer,Premier League
+real_472,Aston Villa,Chelsea,2022-10-16,soccer,Premier League
+real_473,Leeds,Arsenal,2022-10-16,soccer,Premier League
+real_474,Man United,Newcastle,2022-10-16,soccer,Premier League
+real_475,Southampton,West Ham,2022-10-16,soccer,Premier League
+real_476,Liverpool,Man City,2022-10-16,soccer,Premier League
+real_477,Brighton,Nott'm Forest,2022-10-18,soccer,Premier League
+real_478,Crystal Palace,Wolves,2022-10-18,soccer,Premier League
+real_479,Bournemouth,Southampton,2022-10-19,soccer,Premier League
+real_480,Brentford,Chelsea,2022-10-19,soccer,Premier League
+real_481,Liverpool,West Ham,2022-10-19,soccer,Premier League
+real_482,Newcastle,Everton,2022-10-19,soccer,Premier League
+real_483,Man United,Tottenham,2022-10-19,soccer,Premier League
+real_484,Fulham,Aston Villa,2022-10-20,soccer,Premier League
+real_485,Leicester,Leeds,2022-10-20,soccer,Premier League
+real_486,Nott'm Forest,Liverpool,2022-10-22,soccer,Premier League
+real_487,Everton,Crystal Palace,2022-10-22,soccer,Premier League
+real_488,Man City,Brighton,2022-10-22,soccer,Premier League
+real_489,Chelsea,Man United,2022-10-22,soccer,Premier League
+real_490,Aston Villa,Brentford,2022-10-23,soccer,Premier League
+real_491,Leeds,Fulham,2022-10-23,soccer,Premier League
+real_492,Southampton,Arsenal,2022-10-23,soccer,Premier League
+real_493,Wolves,Leicester,2022-10-23,soccer,Premier League
+real_494,Tottenham,Newcastle,2022-10-23,soccer,Premier League
+real_495,West Ham,Bournemouth,2022-10-24,soccer,Premier League
+real_496,Leicester,Man City,2022-10-29,soccer,Premier League
+real_497,Bournemouth,Tottenham,2022-10-29,soccer,Premier League
+real_498,Brentford,Wolves,2022-10-29,soccer,Premier League
+real_499,Brighton,Chelsea,2022-10-29,soccer,Premier League
+real_500,Crystal Palace,Southampton,2022-10-29,soccer,Premier League
+real_501,Newcastle,Aston Villa,2022-10-29,soccer,Premier League
+real_502,Fulham,Everton,2022-10-29,soccer,Premier League
+real_503,Liverpool,Leeds,2022-10-29,soccer,Premier League
+real_504,Arsenal,Nott'm Forest,2022-10-30,soccer,Premier League
+real_505,Man United,West Ham,2022-10-30,soccer,Premier League
+real_506,Leeds,Bournemouth,2022-11-05,soccer,Premier League
+real_507,Man City,Fulham,2022-11-05,soccer,Premier League
+real_508,Nott'm Forest,Brentford,2022-11-05,soccer,Premier League
+real_509,Wolves,Brighton,2022-11-05,soccer,Premier League
+real_510,Everton,Leicester,2022-11-05,soccer,Premier League
+real_511,Chelsea,Arsenal,2022-11-06,soccer,Premier League
+real_512,Aston Villa,Man United,2022-11-06,soccer,Premier League
+real_513,Southampton,Newcastle,2022-11-06,soccer,Premier League
+real_514,West Ham,Crystal Palace,2022-11-06,soccer,Premier League
+real_515,Tottenham,Liverpool,2022-11-06,soccer,Premier League
+real_516,Man City,Brentford,2022-11-12,soccer,Premier League
+real_517,Bournemouth,Everton,2022-11-12,soccer,Premier League
+real_518,Liverpool,Southampton,2022-11-12,soccer,Premier League
+real_519,Nott'm Forest,Crystal Palace,2022-11-12,soccer,Premier League
+real_520,Tottenham,Leeds,2022-11-12,soccer,Premier League
+real_521,West Ham,Leicester,2022-11-12,soccer,Premier League
+real_522,Newcastle,Chelsea,2022-11-12,soccer,Premier League
+real_523,Wolves,Arsenal,2022-11-12,soccer,Premier League
+real_524,Brighton,Aston Villa,2022-11-13,soccer,Premier League
+real_525,Fulham,Man United,2022-11-13,soccer,Premier League
+real_526,Brentford,Tottenham,2022-12-26,soccer,Premier League
+real_527,Crystal Palace,Fulham,2022-12-26,soccer,Premier League
+real_528,Everton,Wolves,2022-12-26,soccer,Premier League
+real_529,Leicester,Newcastle,2022-12-26,soccer,Premier League
+real_530,Southampton,Brighton,2022-12-26,soccer,Premier League
+real_531,Aston Villa,Liverpool,2022-12-26,soccer,Premier League
+real_532,Arsenal,West Ham,2022-12-26,soccer,Premier League
+real_533,Chelsea,Bournemouth,2022-12-27,soccer,Premier League
+real_534,Man United,Nott'm Forest,2022-12-27,soccer,Premier League
+real_535,Leeds,Man City,2022-12-28,soccer,Premier League
+real_536,West Ham,Brentford,2022-12-30,soccer,Premier League
+real_537,Liverpool,Leicester,2022-12-30,soccer,Premier League
+real_538,Wolves,Man United,2022-12-31,soccer,Premier League
+real_539,Bournemouth,Crystal Palace,2022-12-31,soccer,Premier League
+real_540,Fulham,Southampton,2022-12-31,soccer,Premier League
+real_541,Man City,Everton,2022-12-31,soccer,Premier League
+real_542,Newcastle,Leeds,2022-12-31,soccer,Premier League
+real_543,Brighton,Arsenal,2022-12-31,soccer,Premier League
+real_544,Tottenham,Aston Villa,2023-01-01,soccer,Premier League
+real_545,Nott'm Forest,Chelsea,2023-01-01,soccer,Premier League
+real_546,Brentford,Liverpool,2023-01-02,soccer,Premier League
+real_547,Arsenal,Newcastle,2023-01-03,soccer,Premier League
+real_548,Everton,Brighton,2023-01-03,soccer,Premier League
+real_549,Leicester,Fulham,2023-01-03,soccer,Premier League
+real_550,Man United,Bournemouth,2023-01-03,soccer,Premier League
+real_551,Southampton,Nott'm Forest,2023-01-04,soccer,Premier League
+real_552,Leeds,West Ham,2023-01-04,soccer,Premier League
+real_553,Aston Villa,Wolves,2023-01-04,soccer,Premier League
+real_554,Crystal Palace,Tottenham,2023-01-04,soccer,Premier League
+real_555,Chelsea,Man City,2023-01-05,soccer,Premier League
+real_556,Fulham,Chelsea,2023-01-12,soccer,Premier League
+real_557,Aston Villa,Leeds,2023-01-13,soccer,Premier League
+real_558,Man United,Man City,2023-01-14,soccer,Premier League
+real_559,Brighton,Liverpool,2023-01-14,soccer,Premier League
+real_560,Everton,Southampton,2023-01-14,soccer,Premier League
+real_561,Nott'm Forest,Leicester,2023-01-14,soccer,Premier League
+real_562,Wolves,West Ham,2023-01-14,soccer,Premier League
+real_563,Brentford,Bournemouth,2023-01-14,soccer,Premier League
+real_564,Chelsea,Crystal Palace,2023-01-15,soccer,Premier League
+real_565,Newcastle,Fulham,2023-01-15,soccer,Premier League
+real_566,Tottenham,Arsenal,2023-01-15,soccer,Premier League
+real_567,Crystal Palace,Man United,2023-01-18,soccer,Premier League
+real_568,Man City,Tottenham,2023-01-19,soccer,Premier League
+real_569,Liverpool,Chelsea,2023-01-21,soccer,Premier League
+real_570,Bournemouth,Nott'm Forest,2023-01-21,soccer,Premier League
+real_571,Leicester,Brighton,2023-01-21,soccer,Premier League
+real_572,Southampton,Aston Villa,2023-01-21,soccer,Premier League
+real_573,West Ham,Everton,2023-01-21,soccer,Premier League
+real_574,Crystal Palace,Newcastle,2023-01-21,soccer,Premier League
+real_575,Leeds,Brentford,2023-01-22,soccer,Premier League
+real_576,Man City,Wolves,2023-01-22,soccer,Premier League
+real_577,Arsenal,Man United,2023-01-22,soccer,Premier League
+real_578,Fulham,Tottenham,2023-01-23,soccer,Premier League
+real_579,Chelsea,Fulham,2023-02-03,soccer,Premier League
+real_580,Everton,Arsenal,2023-02-04,soccer,Premier League
+real_581,Aston Villa,Leicester,2023-02-04,soccer,Premier League
+real_582,Brentford,Southampton,2023-02-04,soccer,Premier League
+real_583,Brighton,Bournemouth,2023-02-04,soccer,Premier League
+real_584,Man United,Crystal Palace,2023-02-04,soccer,Premier League
+real_585,Wolves,Liverpool,2023-02-04,soccer,Premier League
+real_586,Newcastle,West Ham,2023-02-04,soccer,Premier League
+real_587,Nott'm Forest,Leeds,2023-02-05,soccer,Premier League
+real_588,Tottenham,Man City,2023-02-05,soccer,Premier League
+real_589,Man United,Leeds,2023-02-08,soccer,Premier League
+real_590,West Ham,Chelsea,2023-02-11,soccer,Premier League
+real_591,Arsenal,Brentford,2023-02-11,soccer,Premier League
+real_592,Crystal Palace,Brighton,2023-02-11,soccer,Premier League
+real_593,Fulham,Nott'm Forest,2023-02-11,soccer,Premier League
+real_594,Leicester,Tottenham,2023-02-11,soccer,Premier League
+real_595,Southampton,Wolves,2023-02-11,soccer,Premier League
+real_596,Bournemouth,Newcastle,2023-02-11,soccer,Premier League
+real_597,Leeds,Man United,2023-02-12,soccer,Premier League
+real_598,Man City,Aston Villa,2023-02-12,soccer,Premier League
+real_599,Liverpool,Everton,2023-02-13,soccer,Premier League
+real_600,Arsenal,Man City,2023-02-15,soccer,Premier League
+real_601,Aston Villa,Arsenal,2023-02-18,soccer,Premier League
+real_602,Brentford,Crystal Palace,2023-02-18,soccer,Premier League
+real_603,Brighton,Fulham,2023-02-18,soccer,Premier League
+real_604,Chelsea,Southampton,2023-02-18,soccer,Premier League
+real_605,Everton,Leeds,2023-02-18,soccer,Premier League
+real_606,Nott'm Forest,Man City,2023-02-18,soccer,Premier League
+real_607,Wolves,Bournemouth,2023-02-18,soccer,Premier League
+real_608,Newcastle,Liverpool,2023-02-18,soccer,Premier League
+real_609,Man United,Leicester,2023-02-19,soccer,Premier League
+real_610,Tottenham,West Ham,2023-02-19,soccer,Premier League
+real_611,Fulham,Wolves,2023-02-24,soccer,Premier League
+real_612,Everton,Aston Villa,2023-02-25,soccer,Premier League
+real_613,Leeds,Southampton,2023-02-25,soccer,Premier League
+real_614,Leicester,Arsenal,2023-02-25,soccer,Premier League
+real_615,West Ham,Nott'm Forest,2023-02-25,soccer,Premier League
+real_616,Bournemouth,Man City,2023-02-25,soccer,Premier League
+real_617,Crystal Palace,Liverpool,2023-02-25,soccer,Premier League
+real_618,Tottenham,Chelsea,2023-02-26,soccer,Premier League
+real_619,Arsenal,Everton,2023-03-01,soccer,Premier League
+real_620,Liverpool,Wolves,2023-03-01,soccer,Premier League
+real_621,Man City,Newcastle,2023-03-04,soccer,Premier League
+real_622,Arsenal,Bournemouth,2023-03-04,soccer,Premier League
+real_623,Aston Villa,Crystal Palace,2023-03-04,soccer,Premier League
+real_624,Brighton,West Ham,2023-03-04,soccer,Premier League
+real_625,Chelsea,Leeds,2023-03-04,soccer,Premier League
+real_626,Wolves,Tottenham,2023-03-04,soccer,Premier League
+real_627,Southampton,Leicester,2023-03-04,soccer,Premier League
+real_628,Nott'm Forest,Everton,2023-03-05,soccer,Premier League
+real_629,Liverpool,Man United,2023-03-05,soccer,Premier League
+real_630,Brentford,Fulham,2023-03-06,soccer,Premier League
+real_631,Bournemouth,Liverpool,2023-03-11,soccer,Premier League
+real_632,Everton,Brentford,2023-03-11,soccer,Premier League
+real_633,Leeds,Brighton,2023-03-11,soccer,Premier League
+real_634,Leicester,Chelsea,2023-03-11,soccer,Premier League
+real_635,Tottenham,Nott'm Forest,2023-03-11,soccer,Premier League
+real_636,Crystal Palace,Man City,2023-03-11,soccer,Premier League
+real_637,Fulham,Arsenal,2023-03-12,soccer,Premier League
+real_638,Man United,Southampton,2023-03-12,soccer,Premier League
+real_639,West Ham,Aston Villa,2023-03-12,soccer,Premier League
+real_640,Newcastle,Wolves,2023-03-12,soccer,Premier League
+real_641,Brighton,Crystal Palace,2023-03-15,soccer,Premier League
+real_642,Southampton,Brentford,2023-03-15,soccer,Premier League
+real_643,Nott'm Forest,Newcastle,2023-03-17,soccer,Premier League
+real_644,Aston Villa,Bournemouth,2023-03-18,soccer,Premier League
+real_645,Brentford,Leicester,2023-03-18,soccer,Premier League
+real_646,Southampton,Tottenham,2023-03-18,soccer,Premier League
+real_647,Wolves,Leeds,2023-03-18,soccer,Premier League
+real_648,Chelsea,Everton,2023-03-18,soccer,Premier League
+real_649,Arsenal,Crystal Palace,2023-03-19,soccer,Premier League
+real_650,Man City,Liverpool,2023-04-01,soccer,Premier League
+real_651,Arsenal,Leeds,2023-04-01,soccer,Premier League
+real_652,Bournemouth,Fulham,2023-04-01,soccer,Premier League
+real_653,Brighton,Brentford,2023-04-01,soccer,Premier League
+real_654,Crystal Palace,Leicester,2023-04-01,soccer,Premier League
+real_655,Nott'm Forest,Wolves,2023-04-01,soccer,Premier League
+real_656,Chelsea,Aston Villa,2023-04-01,soccer,Premier League
+real_657,West Ham,Southampton,2023-04-02,soccer,Premier League
+real_658,Newcastle,Man United,2023-04-02,soccer,Premier League
+real_659,Everton,Tottenham,2023-04-03,soccer,Premier League
+real_660,Bournemouth,Brighton,2023-04-04,soccer,Premier League
+real_661,Leeds,Nott'm Forest,2023-04-04,soccer,Premier League
+real_662,Leicester,Aston Villa,2023-04-04,soccer,Premier League
+real_663,Chelsea,Liverpool,2023-04-04,soccer,Premier League
+real_664,Man United,Brentford,2023-04-05,soccer,Premier League
+real_665,West Ham,Newcastle,2023-04-05,soccer,Premier League
+real_666,Man United,Everton,2023-04-08,soccer,Premier League
+real_667,Aston Villa,Nott'm Forest,2023-04-08,soccer,Premier League
+real_668,Brentford,Newcastle,2023-04-08,soccer,Premier League
+real_669,Fulham,West Ham,2023-04-08,soccer,Premier League
+real_670,Leicester,Bournemouth,2023-04-08,soccer,Premier League
+real_671,Tottenham,Brighton,2023-04-08,soccer,Premier League
+real_672,Wolves,Chelsea,2023-04-08,soccer,Premier League
+real_673,Southampton,Man City,2023-04-08,soccer,Premier League
+real_674,Leeds,Crystal Palace,2023-04-09,soccer,Premier League
+real_675,Liverpool,Arsenal,2023-04-09,soccer,Premier League
+real_676,Aston Villa,Newcastle,2023-04-15,soccer,Premier League
+real_677,Chelsea,Brighton,2023-04-15,soccer,Premier League
+real_678,Everton,Fulham,2023-04-15,soccer,Premier League
+real_679,Southampton,Crystal Palace,2023-04-15,soccer,Premier League
+real_680,Tottenham,Bournemouth,2023-04-15,soccer,Premier League
+real_681,Wolves,Brentford,2023-04-15,soccer,Premier League
+real_682,Man City,Leicester,2023-04-15,soccer,Premier League
+real_683,West Ham,Arsenal,2023-04-16,soccer,Premier League
+real_684,Nott'm Forest,Man United,2023-04-16,soccer,Premier League
+real_685,Leeds,Liverpool,2023-04-17,soccer,Premier League
+real_686,Arsenal,Southampton,2023-04-21,soccer,Premier League
+real_687,Fulham,Leeds,2023-04-22,soccer,Premier League
+real_688,Brentford,Aston Villa,2023-04-22,soccer,Premier League
+real_689,Crystal Palace,Everton,2023-04-22,soccer,Premier League
+real_690,Leicester,Wolves,2023-04-22,soccer,Premier League
+real_691,Liverpool,Nott'm Forest,2023-04-22,soccer,Premier League
+real_692,Bournemouth,West Ham,2023-04-23,soccer,Premier League
+real_693,Newcastle,Tottenham,2023-04-23,soccer,Premier League
+real_694,Wolves,Crystal Palace,2023-04-25,soccer,Premier League
+real_695,Aston Villa,Fulham,2023-04-25,soccer,Premier League
+real_696,Leeds,Leicester,2023-04-25,soccer,Premier League
+real_697,Nott'm Forest,Brighton,2023-04-26,soccer,Premier League
+real_698,Chelsea,Brentford,2023-04-26,soccer,Premier League
+real_699,West Ham,Liverpool,2023-04-26,soccer,Premier League
+real_700,Man City,Arsenal,2023-04-26,soccer,Premier League
+real_701,Everton,Newcastle,2023-04-27,soccer,Premier League
+real_702,Southampton,Bournemouth,2023-04-27,soccer,Premier League
+real_703,Tottenham,Man United,2023-04-27,soccer,Premier League
+real_704,Crystal Palace,West Ham,2023-04-29,soccer,Premier League
+real_705,Brentford,Nott'm Forest,2023-04-29,soccer,Premier League
+real_706,Brighton,Wolves,2023-04-29,soccer,Premier League
+real_707,Bournemouth,Leeds,2023-04-30,soccer,Premier League
+real_708,Fulham,Man City,2023-04-30,soccer,Premier League
+real_709,Man United,Aston Villa,2023-04-30,soccer,Premier League
+real_710,Newcastle,Southampton,2023-04-30,soccer,Premier League
+real_711,Liverpool,Tottenham,2023-04-30,soccer,Premier League
+real_712,Leicester,Everton,2023-05-01,soccer,Premier League
+real_713,Arsenal,Chelsea,2023-05-02,soccer,Premier League
+real_714,Liverpool,Fulham,2023-05-03,soccer,Premier League
+real_715,Man City,West Ham,2023-05-03,soccer,Premier League
+real_716,Brighton,Man United,2023-05-04,soccer,Premier League
+real_717,Bournemouth,Chelsea,2023-05-06,soccer,Premier League
+real_718,Man City,Leeds,2023-05-06,soccer,Premier League
+real_719,Tottenham,Crystal Palace,2023-05-06,soccer,Premier League
+real_720,Wolves,Aston Villa,2023-05-06,soccer,Premier League
+real_721,Liverpool,Brentford,2023-05-06,soccer,Premier League
+real_722,Newcastle,Arsenal,2023-05-07,soccer,Premier League
+real_723,West Ham,Man United,2023-05-07,soccer,Premier League
+real_724,Fulham,Leicester,2023-05-08,soccer,Premier League
+real_725,Brighton,Everton,2023-05-08,soccer,Premier League
+real_726,Nott'm Forest,Southampton,2023-05-08,soccer,Premier League
+real_727,Leeds,Newcastle,2023-05-13,soccer,Premier League
+real_728,Aston Villa,Tottenham,2023-05-13,soccer,Premier League
+real_729,Chelsea,Nott'm Forest,2023-05-13,soccer,Premier League
+real_730,Crystal Palace,Bournemouth,2023-05-13,soccer,Premier League
+real_731,Man United,Wolves,2023-05-13,soccer,Premier League
+real_732,Southampton,Fulham,2023-05-13,soccer,Premier League
+real_733,Brentford,West Ham,2023-05-14,soccer,Premier League
+real_734,Everton,Man City,2023-05-14,soccer,Premier League
+real_735,Arsenal,Brighton,2023-05-14,soccer,Premier League
+real_736,Leicester,Liverpool,2023-05-15,soccer,Premier League
+real_737,Newcastle,Brighton,2023-05-18,soccer,Premier League
+real_738,Tottenham,Brentford,2023-05-20,soccer,Premier League
+real_739,Bournemouth,Man United,2023-05-20,soccer,Premier League
+real_740,Fulham,Crystal Palace,2023-05-20,soccer,Premier League
+real_741,Liverpool,Aston Villa,2023-05-20,soccer,Premier League
+real_742,Wolves,Everton,2023-05-20,soccer,Premier League
+real_743,Nott'm Forest,Arsenal,2023-05-20,soccer,Premier League
+real_744,West Ham,Leeds,2023-05-21,soccer,Premier League
+real_745,Brighton,Southampton,2023-05-21,soccer,Premier League
+real_746,Man City,Chelsea,2023-05-21,soccer,Premier League
+real_747,Newcastle,Leicester,2023-05-22,soccer,Premier League
+real_748,Brighton,Man City,2023-05-24,soccer,Premier League
+real_749,Man United,Chelsea,2023-05-25,soccer,Premier League
+real_750,Arsenal,Wolves,2023-05-28,soccer,Premier League
+real_751,Aston Villa,Brighton,2023-05-28,soccer,Premier League
+real_752,Brentford,Man City,2023-05-28,soccer,Premier League
+real_753,Chelsea,Newcastle,2023-05-28,soccer,Premier League
+real_754,Crystal Palace,Nott'm Forest,2023-05-28,soccer,Premier League
+real_755,Everton,Bournemouth,2023-05-28,soccer,Premier League
+real_756,Leeds,Tottenham,2023-05-28,soccer,Premier League
+real_757,Leicester,West Ham,2023-05-28,soccer,Premier League
+real_758,Man United,Fulham,2023-05-28,soccer,Premier League
+real_759,Southampton,Liverpool,2023-05-28,soccer,Premier League
+real_760,Brentford,Arsenal,2021-08-13,soccer,Premier League
+real_761,Man United,Leeds,2021-08-14,soccer,Premier League
+real_762,Burnley,Brighton,2021-08-14,soccer,Premier League
+real_763,Chelsea,Crystal Palace,2021-08-14,soccer,Premier League
+real_764,Everton,Southampton,2021-08-14,soccer,Premier League
+real_765,Leicester,Wolves,2021-08-14,soccer,Premier League
+real_766,Watford,Aston Villa,2021-08-14,soccer,Premier League
+real_767,Norwich,Liverpool,2021-08-14,soccer,Premier League
+real_768,Newcastle,West Ham,2021-08-15,soccer,Premier League
+real_769,Tottenham,Man City,2021-08-15,soccer,Premier League
+real_770,Liverpool,Burnley,2021-08-21,soccer,Premier League
+real_771,Aston Villa,Newcastle,2021-08-21,soccer,Premier League
+real_772,Crystal Palace,Brentford,2021-08-21,soccer,Premier League
+real_773,Leeds,Everton,2021-08-21,soccer,Premier League
+real_774,Man City,Norwich,2021-08-21,soccer,Premier League
+real_775,Brighton,Watford,2021-08-21,soccer,Premier League
+real_776,Southampton,Man United,2021-08-22,soccer,Premier League
+real_777,Wolves,Tottenham,2021-08-22,soccer,Premier League
+real_778,Arsenal,Chelsea,2021-08-22,soccer,Premier League
+real_779,West Ham,Leicester,2021-08-23,soccer,Premier League
+real_780,Man City,Arsenal,2021-08-28,soccer,Premier League
+real_781,Aston Villa,Brentford,2021-08-28,soccer,Premier League
+real_782,Brighton,Everton,2021-08-28,soccer,Premier League
+real_783,Newcastle,Southampton,2021-08-28,soccer,Premier League
+real_784,Norwich,Leicester,2021-08-28,soccer,Premier League
+real_785,West Ham,Crystal Palace,2021-08-28,soccer,Premier League
+real_786,Liverpool,Chelsea,2021-08-28,soccer,Premier League
+real_787,Burnley,Leeds,2021-08-29,soccer,Premier League
+real_788,Tottenham,Watford,2021-08-29,soccer,Premier League
+real_789,Wolves,Man United,2021-08-29,soccer,Premier League
+real_790,Crystal Palace,Tottenham,2021-09-11,soccer,Premier League
+real_791,Arsenal,Norwich,2021-09-11,soccer,Premier League
+real_792,Brentford,Brighton,2021-09-11,soccer,Premier League
+real_793,Leicester,Man City,2021-09-11,soccer,Premier League
+real_794,Man United,Newcastle,2021-09-11,soccer,Premier League
+real_795,Southampton,West Ham,2021-09-11,soccer,Premier League
+real_796,Watford,Wolves,2021-09-11,soccer,Premier League
+real_797,Chelsea,Aston Villa,2021-09-11,soccer,Premier League
+real_798,Leeds,Liverpool,2021-09-12,soccer,Premier League
+real_799,Everton,Burnley,2021-09-13,soccer,Premier League
+real_800,Newcastle,Leeds,2021-09-17,soccer,Premier League
+real_801,Wolves,Brentford,2021-09-18,soccer,Premier League
+real_802,Burnley,Arsenal,2021-09-18,soccer,Premier League
+real_803,Liverpool,Crystal Palace,2021-09-18,soccer,Premier League
+real_804,Man City,Southampton,2021-09-18,soccer,Premier League
+real_805,Norwich,Watford,2021-09-18,soccer,Premier League
+real_806,Aston Villa,Everton,2021-09-18,soccer,Premier League
+real_807,Brighton,Leicester,2021-09-19,soccer,Premier League
+real_808,West Ham,Man United,2021-09-19,soccer,Premier League
+real_809,Tottenham,Chelsea,2021-09-19,soccer,Premier League
+real_810,Chelsea,Man City,2021-09-25,soccer,Premier League
+real_811,Man United,Aston Villa,2021-09-25,soccer,Premier League
+real_812,Everton,Norwich,2021-09-25,soccer,Premier League
+real_813,Leeds,West Ham,2021-09-25,soccer,Premier League
+real_814,Leicester,Burnley,2021-09-25,soccer,Premier League
+real_815,Watford,Newcastle,2021-09-25,soccer,Premier League
+real_816,Brentford,Liverpool,2021-09-25,soccer,Premier League
+real_817,Southampton,Wolves,2021-09-26,soccer,Premier League
+real_818,Arsenal,Tottenham,2021-09-26,soccer,Premier League
+real_819,Crystal Palace,Brighton,2021-09-27,soccer,Premier League
+real_820,Man United,Everton,2021-10-02,soccer,Premier League
+real_821,Burnley,Norwich,2021-10-02,soccer,Premier League
+real_822,Chelsea,Southampton,2021-10-02,soccer,Premier League
+real_823,Leeds,Watford,2021-10-02,soccer,Premier League
+real_824,Wolves,Newcastle,2021-10-02,soccer,Premier League
+real_825,Brighton,Arsenal,2021-10-02,soccer,Premier League
+real_826,Crystal Palace,Leicester,2021-10-03,soccer,Premier League
+real_827,Tottenham,Aston Villa,2021-10-03,soccer,Premier League
+real_828,West Ham,Brentford,2021-10-03,soccer,Premier League
+real_829,Liverpool,Man City,2021-10-03,soccer,Premier League
+real_830,Watford,Liverpool,2021-10-16,soccer,Premier League
+real_831,Aston Villa,Wolves,2021-10-16,soccer,Premier League
+real_832,Leicester,Man United,2021-10-16,soccer,Premier League
+real_833,Man City,Burnley,2021-10-16,soccer,Premier League
+real_834,Norwich,Brighton,2021-10-16,soccer,Premier League
+real_835,Southampton,Leeds,2021-10-16,soccer,Premier League
+real_836,Brentford,Chelsea,2021-10-16,soccer,Premier League
+real_837,Everton,West Ham,2021-10-17,soccer,Premier League
+real_838,Newcastle,Tottenham,2021-10-17,soccer,Premier League
+real_839,Arsenal,Crystal Palace,2021-10-18,soccer,Premier League
+real_840,Arsenal,Aston Villa,2021-10-22,soccer,Premier League
+real_841,Chelsea,Norwich,2021-10-23,soccer,Premier League
+real_842,Crystal Palace,Newcastle,2021-10-23,soccer,Premier League
+real_843,Everton,Watford,2021-10-23,soccer,Premier League
+real_844,Leeds,Wolves,2021-10-23,soccer,Premier League
+real_845,Southampton,Burnley,2021-10-23,soccer,Premier League
+real_846,Brighton,Man City,2021-10-23,soccer,Premier League
+real_847,Brentford,Leicester,2021-10-24,soccer,Premier League
+real_848,West Ham,Tottenham,2021-10-24,soccer,Premier League
+real_849,Man United,Liverpool,2021-10-24,soccer,Premier League
+real_850,Leicester,Arsenal,2021-10-30,soccer,Premier League
+real_851,Burnley,Brentford,2021-10-30,soccer,Premier League
+real_852,Liverpool,Brighton,2021-10-30,soccer,Premier League
+real_853,Man City,Crystal Palace,2021-10-30,soccer,Premier League
+real_854,Newcastle,Chelsea,2021-10-30,soccer,Premier League
+real_855,Watford,Southampton,2021-10-30,soccer,Premier League
+real_856,Tottenham,Man United,2021-10-30,soccer,Premier League
+real_857,Norwich,Leeds,2021-10-31,soccer,Premier League
+real_858,Aston Villa,West Ham,2021-10-31,soccer,Premier League
+real_859,Wolves,Everton,2021-11-01,soccer,Premier League
+real_860,Southampton,Aston Villa,2021-11-05,soccer,Premier League
+real_861,Man United,Man City,2021-11-06,soccer,Premier League
+real_862,Brentford,Norwich,2021-11-06,soccer,Premier League
+real_863,Chelsea,Burnley,2021-11-06,soccer,Premier League
+real_864,Crystal Palace,Wolves,2021-11-06,soccer,Premier League
+real_865,Brighton,Newcastle,2021-11-06,soccer,Premier League
+real_866,Arsenal,Watford,2021-11-07,soccer,Premier League
+real_867,Everton,Tottenham,2021-11-07,soccer,Premier League
+real_868,Leeds,Leicester,2021-11-07,soccer,Premier League
+real_869,West Ham,Liverpool,2021-11-07,soccer,Premier League
+real_870,Leicester,Chelsea,2021-11-20,soccer,Premier League
+real_871,Aston Villa,Brighton,2021-11-20,soccer,Premier League
+real_872,Burnley,Crystal Palace,2021-11-20,soccer,Premier League
+real_873,Newcastle,Brentford,2021-11-20,soccer,Premier League
+real_874,Norwich,Southampton,2021-11-20,soccer,Premier League
+real_875,Watford,Man United,2021-11-20,soccer,Premier League
+real_876,Wolves,West Ham,2021-11-20,soccer,Premier League
+real_877,Liverpool,Arsenal,2021-11-20,soccer,Premier League
+real_878,Man City,Everton,2021-11-21,soccer,Premier League
+real_879,Tottenham,Leeds,2021-11-21,soccer,Premier League
+real_880,Arsenal,Newcastle,2021-11-27,soccer,Premier League
+real_881,Crystal Palace,Aston Villa,2021-11-27,soccer,Premier League
+real_882,Liverpool,Southampton,2021-11-27,soccer,Premier League
+real_883,Norwich,Wolves,2021-11-27,soccer,Premier League
+real_884,Brighton,Leeds,2021-11-27,soccer,Premier League
+real_885,Brentford,Everton,2021-11-28,soccer,Premier League
+real_886,Leicester,Watford,2021-11-28,soccer,Premier League
+real_887,Man City,West Ham,2021-11-28,soccer,Premier League
+real_888,Chelsea,Man United,2021-11-28,soccer,Premier League
+real_889,Newcastle,Norwich,2021-11-30,soccer,Premier League
+real_890,Leeds,Crystal Palace,2021-11-30,soccer,Premier League
+real_891,Southampton,Leicester,2021-12-01,soccer,Premier League
+real_892,Watford,Chelsea,2021-12-01,soccer,Premier League
+real_893,West Ham,Brighton,2021-12-01,soccer,Premier League
+real_894,Wolves,Burnley,2021-12-01,soccer,Premier League
+real_895,Aston Villa,Man City,2021-12-01,soccer,Premier League
+real_896,Everton,Liverpool,2021-12-01,soccer,Premier League
+real_897,Tottenham,Brentford,2021-12-02,soccer,Premier League
+real_898,Man United,Arsenal,2021-12-02,soccer,Premier League
+real_899,West Ham,Chelsea,2021-12-04,soccer,Premier League
+real_900,Newcastle,Burnley,2021-12-04,soccer,Premier League
+real_901,Southampton,Brighton,2021-12-04,soccer,Premier League
+real_902,Wolves,Liverpool,2021-12-04,soccer,Premier League
+real_903,Watford,Man City,2021-12-04,soccer,Premier League
+real_904,Leeds,Brentford,2021-12-05,soccer,Premier League
+real_905,Man United,Crystal Palace,2021-12-05,soccer,Premier League
+real_906,Tottenham,Norwich,2021-12-05,soccer,Premier League
+real_907,Aston Villa,Leicester,2021-12-05,soccer,Premier League
+real_908,Everton,Arsenal,2021-12-06,soccer,Premier League
+real_909,Brentford,Watford,2021-12-10,soccer,Premier League
+real_910,Man City,Wolves,2021-12-11,soccer,Premier League
+real_911,Arsenal,Southampton,2021-12-11,soccer,Premier League
+real_912,Chelsea,Leeds,2021-12-11,soccer,Premier League
+real_913,Liverpool,Aston Villa,2021-12-11,soccer,Premier League
+real_914,Norwich,Man United,2021-12-11,soccer,Premier League
+real_915,Burnley,West Ham,2021-12-12,soccer,Premier League
+real_916,Leicester,Newcastle,2021-12-12,soccer,Premier League
+real_917,Crystal Palace,Everton,2021-12-12,soccer,Premier League
+real_918,Norwich,Aston Villa,2021-12-14,soccer,Premier League
+real_919,Man City,Leeds,2021-12-14,soccer,Premier League
+real_920,Brighton,Wolves,2021-12-15,soccer,Premier League
+real_921,Crystal Palace,Southampton,2021-12-15,soccer,Premier League
+real_922,Arsenal,West Ham,2021-12-15,soccer,Premier League
+real_923,Chelsea,Everton,2021-12-16,soccer,Premier League
+real_924,Liverpool,Newcastle,2021-12-16,soccer,Premier League
+real_925,Leeds,Arsenal,2021-12-18,soccer,Premier League
+real_926,Newcastle,Man City,2021-12-19,soccer,Premier League
+real_927,Wolves,Chelsea,2021-12-19,soccer,Premier League
+real_928,Tottenham,Liverpool,2021-12-19,soccer,Premier League
+real_929,Man City,Leicester,2021-12-26,soccer,Premier League
+real_930,Norwich,Arsenal,2021-12-26,soccer,Premier League
+real_931,Tottenham,Crystal Palace,2021-12-26,soccer,Premier League
+real_932,West Ham,Southampton,2021-12-26,soccer,Premier League
+real_933,Aston Villa,Chelsea,2021-12-26,soccer,Premier League
+real_934,Brighton,Brentford,2021-12-26,soccer,Premier League
+real_935,Newcastle,Man United,2021-12-27,soccer,Premier League
+real_936,Crystal Palace,Norwich,2021-12-28,soccer,Premier League
+real_937,Southampton,Tottenham,2021-12-28,soccer,Premier League
+real_938,Watford,West Ham,2021-12-28,soccer,Premier League
+real_939,Leicester,Liverpool,2021-12-28,soccer,Premier League
+real_940,Chelsea,Brighton,2021-12-29,soccer,Premier League
+real_941,Brentford,Man City,2021-12-29,soccer,Premier League
+real_942,Man United,Burnley,2021-12-30,soccer,Premier League
+real_943,Arsenal,Man City,2022-01-01,soccer,Premier League
+real_944,Watford,Tottenham,2022-01-01,soccer,Premier League
+real_945,Crystal Palace,West Ham,2022-01-01,soccer,Premier League
+real_946,Brentford,Aston Villa,2022-01-02,soccer,Premier League
+real_947,Everton,Brighton,2022-01-02,soccer,Premier League
+real_948,Leeds,Burnley,2022-01-02,soccer,Premier League
+real_949,Chelsea,Liverpool,2022-01-02,soccer,Premier League
+real_950,Man United,Wolves,2022-01-03,soccer,Premier League
+real_951,Southampton,Brentford,2022-01-11,soccer,Premier League
+real_952,West Ham,Norwich,2022-01-12,soccer,Premier League
+real_953,Brighton,Crystal Palace,2022-01-14,soccer,Premier League
+real_954,Man City,Chelsea,2022-01-15,soccer,Premier League
+real_955,Newcastle,Watford,2022-01-15,soccer,Premier League
+real_956,Norwich,Everton,2022-01-15,soccer,Premier League
+real_957,Wolves,Southampton,2022-01-15,soccer,Premier League
+real_958,Aston Villa,Man United,2022-01-15,soccer,Premier League
+real_959,Liverpool,Brentford,2022-01-16,soccer,Premier League
+real_960,West Ham,Leeds,2022-01-16,soccer,Premier League
+real_961,Brighton,Chelsea,2022-01-18,soccer,Premier League
+real_962,Leicester,Tottenham,2022-01-19,soccer,Premier League
+real_963,Brentford,Man United,2022-01-19,soccer,Premier League
+real_964,Watford,Norwich,2022-01-21,soccer,Premier League
+real_965,Everton,Aston Villa,2022-01-22,soccer,Premier League
+real_966,Brentford,Wolves,2022-01-22,soccer,Premier League
+real_967,Leeds,Newcastle,2022-01-22,soccer,Premier League
+real_968,Man United,West Ham,2022-01-22,soccer,Premier League
+real_969,Southampton,Man City,2022-01-22,soccer,Premier League
+real_970,Arsenal,Burnley,2022-01-23,soccer,Premier League
+real_971,Crystal Palace,Liverpool,2022-01-23,soccer,Premier League
+real_972,Leicester,Brighton,2022-01-23,soccer,Premier League
+real_973,Chelsea,Tottenham,2022-01-23,soccer,Premier League
+real_974,Burnley,Watford,2022-02-05,soccer,Premier League
+real_975,Newcastle,Everton,2022-02-08,soccer,Premier League
+real_976,West Ham,Watford,2022-02-08,soccer,Premier League
+real_977,Burnley,Man United,2022-02-08,soccer,Premier League
+real_978,Man City,Brentford,2022-02-09,soccer,Premier League
+real_979,Norwich,Crystal Palace,2022-02-09,soccer,Premier League
+real_980,Tottenham,Southampton,2022-02-09,soccer,Premier League
+real_981,Aston Villa,Leeds,2022-02-09,soccer,Premier League
+real_982,Liverpool,Leicester,2022-02-10,soccer,Premier League
+real_983,Wolves,Arsenal,2022-02-10,soccer,Premier League
+real_984,Man United,Southampton,2022-02-12,soccer,Premier League
+real_985,Brentford,Crystal Palace,2022-02-12,soccer,Premier League
+real_986,Everton,Leeds,2022-02-12,soccer,Premier League
+real_987,Watford,Brighton,2022-02-12,soccer,Premier League
+real_988,Norwich,Man City,2022-02-12,soccer,Premier League
+real_989,Burnley,Liverpool,2022-02-13,soccer,Premier League
+real_990,Newcastle,Aston Villa,2022-02-13,soccer,Premier League
+real_991,Tottenham,Wolves,2022-02-13,soccer,Premier League
+real_992,Leicester,West Ham,2022-02-13,soccer,Premier League
+real_993,Man United,Brighton,2022-02-15,soccer,Premier League
+real_994,West Ham,Newcastle,2022-02-19,soccer,Premier League
+real_995,Arsenal,Brentford,2022-02-19,soccer,Premier League
+real_996,Aston Villa,Watford,2022-02-19,soccer,Premier League
+real_997,Brighton,Burnley,2022-02-19,soccer,Premier League
+real_998,Crystal Palace,Chelsea,2022-02-19,soccer,Premier League
+real_999,Liverpool,Norwich,2022-02-19,soccer,Premier League
+real_1000,Southampton,Everton,2022-02-19,soccer,Premier League
+real_1001,Man City,Tottenham,2022-02-19,soccer,Premier League
+real_1002,Leeds,Man United,2022-02-20,soccer,Premier League
+real_1003,Wolves,Leicester,2022-02-20,soccer,Premier League
+real_1004,Burnley,Tottenham,2022-02-23,soccer,Premier League
+real_1005,Watford,Crystal Palace,2022-02-23,soccer,Premier League
+real_1006,Liverpool,Leeds,2022-02-23,soccer,Premier League
+real_1007,Arsenal,Wolves,2022-02-24,soccer,Premier League
+real_1008,Southampton,Norwich,2022-02-25,soccer,Premier League
+real_1009,Leeds,Tottenham,2022-02-26,soccer,Premier League
+real_1010,Brentford,Newcastle,2022-02-26,soccer,Premier League
+real_1011,Crystal Palace,Burnley,2022-02-26,soccer,Premier League
+real_1012,Man United,Watford,2022-02-26,soccer,Premier League
+real_1013,Brighton,Aston Villa,2022-02-26,soccer,Premier League
+real_1014,Everton,Man City,2022-02-26,soccer,Premier League
+real_1015,West Ham,Wolves,2022-02-27,soccer,Premier League
+real_1016,Burnley,Leicester,2022-03-01,soccer,Premier League
+real_1017,Leicester,Leeds,2022-03-05,soccer,Premier League
+real_1018,Aston Villa,Southampton,2022-03-05,soccer,Premier League
+real_1019,Burnley,Chelsea,2022-03-05,soccer,Premier League
+real_1020,Newcastle,Brighton,2022-03-05,soccer,Premier League
+real_1021,Norwich,Brentford,2022-03-05,soccer,Premier League
+real_1022,Wolves,Crystal Palace,2022-03-05,soccer,Premier League
+real_1023,Liverpool,West Ham,2022-03-05,soccer,Premier League
+real_1024,Watford,Arsenal,2022-03-06,soccer,Premier League
+real_1025,Man City,Man United,2022-03-06,soccer,Premier League
+real_1026,Tottenham,Everton,2022-03-07,soccer,Premier League
+real_1027,Norwich,Chelsea,2022-03-10,soccer,Premier League
+real_1028,Southampton,Newcastle,2022-03-10,soccer,Premier League
+real_1029,Wolves,Watford,2022-03-10,soccer,Premier League
+real_1030,Leeds,Aston Villa,2022-03-10,soccer,Premier League
+real_1031,Brighton,Liverpool,2022-03-12,soccer,Premier League
+real_1032,Brentford,Burnley,2022-03-12,soccer,Premier League
+real_1033,Man United,Tottenham,2022-03-12,soccer,Premier League
+real_1034,Chelsea,Newcastle,2022-03-13,soccer,Premier League
+real_1035,Everton,Wolves,2022-03-13,soccer,Premier League
+real_1036,Leeds,Norwich,2022-03-13,soccer,Premier League
+real_1037,Southampton,Watford,2022-03-13,soccer,Premier League
+real_1038,West Ham,Aston Villa,2022-03-13,soccer,Premier League
+real_1039,Arsenal,Leicester,2022-03-13,soccer,Premier League
+real_1040,Crystal Palace,Man City,2022-03-14,soccer,Premier League
+real_1041,Brighton,Tottenham,2022-03-16,soccer,Premier League
+real_1042,Arsenal,Liverpool,2022-03-16,soccer,Premier League
+real_1043,Everton,Newcastle,2022-03-17,soccer,Premier League
+real_1044,Wolves,Leeds,2022-03-18,soccer,Premier League
+real_1045,Aston Villa,Arsenal,2022-03-19,soccer,Premier League
+real_1046,Leicester,Brentford,2022-03-20,soccer,Premier League
+real_1047,Tottenham,West Ham,2022-03-20,soccer,Premier League
+real_1048,Liverpool,Watford,2022-04-02,soccer,Premier League
+real_1049,Brighton,Norwich,2022-04-02,soccer,Premier League
+real_1050,Burnley,Man City,2022-04-02,soccer,Premier League
+real_1051,Chelsea,Brentford,2022-04-02,soccer,Premier League
+real_1052,Leeds,Southampton,2022-04-02,soccer,Premier League
+real_1053,Wolves,Aston Villa,2022-04-02,soccer,Premier League
+real_1054,Man United,Leicester,2022-04-02,soccer,Premier League
+real_1055,West Ham,Everton,2022-04-03,soccer,Premier League
+real_1056,Tottenham,Newcastle,2022-04-03,soccer,Premier League
+real_1057,Crystal Palace,Arsenal,2022-04-04,soccer,Premier League
+real_1058,Burnley,Everton,2022-04-06,soccer,Premier League
+real_1059,Newcastle,Wolves,2022-04-08,soccer,Premier League
+real_1060,Everton,Man United,2022-04-09,soccer,Premier League
+real_1061,Arsenal,Brighton,2022-04-09,soccer,Premier League
+real_1062,Southampton,Chelsea,2022-04-09,soccer,Premier League
+real_1063,Watford,Leeds,2022-04-09,soccer,Premier League
+real_1064,Aston Villa,Tottenham,2022-04-09,soccer,Premier League
+real_1065,Brentford,West Ham,2022-04-10,soccer,Premier League
+real_1066,Leicester,Crystal Palace,2022-04-10,soccer,Premier League
+real_1067,Norwich,Burnley,2022-04-10,soccer,Premier League
+real_1068,Man City,Liverpool,2022-04-10,soccer,Premier League
+real_1069,Tottenham,Brighton,2022-04-16,soccer,Premier League
+real_1070,Man United,Norwich,2022-04-16,soccer,Premier League
+real_1071,Southampton,Arsenal,2022-04-16,soccer,Premier League
+real_1072,Watford,Brentford,2022-04-16,soccer,Premier League
+real_1073,Newcastle,Leicester,2022-04-17,soccer,Premier League
+real_1074,West Ham,Burnley,2022-04-17,soccer,Premier League
+real_1075,Liverpool,Man United,2022-04-19,soccer,Premier League
+real_1076,Chelsea,Arsenal,2022-04-20,soccer,Premier League
+real_1077,Everton,Leicester,2022-04-20,soccer,Premier League
+real_1078,Newcastle,Crystal Palace,2022-04-20,soccer,Premier League
+real_1079,Man City,Brighton,2022-04-20,soccer,Premier League
+real_1080,Burnley,Southampton,2022-04-21,soccer,Premier League
+real_1081,Arsenal,Man United,2022-04-23,soccer,Premier League
+real_1082,Leicester,Aston Villa,2022-04-23,soccer,Premier League
+real_1083,Man City,Watford,2022-04-23,soccer,Premier League
+real_1084,Norwich,Newcastle,2022-04-23,soccer,Premier League
+real_1085,Brentford,Tottenham,2022-04-23,soccer,Premier League
+real_1086,Brighton,Southampton,2022-04-24,soccer,Premier League
+real_1087,Burnley,Wolves,2022-04-24,soccer,Premier League
+real_1088,Chelsea,West Ham,2022-04-24,soccer,Premier League
+real_1089,Liverpool,Everton,2022-04-24,soccer,Premier League
+real_1090,Crystal Palace,Leeds,2022-04-25,soccer,Premier League
+real_1091,Man United,Chelsea,2022-04-28,soccer,Premier League
+real_1092,Newcastle,Liverpool,2022-04-30,soccer,Premier League
+real_1093,Aston Villa,Norwich,2022-04-30,soccer,Premier League
+real_1094,Southampton,Crystal Palace,2022-04-30,soccer,Premier League
+real_1095,Watford,Burnley,2022-04-30,soccer,Premier League
+real_1096,Wolves,Brighton,2022-04-30,soccer,Premier League
+real_1097,Leeds,Man City,2022-04-30,soccer,Premier League
+real_1098,Everton,Chelsea,2022-05-01,soccer,Premier League
+real_1099,Tottenham,Leicester,2022-05-01,soccer,Premier League
+real_1100,West Ham,Arsenal,2022-05-01,soccer,Premier League
+real_1101,Man United,Brentford,2022-05-02,soccer,Premier League
+real_1102,Brentford,Southampton,2022-05-07,soccer,Premier League
+real_1103,Burnley,Aston Villa,2022-05-07,soccer,Premier League
+real_1104,Chelsea,Wolves,2022-05-07,soccer,Premier League
+real_1105,Crystal Palace,Watford,2022-05-07,soccer,Premier League
+real_1106,Brighton,Man United,2022-05-07,soccer,Premier League
+real_1107,Liverpool,Tottenham,2022-05-07,soccer,Premier League
+real_1108,Arsenal,Leeds,2022-05-08,soccer,Premier League
+real_1109,Leicester,Everton,2022-05-08,soccer,Premier League
+real_1110,Norwich,West Ham,2022-05-08,soccer,Premier League
+real_1111,Man City,Newcastle,2022-05-08,soccer,Premier League
+real_1112,Aston Villa,Liverpool,2022-05-10,soccer,Premier League
+real_1113,Leeds,Chelsea,2022-05-11,soccer,Premier League
+real_1114,Leicester,Norwich,2022-05-11,soccer,Premier League
+real_1115,Watford,Everton,2022-05-11,soccer,Premier League
+real_1116,Wolves,Man City,2022-05-11,soccer,Premier League
+real_1117,Tottenham,Arsenal,2022-05-12,soccer,Premier League
+real_1118,Tottenham,Burnley,2022-05-15,soccer,Premier League
+real_1119,Aston Villa,Crystal Palace,2022-05-15,soccer,Premier League
+real_1120,Leeds,Brighton,2022-05-15,soccer,Premier League
+real_1121,Watford,Leicester,2022-05-15,soccer,Premier League
+real_1122,West Ham,Man City,2022-05-15,soccer,Premier League
+real_1123,Wolves,Norwich,2022-05-15,soccer,Premier League
+real_1124,Everton,Brentford,2022-05-15,soccer,Premier League
+real_1125,Newcastle,Arsenal,2022-05-16,soccer,Premier League
+real_1126,Southampton,Liverpool,2022-05-17,soccer,Premier League
+real_1127,Everton,Crystal Palace,2022-05-19,soccer,Premier League
+real_1128,Aston Villa,Burnley,2022-05-19,soccer,Premier League
+real_1129,Chelsea,Leicester,2022-05-19,soccer,Premier League
+real_1130,Arsenal,Everton,2022-05-22,soccer,Premier League
+real_1131,Brentford,Leeds,2022-05-22,soccer,Premier League
+real_1132,Brighton,West Ham,2022-05-22,soccer,Premier League
+real_1133,Burnley,Newcastle,2022-05-22,soccer,Premier League
+real_1134,Chelsea,Watford,2022-05-22,soccer,Premier League
+real_1135,Crystal Palace,Man United,2022-05-22,soccer,Premier League
+real_1136,Leicester,Southampton,2022-05-22,soccer,Premier League
+real_1137,Liverpool,Wolves,2022-05-22,soccer,Premier League
+real_1138,Man City,Aston Villa,2022-05-22,soccer,Premier League
+real_1139,Norwich,Tottenham,2022-05-22,soccer,Premier League

@@ -1,0 +1,251 @@
+{
+  "dashboard": {
+    "id": null,
+    "uid": "betting-advisor",
+    "title": "Betting Expert Advisor Dashboard",
+    "timezone": "browser",
+    "schemaVersion": 16,
+    "version": 1,
+    "refresh": "10s",
+    "panels": [
+      {
+        "type": "stat",
+        "title": "Total Bets Placed",
+        "gridPos": {
+          "x": 0,
+          "y": 0,
+          "w": 6,
+          "h": 4
+        },
+        "id": 1,
+        "targets": [
+          {
+            "expr": "sum(bets_placed_total)",
+            "refId": "A"
+          }
+        ],
+        "options": {
+          "graphMode": "area",
+          "colorMode": "value"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "unit": "none"
+          }
+        }
+      },
+      {
+        "type": "stat",
+        "title": "Current Bankroll",
+        "gridPos": {
+          "x": 6,
+          "y": 0,
+          "w": 6,
+          "h": 4
+        },
+        "id": 2,
+        "targets": [
+          {
+            "expr": "bankroll_current",
+            "refId": "A"
+          }
+        ],
+        "options": {
+          "graphMode": "area",
+          "colorMode": "value"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "unit": "currencyUSD",
+            "decimals": 2
+          }
+        }
+      },
+      {
+        "type": "stat",
+        "title": "Daily P/L",
+        "gridPos": {
+          "x": 12,
+          "y": 0,
+          "w": 6,
+          "h": 4
+        },
+        "id": 3,
+        "targets": [
+          {
+            "expr": "daily_pnl",
+            "refId": "A"
+          }
+        ],
+        "options": {
+          "graphMode": "area",
+          "colorMode": "value"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "unit": "currencyUSD",
+            "decimals": 2,
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "value": null,
+                  "color": "red"
+                },
+                {
+                  "value": 0,
+                  "color": "green"
+                }
+              ]
+            }
+          }
+        }
+      },
+      {
+        "type": "stat",
+        "title": "Open Bets",
+        "gridPos": {
+          "x": 18,
+          "y": 0,
+          "w": 6,
+          "h": 4
+        },
+        "id": 4,
+        "targets": [
+          {
+            "expr": "open_bets_count",
+            "refId": "A"
+          }
+        ],
+        "options": {
+          "graphMode": "none",
+          "colorMode": "value"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "unit": "none"
+          }
+        }
+      },
+      {
+        "type": "graph",
+        "title": "Bets Placed Over Time",
+        "gridPos": {
+          "x": 0,
+          "y": 4,
+          "w": 12,
+          "h": 8
+        },
+        "id": 5,
+        "targets": [
+          {
+            "expr": "rate(bets_placed_total[5m])",
+            "refId": "A",
+            "legendFormat": "{{status}}"
+          }
+        ],
+        "yaxes": [
+          {
+            "format": "short",
+            "label": "Bets/min"
+          },
+          {
+            "format": "short"
+          }
+        ]
+      },
+      {
+        "type": "graph",
+        "title": "Expected Value Distribution",
+        "gridPos": {
+          "x": 12,
+          "y": 4,
+          "w": 12,
+          "h": 8
+        },
+        "id": 6,
+        "targets": [
+          {
+            "expr": "bets_expected_value",
+            "refId": "A"
+          }
+        ],
+        "yaxes": [
+          {
+            "format": "short",
+            "label": "EV"
+          },
+          {
+            "format": "short"
+          }
+        ]
+      },
+      {
+        "type": "graph",
+        "title": "Bankroll History",
+        "gridPos": {
+          "x": 0,
+          "y": 12,
+          "w": 24,
+          "h": 8
+        },
+        "id": 7,
+        "targets": [
+          {
+            "expr": "bankroll_current",
+            "refId": "A",
+            "legendFormat": "Bankroll"
+          }
+        ],
+        "yaxes": [
+          {
+            "format": "currencyUSD",
+            "label": "Bankroll"
+          },
+          {
+            "format": "short"
+          }
+        ]
+      },
+      {
+        "type": "table",
+        "title": "API Errors",
+        "gridPos": {
+          "x": 0,
+          "y": 20,
+          "w": 12,
+          "h": 6
+        },
+        "id": 8,
+        "targets": [
+          {
+            "expr": "sum by (source) (api_errors_total)",
+            "refId": "A",
+            "format": "table"
+          }
+        ]
+      },
+      {
+        "type": "stat",
+        "title": "Model Predictions",
+        "gridPos": {
+          "x": 12,
+          "y": 20,
+          "w": 12,
+          "h": 6
+        },
+        "id": 9,
+        "targets": [
+          {
+            "expr": "sum(model_predictions_total)",
+            "refId": "A"
+          }
+        ],
+        "options": {
+          "graphMode": "area",
+          "colorMode": "value"
+        }
+      }
+    ]
+  }
+}

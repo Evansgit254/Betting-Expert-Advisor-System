@@ -1,0 +1,45 @@
+{
+  "training": {
+    "n_features": 9,
+    "n_samples": 1762,
+    "feature_names": [
+      "away_y",
+      "draw",
+      "home_y",
+      "implied_prob_draw",
+      "bookmaker_margin",
+      "day_of_week",
+      "hour_of_day",
+      "is_weekend",
+      "days_until_match"
+    ]
+  },
+  "validation": {
+    "accuracy": 0.6748251748251748,
+    "brier": 0.19596600720468976,
+    "log_loss": 0.5754615157164568,
+    "n_test_samples": 286
+  },
+  "backtest": {
+    "total_bets": 0,
+    "wins": 0,
+    "losses": 0,
+    "total_pnl": 0.0,
+    "roi": 0.0,
+    "win_rate": 0.0,
+    "avg_odds": 0.0,
+    "avg_stake": 0.0,
+    "sharpe_ratio": 0.0,
+    "max_drawdown_pct": 0.0,
+    "final_bankroll": 10000.0,
+    "bankroll_change": 0.0,
+    "bankroll_change_pct": 0.0
+  },
+  "feature_importance": {
+    "home_y": 0.2490568347466566,
+    "away_y": 0.22475578089469975,
+    "days_until_match": 0.14354379114895582,
+    "draw": 0.11101350853156493,
+    "implied_prob_draw": 0.07890416317037417
+  }
+}

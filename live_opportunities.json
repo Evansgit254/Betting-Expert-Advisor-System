@@ -1,0 +1,41 @@
+[
+  {
+    "market_id": "3a343964e502e0319c266b20a3e15879",
+    "selection": "home",
+    "odds": 11.0,
+    "p": 0.5261203578466551,
+    "ev": 4.787323936313206,
+    "stake": 87.04225338751286,
+    "expected_profit": 416.69946311267955,
+    "home": "Burnley",
+    "away": "Arsenal",
+    "league": "EPL",
+    "sharpe": 0.8716127022400769
+  },
+  {
+    "market_id": "1f43200e817401cdd24c86a9310cfb6d",
+    "selection": "home",
+    "odds": 7.5,
+    "p": 0.5282923014441433,
+    "ev": 2.962192260831075,
+    "stake": 121.5258363417877,
+    "expected_profit": 359.9828919026673,
+    "home": "Sunderland",
+    "away": "Arsenal",
+    "league": "EPL",
+    "sharpe": 0.7911855675285778
+  },
+  {
+    "market_id": "ea5e37fdac270926180fac7c1c7dc2e4",
+    "selection": "home",
+    "odds": 5.0,
+    "p": 0.534407955315425,
+    "ev": 1.6720397765771247,
+    "stake": 167.20397765771247,
+    "expected_profit": 279.5717014456081,
+    "home": "West Ham United",
+    "away": "Newcastle United",
+    "league": "EPL",
+    "sharpe": 0.6704051897385057
+  }
+]
