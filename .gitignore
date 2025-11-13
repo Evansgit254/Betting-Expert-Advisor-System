@@ -40,7 +40,9 @@ env/
 
 # Testing
 .pytest_cache/
+.mypy_cache/
 .coverage
+coverage.xml
 htmlcov/
 *.cover
 
@@ -51,6 +53,7 @@ data/*.db
 data/*.csv
 !data/sample/*.csv
 backtest_results.csv
+pipeline_output/
 
 # Logs
 *.log
@@ -67,5 +70,3 @@ monitoring/grafana/
 # Docker
 *.dockerignore
 
-#Docs
-docs/
