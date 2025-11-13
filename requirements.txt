@@ -26,7 +26,25 @@ tenacity==8.2.3
 fastapi==0.110.0
 uvicorn==0.30.0
 prometheus_client==0.17.0
-systemd-python==235
 
 # --- Optional UX Enhancements ---
 rich==13.7.1
+aiohttp
+alembic
+fastapi
+httpx
+joblib
+lightgbm
+numpy
+optuna
+pandas
+prometheus_client
+pydantic
+pydantic-settings
+python-dateutil
+python-dotenv
+requests
+scikit-learn
+sqlalchemy
+tenacity
+uvicorn

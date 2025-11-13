@@ -1,0 +1,43 @@
+modules = ["python-3.11", "bash"]
+[agent]
+expertMode = true
+
+[nix]
+channel = "stable-25_05"
+packages = ["gcc", "glibcLocales", "libxcrypt", "ocl-icd", "opencl-headers", "pkg-config"]
+
+[workflows]
+runButton = "Project"
+
+[[workflows.workflow]]
+name = "Project"
+mode = "parallel"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "monitoring-api"
+
+[[workflows.workflow]]
+name = "monitoring-api"
+author = "agent"
+
+[workflows.workflow.metadata]
+outputType = "webview"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "python -m src.main --mode serve --host 0.0.0.0 --port 5000"
+waitForPort = 5000
+
+[[ports]]
+localPort = 5000
+externalPort = 80
+
+[[ports]]
+localPort = 45663
+externalPort = 3000
+
+[deployment]
+deploymentTarget = "vm"
+run = ["python", "-m", "src.main", "--mode", "serve", "--host", "0.0.0.0", "--port"]

@@ -2,17 +2,9 @@
 import argparse
 import sys
 
-from src.adapters.theodds_api import TheOddsAPIAdapter
 from src.config import settings
-from src.data_fetcher import DataFetcher, MockDataSource
 from src.db import init_db
-from src.executor import Executor
-from src.feature import build_features
 from src.logging_config import get_logger
-from src.ml_pipeline import MLPipeline
-from src.model import ModelWrapper
-from src.strategy import find_value_bets
-from src.tools.synthetic_data import generate_complete_dataset
 from src.utils import setup_logging
 
 # Setup logging
@@ -22,6 +14,9 @@ logger = get_logger(__name__)
 
 def cmd_fetch(args):
     """Fetch data from configured source."""
+    from src.adapters.theodds_api import TheOddsAPIAdapter
+    from src.data_fetcher import DataFetcher, MockDataSource
+    
     logger.info("=== Fetch Mode ===")
 
     # Use TheOddsAPI if API key is configured, otherwise use mock data
@@ -47,6 +42,11 @@ def cmd_fetch(args):
 
 def cmd_train(args):
     """Train ML model."""
+    from src.feature import build_features
+    from src.ml_pipeline import MLPipeline
+    from src.model import ModelWrapper
+    from src.tools.synthetic_data import generate_complete_dataset
+    
     logger.info("=== Train Mode ===")
 
     # Generate synthetic training data
@@ -90,6 +90,11 @@ def cmd_train(args):
 
 def cmd_simulate(args):
     """Run simulation/backtest."""
+    from src.data_fetcher import DataFetcher
+    from src.executor import Executor
+    from src.feature import build_features
+    from src.strategy import find_value_bets
+    
     logger.info("=== Simulate Mode ===")
 
     # Initialize database
@@ -137,6 +142,11 @@ def cmd_simulate(args):
 
 def cmd_place(args):
     """Place bets (DRY-RUN or LIVE)."""
+    from src.data_fetcher import DataFetcher
+    from src.executor import Executor
+    from src.feature import build_features
+    from src.strategy import find_value_bets
+    
     is_dry_run = args.dry_run or settings.MODE == "DRY_RUN"
 
     logger.info(f"=== Place Mode ({'DRY-RUN' if is_dry_run else 'LIVE'}) ===")
