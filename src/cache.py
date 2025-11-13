@@ -5,7 +5,7 @@ from typing import List, Optional
 import pandas as pd
 from sqlalchemy import Column, DateTime, Float, Index, Integer, String, Text
 
-from src.db import Base, get_session
+from src.db import Base, handle_db_errors
 from src.logging_config import get_logger
 
 logger = get_logger(__name__)
@@ -75,7 +75,7 @@ class DataCache:
         """
         cutoff_time = datetime.now(timezone.utc) - self.fixtures_ttl
 
-        with get_session() as session:
+        with handle_db_errors() as session:
             query = session.query(CachedFixture).filter(CachedFixture.fetched_at > cutoff_time)
 
             if sport:
@@ -121,7 +121,7 @@ class DataCache:
         if fixtures_df.empty:
             return
 
-        with get_session() as session:
+        with handle_db_errors() as session:
             for _, row in fixtures_df.iterrows():
                 # Check if already exists
                 existing = (
@@ -165,7 +165,7 @@ class DataCache:
 
         cutoff_time = datetime.now(timezone.utc) - self.odds_ttl
 
-        with get_session() as session:
+        with handle_db_errors() as session:
             cached = (
                 session.query(CachedOdds)
                 .filter(CachedOdds.market_id.in_(market_ids), CachedOdds.fetched_at > cutoff_time)
@@ -218,7 +218,7 @@ class DataCache:
         if odds_df.empty:
             return
 
-        with get_session() as session:
+        with handle_db_errors() as session:
             # Clear old cache for these markets
             for _, row in odds_df.iterrows():
                 # Check if already exists
@@ -253,7 +253,7 @@ class DataCache:
             fixtures: Clear fixtures cache
             odds: Clear odds cache
         """
-        with get_session() as session:
+        with handle_db_errors() as session:
             if fixtures:
                 count = session.query(CachedFixture).delete()
                 logger.info(f"Cleared {count} cached fixtures")
@@ -270,7 +270,7 @@ class DataCache:
         Returns:
             Dictionary with cache stats
         """
-        with get_session() as session:
+        with handle_db_errors() as session:
             fixtures_count = session.query(CachedFixture).count()
             odds_count = session.query(CachedOdds).count()
 
