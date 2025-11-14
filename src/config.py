@@ -13,7 +13,8 @@ from typing import List, Optional
 from pydantic import Field, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
-logger = logging.getLogger(__name__)
+# Module-level logger for validators (cannot use get_logger due to circular import)
+_logger = logging.getLogger(__name__)
 
 
 LIVE_MODE_REQUIRED_FIELDS = (
@@ -85,6 +86,16 @@ class Settings(BaseSettings):
     TELEGRAM_CHAT_ID: Optional[str] = Field(default=None)
 
     PAPER_TRADING_DAYS_REQUIRED: int = Field(default=30, ge=0, le=365)
+    
+    # Database retry and connection pooling configuration
+    DB_RETRY_ATTEMPTS: int = Field(default=3, ge=1, le=10, description="Number of retry attempts for DB operations")
+    DB_RETRY_WAIT_MIN: int = Field(default=1, ge=1, le=10, description="Minimum wait time between retries (seconds)")
+    DB_RETRY_WAIT_MAX: int = Field(default=5, ge=1, le=60, description="Maximum wait time between retries (seconds)")
+    DB_POOL_SIZE: int = Field(default=10, ge=1, le=100, description="Maximum persistent database connections")
+    DB_MAX_OVERFLOW: int = Field(default=20, ge=0, le=100, description="Additional connections during burst")
+    DB_POOL_TIMEOUT: int = Field(default=30, ge=5, le=300, description="Timeout waiting for connection (seconds)")
+    DB_POOL_RECYCLE: int = Field(default=3600, ge=300, le=86400, description="Recycle connections after this many seconds")
+    DB_CONNECT_TIMEOUT: int = Field(default=15, ge=5, le=60, description="SQLite-specific connection timeout")
 
     @field_validator("ENV")
     @classmethod
@@ -100,7 +111,8 @@ class Settings(BaseSettings):
         if normalized not in {"DRY_RUN", "LIVE"}:
             raise ValueError("MODE must be DRY_RUN or LIVE")
         if normalized == "LIVE":
-            logger.warning("LIVE MODE ENABLED - ensure production safeguards are satisfied")
+            # Use module-level logger to avoid circular import during Settings initialization
+            _logger.warning("LIVE MODE ENABLED - ensure production safeguards are satisfied")
         return normalized
 
     @field_validator("LOG_LEVEL")

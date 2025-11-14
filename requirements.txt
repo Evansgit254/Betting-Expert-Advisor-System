@@ -89,3 +89,4 @@ scikit-learn
 sqlalchemy
 tenacity
 uvicorn
+pybreaker

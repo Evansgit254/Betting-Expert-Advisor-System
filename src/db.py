@@ -32,17 +32,10 @@ from src.logging_config import get_logger
 from src.monitoring import send_alert
 from src.utils import utc_now
 
-# Configure logging
-logging.basicConfig(level=logging.INFO)
 logger = get_logger(__name__)
 
 # Type variable for generic function return type
 T = TypeVar("T")
-
-# Retry configuration
-DB_RETRY_ATTEMPTS = 3
-DB_RETRY_WAIT_MIN = 1  # seconds
-DB_RETRY_WAIT_MAX = 5  # seconds
 
 
 def before_retry_callback(retry_state: RetryCallState) -> None:
@@ -61,8 +54,8 @@ def db_retry(retry_on: tuple[type[Exception], ...] = (SQLAlchemyError, Operation
 
     def decorator(func: Callable[..., T]) -> Callable[..., T]:
         @retry(
-            stop=stop_after_attempt(DB_RETRY_ATTEMPTS),
-            wait=wait_exponential(multiplier=1, min=DB_RETRY_WAIT_MIN, max=DB_RETRY_WAIT_MAX),
+            stop=stop_after_attempt(settings.DB_RETRY_ATTEMPTS),
+            wait=wait_exponential(multiplier=1, min=settings.DB_RETRY_WAIT_MIN, max=settings.DB_RETRY_WAIT_MAX),
             retry=retry_if_exception_type(retry_on),
             before_sleep=before_retry_callback,
             reraise=True,
@@ -73,7 +66,7 @@ def db_retry(retry_on: tuple[type[Exception], ...] = (SQLAlchemyError, Operation
             except retry_on as e:
                 logger.error(
                     "Database operation failed after %d attempts: %s",
-                    DB_RETRY_ATTEMPTS,
+                    settings.DB_RETRY_ATTEMPTS,
                     str(e),
                     exc_info=True,
                 )
@@ -117,13 +110,13 @@ engine = create_engine(
     settings.DB_URL,
     echo=False,
     future=True,
-    pool_size=10,  # Maximum persistent connections
-    max_overflow=20,  # Additional connections during burst
-    pool_timeout=30,  # Timeout waiting for connection (seconds)
-    pool_recycle=3600,  # Recycle connections every hour
+    pool_size=settings.DB_POOL_SIZE,  # Maximum persistent connections
+    max_overflow=settings.DB_MAX_OVERFLOW,  # Additional connections during burst
+    pool_timeout=settings.DB_POOL_TIMEOUT,  # Timeout waiting for connection (seconds)
+    pool_recycle=settings.DB_POOL_RECYCLE,  # Recycle connections periodically
     pool_pre_ping=True,  # Verify connections before use
     connect_args={
-        "timeout": 15,  # SQLite-specific timeout
+        "timeout": settings.DB_CONNECT_TIMEOUT,  # SQLite-specific timeout
     }
     if settings.DB_URL.startswith("sqlite")
     else {},

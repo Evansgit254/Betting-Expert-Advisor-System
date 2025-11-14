@@ -5,10 +5,7 @@ import sys
 from src.config import settings
 from src.db import init_db
 from src.logging_config import get_logger
-from src.utils import setup_logging
 
-# Setup logging
-setup_logging()
 logger = get_logger(__name__)
 
 

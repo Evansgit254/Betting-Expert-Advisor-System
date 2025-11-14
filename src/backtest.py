@@ -10,7 +10,6 @@ try:
     from src.logging_config import get_logger
     from src.strategy import find_value_bets
     from src.tools.synthetic_data import generate_complete_dataset
-    from src.utils import setup_logging
 except ModuleNotFoundError:  # pragma: no cover - fallback for direct execution
     PROJECT_ROOT = Path(__file__).resolve().parent.parent
     if str(PROJECT_ROOT) not in sys.path:
@@ -20,9 +19,7 @@ except ModuleNotFoundError:  # pragma: no cover - fallback for direct execution
     from src.logging_config import get_logger
     from src.strategy import find_value_bets
     from src.tools.synthetic_data import generate_complete_dataset
-    from src.utils import setup_logging
 
-setup_logging()
 logger = get_logger(__name__)
 
 

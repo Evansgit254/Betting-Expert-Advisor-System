@@ -1,19 +1,7 @@
-"""Utility functions for logging, validation, and common operations."""
-import json
-import logging
-import sys
+"""Utility functions for validation and common operations."""
 from datetime import datetime, timezone
 
 from src.config import settings
-
-
-def setup_logging():
-    """Configure structured JSON logging."""
-    logging.basicConfig(
-        level=getattr(logging, settings.LOG_LEVEL),
-        format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
-        handlers=[logging.StreamHandler(sys.stdout)],
-    )
 
 
 def utc_now() -> datetime:
@@ -33,13 +21,6 @@ def validate_stake(stake: float, bankroll: float) -> bool:
     if stake > bankroll * settings.MAX_STAKE_FRAC:
         return False
     return True
-
-
-def log_structured(logger: logging.Logger, level: str, message: str, **kwargs):
-    """Log a structured message with additional context."""
-    data = {"timestamp": utc_now().isoformat(), "message": message, **kwargs}
-    log_fn = getattr(logger, level.lower())
-    log_fn(json.dumps(data))
 
 
 def format_currency(amount: float, currency: str = "USD") -> str:

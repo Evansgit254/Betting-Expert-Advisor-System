@@ -10,9 +10,7 @@ from src.db import BetRecord, handle_db_errors, init_db, save_bet
 from src.executor import Executor
 from src.logging_config import get_logger
 from src.risk import kelly_fraction, validate_bet
-from src.utils import setup_logging
 
-setup_logging()
 logger = get_logger(__name__)
 
 

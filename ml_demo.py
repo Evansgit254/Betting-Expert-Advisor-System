@@ -8,13 +8,12 @@ import pandas as pd
 from src.db import BetRecord, handle_db_errors, init_db
 from src.executor import Executor
 from src.feature import build_features
+from src.logging_config import get_logger
 from src.model import ModelWrapper
 from src.risk import kelly_fraction
 from src.strategy import find_value_bets
 from src.tools.synthetic_data import generate_complete_dataset
-from src.utils import get_logger, setup_logging
 
-setup_logging()
 logger = get_logger(__name__)
 
 

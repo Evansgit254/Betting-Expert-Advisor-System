@@ -13,8 +13,6 @@ from tqdm import tqdm
 
 from src.logging_config import get_logger
 
-# Configure logging
-logging.basicConfig(level=logging.INFO)
 logger = get_logger(__name__)
 
 

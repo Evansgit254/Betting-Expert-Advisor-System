@@ -6,43 +6,16 @@ from unittest.mock import patch
 
 import pytest
 
-from src.logging_config import get_logger
+from src.logging_config import get_logger, setup_logging
 from src.utils import (
-    calculate_ev,
     format_currency,
-    log_structured,
-    setup_logging,
     utc_now,
     validate_odds,
     validate_stake,
 )
 
 
-def test_setup_logging():
-    """Test logging configuration."""
-    # Save original log level and handlers
-    original_handlers = logging.root.handlers.copy()
-    original_level = logging.root.level
-
-    try:
-        # Test with different log levels
-        for level in ["DEBUG", "INFO", "WARNING", "ERROR"]:
-            # Reset logging
-            logging.root.handlers = []
-
-            # Setup logging with current level
-            with patch("src.utils.settings.LOG_LEVEL", level):
-                setup_logging()
-
-                # Verify the root logger has the correct level
-                assert logging.root.level == getattr(logging, level)
-
-                # Verify we have at least one handler
-                assert len(logging.root.handlers) > 0
-    finally:
-        # Restore original logging configuration
-        logging.root.handlers = original_handlers
-        logging.root.setLevel(original_level)
+# NOTE: setup_logging moved to src.logging_config - test it there instead
 
 
 def test_get_logger():
