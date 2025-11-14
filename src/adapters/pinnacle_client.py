@@ -9,6 +9,7 @@ from typing import Any, Dict, Optional
 import requests
 from tenacity import RetryError, retry, stop_after_attempt, wait_exponential
 
+from src.adapters._circuit import with_circuit_breaker
 from src.logging_config import get_logger
 
 logger = get_logger(__name__)
@@ -18,6 +19,7 @@ KEY = os.getenv("BOOKIE_API_KEY")
 TIMEOUT = int(os.getenv("HTTP_TIMEOUT", "10"))
 
 
+@with_circuit_breaker(name="pinnacle_client", fallback_value=None, use_cache=False)
 @retry(wait=wait_exponential(min=1, max=4), stop=stop_after_attempt(3))
 def _post(
     path: str,

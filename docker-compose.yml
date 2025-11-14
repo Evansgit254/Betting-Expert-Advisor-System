@@ -1,15 +1,55 @@
 version: '3.8'
 
 services:
+  # PostgreSQL database for production-like environment
+  db:
+    image: postgres:15-alpine
+    container_name: betting-advisor-db
+    environment:
+      POSTGRES_DB: betting_advisor
+      POSTGRES_USER: betting_user
+      POSTGRES_PASSWORD: dev_password_change_in_prod
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - betting-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U betting_user"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Redis for caching
+  redis:
+    image: redis:7-alpine
+    container_name: betting-advisor-redis
+    ports:
+      - "6379:6379"
+    networks:
+      - betting-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Main application
   app:
     build:
       context: .
       dockerfile: Dockerfile
     container_name: betting-advisor-app
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
     environment:
       - ENV=development
       - MODE=DRY_RUN
-      - DB_URL=sqlite:////app/data/bets.db
+      - DB_URL=postgresql://betting_user:dev_password_change_in_prod@db:5432/betting_advisor
       - DEFAULT_KELLY_FRACTION=0.2
       - MAX_STAKE_FRAC=0.05
       - DAILY_LOSS_LIMIT=1000
@@ -19,26 +59,32 @@ services:
       - ./data:/app/data
       - ./models:/app/models
       - ./logs:/app/logs
-      - .:/app
-    command: ["python", "src/main.py", "--mode", "simulate", "--dry-run"]
     networks:
       - betting-network
 
+  # Monitoring/API service
   monitoring:
     build:
       context: .
       dockerfile: Dockerfile
     container_name: betting-advisor-monitoring
+    depends_on:
+      db:
+        condition: service_healthy
     environment:
       - ENV=development
       - MODE=DRY_RUN
+      - DB_URL=postgresql://betting_user:dev_password_change_in_prod@db:5432/betting_advisor
     ports:
-      - "8000:8000"
+      - "5000:5000"
     volumes:
-      - .:/app
-    command: ["python", "-m", "uvicorn", "src.monitoring:app", "--host", "0.0.0.0", "--port", "8000"]
+      - ./logs:/app/logs
+    command: ["python", "-m", "uvicorn", "src.monitoring:app", "--host", "0.0.0.0", "--port", "5000"]
     networks:
       - betting-network
+
+volumes:
+  postgres_data:
 
 networks:
   betting-network:

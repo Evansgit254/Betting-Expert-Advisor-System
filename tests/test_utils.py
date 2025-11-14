@@ -6,6 +6,7 @@ from unittest.mock import patch
 
 import pytest
 
+from src.logging_config import get_logger
 from src.utils import (
     calculate_ev,
     format_currency,
@@ -15,7 +16,6 @@ from src.utils import (
     validate_odds,
     validate_stake,
 )
-from src.logging_config import get_logger
 
 
 def test_setup_logging():

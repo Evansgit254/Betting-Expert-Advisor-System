@@ -15,7 +15,14 @@ from enum import Enum
 from typing import Any, Dict, Optional
 
 from src.config import settings
-from src.db import BetRecord, get_daily_loss, get_open_bets_count, handle_db_errors, init_db, save_bet
+from src.db import (
+    BetRecord,
+    get_daily_loss,
+    get_open_bets_count,
+    handle_db_errors,
+    init_db,
+    save_bet,
+)
 from src.logging_config import get_logger
 from src.monitoring import send_alert
 from src.risk import check_risk_limits, validate_bet_parameters

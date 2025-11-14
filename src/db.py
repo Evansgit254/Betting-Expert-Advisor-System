@@ -2,8 +2,7 @@
 import logging
 from contextlib import contextmanager
 from datetime import date, datetime, time, timedelta, timezone
-from decimal import Decimal
-from typing import Any, Callable, Dict, Generator, List, Optional, Type, TypeVar, Union, cast
+from typing import Any, Callable, Dict, Generator, List, Optional, TypeVar, Union, cast
 
 from sqlalchemy import (
     JSON,
@@ -15,15 +14,13 @@ from sqlalchemy import (
     String,
     case,
     create_engine,
-    event,
     func,
     text,
 )
 from sqlalchemy.exc import IntegrityError, OperationalError, SQLAlchemyError
-from sqlalchemy.orm import Session, declarative_base, scoped_session, sessionmaker
+from sqlalchemy.orm import Session, declarative_base, sessionmaker
 from tenacity import (
     RetryCallState,
-    RetryError,
     retry,
     retry_if_exception_type,
     stop_after_attempt,
@@ -33,7 +30,7 @@ from tenacity import (
 from src.config import settings
 from src.logging_config import get_logger
 from src.monitoring import send_alert
-from src.utils import DBUnavailableError, utc_now
+from src.utils import utc_now
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -635,7 +632,7 @@ def get_current_bankroll() -> float:
             result = (
                 session.query(func.coalesce(func.sum(BetRecord.profit_loss), 0.0))
                 .filter(
-                    BetRecord.result.in_(["win", "loss", "void"]), BetRecord.is_dry_run == False
+                    BetRecord.result.in_(["win", "loss", "void"]), BetRecord.is_dry_run.is_(False)
                 )
                 .scalar()
             )
@@ -653,7 +650,7 @@ def get_consecutive_losses(session: Session, max_recent: int = 10) -> int:
     """
     recent_bets = (
         session.query(BetRecord)
-        .filter(BetRecord.is_dry_run == False, BetRecord.result.in_(["win", "loss"]))
+        .filter(BetRecord.is_dry_run.is_(False), BetRecord.result.in_(["win", "loss"]))
         .order_by(BetRecord.settled_at.desc())
         .limit(max_recent)
         .all()

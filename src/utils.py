@@ -42,19 +42,6 @@ def log_structured(logger: logging.Logger, level: str, message: str, **kwargs):
     log_fn(json.dumps(data))
 
 
-def calculate_ev(win_prob: float, odds: float) -> float:
-    """Calculate expected value for a bet.
-
-    Args:
-        win_prob: Probability of winning (0-1)
-        odds: Decimal odds
-
-    Returns:
-        Expected value as a fraction
-    """
-    return win_prob * (odds - 1) - (1 - win_prob)
-
-
 def format_currency(amount: float, currency: str = "USD") -> str:
     """Format amount as currency string."""
     return f"{currency} {amount:.2f}"
@@ -84,11 +71,15 @@ class ConfigurationError(BettingExpertError):
     """Critical misconfiguration or missing setting."""
 
 
+class ExternalServiceUnavailable(BettingExpertError):
+    """Raised when an external service is unavailable due to circuit breaker or persistent failures."""
+
+
 # Optionally, utility for error logging
 
 
 def log_exception(e: Exception, context: str = ""):
-    import logging
+    from src.logging_config import get_logger
 
-    logger = logging.getLogger("BettingExpert")
+    logger = get_logger("BettingExpert")
     logger.error(f"[{context}] {type(e).__name__}: {e}")

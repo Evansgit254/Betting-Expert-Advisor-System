@@ -48,8 +48,28 @@ class Settings(BaseSettings):
     DAILY_LOSS_LIMIT: float = Field(default=1000.0, gt=0)
     MAX_OPEN_BETS: int = Field(default=10, ge=0, le=500)
     CONSECUTIVE_LOSS_LIMIT: int = Field(default=5, ge=1, le=20)
+    CONSECUTIVE_LOSS_WARN: int = Field(default=3, ge=1, le=10)
     MAX_DRAWDOWN_FRACTION: float = Field(default=0.20, ge=0.0, le=0.9)
+    DRAWDOWN_WARN_FRACTION: float = Field(default=0.15, ge=0.0, le=0.5)
     RATE_LIMIT_PER_MINUTE: int = Field(default=10, ge=1, le=120)
+    RATE_LIMIT_WINDOW_SECONDS: int = Field(default=60, ge=10, le=300)
+    MAX_RECENT_LOSSES_CHECK: int = Field(default=10, ge=5, le=50)
+    PEAK_BANKROLL_DAYS: int = Field(default=30, ge=7, le=365)
+    
+    # Betting constraints
+    MIN_ODDS: float = Field(default=1.01, ge=1.0, le=1.5)
+    MAX_ODDS: float = Field(default=1000.0, ge=10.0, le=10000.0)
+    MAX_STAKE_ABSOLUTE: float = Field(default=100000.0, ge=100.0)
+    MIN_EDGE: float = Field(default=0.01, ge=0.0, le=0.5)
+    
+    # Circuit Breaker configuration
+    CIRCUIT_BREAKER_MAX_FAILURES: int = Field(default=5, ge=1, le=20)
+    CIRCUIT_BREAKER_RESET_TIMEOUT: int = Field(default=60, ge=10, le=600)
+    
+    # Backtest defaults
+    BACKTEST_DEFAULT_DAYS: int = Field(default=90, ge=7, le=365)
+    BACKTEST_INITIAL_BANKROLL: float = Field(default=10000.0, ge=100.0)
+    BACKTEST_GAMES_PER_DAY: int = Field(default=5, ge=1, le=50)
 
     # API configuration
     BOOKIE_API_KEY: Optional[str] = Field(default=None)

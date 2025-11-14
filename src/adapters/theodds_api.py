@@ -16,6 +16,7 @@ except ImportError:  # pragma: no cover
     MagicMock = None
 
 
+from src.adapters._circuit import with_circuit_breaker
 from src.logging_config import get_logger
 
 logger = get_logger(__name__)
@@ -25,6 +26,7 @@ BASE_URL = os.getenv("THEODDS_API_BASE", "https://api.the-odds-api.com/v4")
 HTTP_TIMEOUT = int(os.getenv("HTTP_TIMEOUT", "10"))
 
 
+@with_circuit_breaker(name="theodds_api", fallback_value=[], use_cache=False)
 @retry(wait=wait_exponential(multiplier=1, min=1, max=4), stop=stop_after_attempt(3))
 def _get(path: str, params: Optional[Dict[str, Any]] = None) -> Any:
     params = dict(params or {})

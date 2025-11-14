@@ -171,8 +171,8 @@ def check_risk_limits(
     # 6. CRITICAL FIX: Check consecutive losses circuit breaker (skip for dry-run)
     if not is_dry_run:
         with handle_db_errors() as session:
-            consecutive_losses = get_consecutive_losses(session, max_recent=10)
-            max_consecutive = 5  # Configurable threshold
+            consecutive_losses = get_consecutive_losses(session, max_recent=settings.MAX_RECENT_LOSSES_CHECK)
+            max_consecutive = settings.CONSECUTIVE_LOSS_LIMIT
 
             if consecutive_losses >= max_consecutive:
                 logger.error(f"Circuit breaker triggered: {consecutive_losses} consecutive losses")
@@ -185,8 +185,8 @@ def check_risk_limits(
                     "allowed": False,
                     "reason": f"Circuit breaker: {consecutive_losses} consecutive losses",
                 }
-            elif consecutive_losses >= 3:
-                # Warning at 3 losses
+            elif consecutive_losses >= settings.CONSECUTIVE_LOSS_WARN:
+                # Warning threshold from config
                 logger.warning(f"Warning: {consecutive_losses} consecutive losses")
                 send_alert(
                     f"⚠️ {consecutive_losses} consecutive losses - approaching circuit breaker",
@@ -196,7 +196,7 @@ def check_risk_limits(
     # 7. CRITICAL FIX: Check drawdown protection (skip for dry-run)
     if not is_dry_run:
         with handle_db_errors() as session:
-            peak_bankroll = get_peak_bankroll(session, days=30)
+            peak_bankroll = get_peak_bankroll(session, days=settings.PEAK_BANKROLL_DAYS)
             current_bankroll = get_current_bankroll()
 
             if current_bankroll <= 0:
@@ -207,7 +207,7 @@ def check_risk_limits(
 
             if peak_bankroll > 0:
                 drawdown = (peak_bankroll - current_bankroll) / peak_bankroll
-                max_drawdown = 0.20  # 20% max drawdown (configurable)
+                max_drawdown = settings.MAX_DRAWDOWN_FRACTION
 
                 if drawdown > max_drawdown:
                     logger.error(
@@ -223,8 +223,8 @@ def check_risk_limits(
                         "allowed": False,
                         "reason": f"Drawdown {drawdown:.1%} exceeds {max_drawdown:.1%}",
                     }
-                elif drawdown > 0.15:
-                    # Warning at 15% drawdown
+                elif drawdown > settings.DRAWDOWN_WARN_FRACTION:
+                    # Warning threshold from config
                     logger.warning(f"High drawdown: {drawdown:.1%}")
                     send_alert(
                         f"⚠️ Drawdown warning: {drawdown:.1%} (max: {max_drawdown:.1%})",
@@ -271,8 +271,8 @@ def validate_bet_parameters(
         odds_dec = Decimal(str(odds))
         if odds_dec < Decimal("1.01"):
             errors.append("Odds must be >= 1.01")
-        if odds_dec > Decimal("1000"):
-            errors.append("Odds unreasonably high (>1000)")
+        if odds_dec > Decimal(str(settings.MAX_ODDS)):
+            errors.append(f"Odds unreasonably high (>{settings.MAX_ODDS})")
     except (InvalidOperation, ValueError):
         errors.append("Invalid odds format")
 
@@ -417,7 +417,7 @@ def get_recommended_stake(
         edge = float(
             (p_dec * odds_dec - Decimal("1")).quantize(Decimal("0.0001"), rounding=ROUND_HALF_UP)
         )
-    except:
+    except Exception:
         edge = 0.0
 
     kelly_pct = (stake / bankroll) if bankroll > 0 else 0.0
@@ -451,7 +451,7 @@ def validate_bet(
     if odds <= 1.01:
         return False, "Odds too low"
 
-    if odds > 1000:
+    if odds > settings.MAX_ODDS:
         return False, "Odds too high"
 
     if stake <= 0:

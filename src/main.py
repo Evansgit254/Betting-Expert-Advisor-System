@@ -16,7 +16,7 @@ def cmd_fetch(args):
     """Fetch data from configured source."""
     from src.adapters.theodds_api import TheOddsAPIAdapter
     from src.data_fetcher import DataFetcher, MockDataSource
-    
+
     logger.info("=== Fetch Mode ===")
 
     # Use TheOddsAPI if API key is configured, otherwise use mock data
@@ -46,7 +46,7 @@ def cmd_train(args):
     from src.ml_pipeline import MLPipeline
     from src.model import ModelWrapper
     from src.tools.synthetic_data import generate_complete_dataset
-    
+
     logger.info("=== Train Mode ===")
 
     # Generate synthetic training data
@@ -94,7 +94,7 @@ def cmd_simulate(args):
     from src.executor import Executor
     from src.feature import build_features
     from src.strategy import find_value_bets
-    
+
     logger.info("=== Simulate Mode ===")
 
     # Initialize database
@@ -146,7 +146,7 @@ def cmd_place(args):
     from src.executor import Executor
     from src.feature import build_features
     from src.strategy import find_value_bets
-    
+
     is_dry_run = args.dry_run or settings.MODE == "DRY_RUN"
 
     logger.info(f"=== Place Mode ({'DRY-RUN' if is_dry_run else 'LIVE'}) ===")

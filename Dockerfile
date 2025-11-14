@@ -1,31 +1,49 @@
-FROM python:3.11-slim
+# Multi-stage Dockerfile for production
+FROM python:3.11-slim AS builder
 
-# Set working directory
-WORKDIR /app
-
-# Install system dependencies
-RUN apt-get update && apt-get install -y \
+# Install build dependencies
+RUN apt-get update && apt-get install -y --no-install-recommends \
     gcc \
     g++ \
     pkg-config \
     libsystemd-dev \
     && rm -rf /var/lib/apt/lists/*
 
-# Copy requirements first for better caching
+WORKDIR /build
 COPY requirements.txt .
+RUN pip install --no-cache-dir --user -r requirements.txt
 
-# Install Python dependencies
-RUN pip install --no-cache-dir -r requirements.txt
+# Production stage
+FROM python:3.11-slim
+
+# Create non-root user
+RUN useradd --create-home --shell /bin/bash appuser && \
+    mkdir -p /app /app/data /app/models /app/logs && \
+    chown -R appuser:appuser /app
+
+# Copy installed packages from builder
+COPY --from=builder /root/.local /home/appuser/.local
+
+# Set environment
+ENV PATH="/home/appuser/.local/bin:$PATH" \
+    PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONPATH=/app
 
 # Copy application code
-COPY . .
+WORKDIR /app
+COPY --chown=appuser:appuser src/ ./src/
+COPY --chown=appuser:appuser migrations/ ./migrations/
+COPY --chown=appuser:appuser alembic.ini ./
 
-# Create necessary directories
-RUN mkdir -p /app/data /app/models /app/logs
+# Switch to non-root user
+USER appuser
 
-# Set environment variables
-ENV PYTHONUNBUFFERED=1
-ENV PYTHONPATH=/app
+# Health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
+    CMD python -c "import sys; sys.exit(0)" || exit 1
+
+EXPOSE 5000
 
 # Default command
-CMD ["python", "src/main.py", "--mode", "simulate", "--dry-run"]
+CMD ["python", "-m", "src.main", "--mode", "serve", "--host", "0.0.0.0", "--port", "5000"]
