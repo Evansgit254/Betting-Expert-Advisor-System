@@ -1,0 +1,523 @@
+
+✅ MASTER AGENT PROMPT — FULL PRODUCTION UPGRADE + UI BUILD
+You are the development agent responsible for completing the production-readiness work for the Betting Expert Advisor codebase. The repository already includes previous tasks, including:
+Task 1: Logger standardization ✔️
+
+
+Task 2: DB session unification ✔️
+
+
+Your job is to complete ALL remaining production tasks, refactor code, fix tests, harden architecture, update documentation, and build a full UI.
+Follow the instructions below step-by-step.
+
+🚀 PHASE 0 — PREPARATION
+Before writing or modifying anything:
+Fully scan the entire repository.
+
+
+Map:
+
+
+All modules
+
+
+All imports
+
+
+All environment variables
+
+
+All API adapters
+
+
+All database operations
+
+
+All tests
+
+
+All documentation files
+
+
+Detect circular imports, dead code, duplicate logic, anti-patterns.
+
+
+Build a dependency graph of the project.
+
+
+Produce a report confirming understanding before proceeding.
+
+🚀 PHASE 1 — COMPLETE PRODUCTION READINESS (Remaining Critical Tasks)
+Finish everything listed below exactly as specified:
+
+1. Implement Circuit Breakers
+For:
+theodds_api
+
+
+betfair_exchange
+
+
+pinnacle_client
+
+
+any other adapter making external HTTP requests
+
+
+Requirements:
+Use pybreaker
+
+
+Configuration:
+
+
+fail_max = settings.CIRCUIT_BREAKER_MAX_FAILURES
+
+
+timeout = settings.CIRCUIT_BREAKER_RESET_TIMEOUT
+
+
+During OPEN state:
+
+
+Log warning
+
+
+Fallback to cache if available
+
+
+Otherwise raise controlled exception UpstreamDependencyUnavailable
+
+
+Add tests simulating breaker transitions.
+
+2. Add Global Exception Handler (FastAPI)
+Implement:
+request correlation IDs
+
+
+structured error responses
+
+
+automatic alerting on critical exceptions
+
+
+Example behavior:
+Unexpected exceptions → logged with traceback
+
+
+Alert sent to send_alert()
+
+
+API returns {"error": "Internal server error"}
+
+
+Add tests for:
+unhandled error → handler invoked
+
+
+correlation ID added to logs
+
+
+
+3. Move All Magic Numbers into config.py
+Refactor every file that uses numeric thresholds:
+risk thresholds (loss streak, drawdown)
+
+
+rate limits
+
+
+API retry thresholds
+
+
+default cache expiries
+
+
+default backtest parameters
+
+
+default ML hyperparams
+
+
+All numbers must come from config.py with documented defaults.
+Add tests ensuring values are read from settings.
+
+4. Consolidate Expected Value Calculation
+Remove:
+utils.calculate_ev
+
+Everything must use:
+risk.calculate_expected_value
+
+Refactor callers and update tests.
+
+🚀 PHASE 2 — HIGH-PRIORITY STABILITY IMPROVEMENTS
+1. Request Correlation IDs
+Implement middleware that:
+generates UUID per request
+
+
+stores in ContextVar
+
+
+logger injects request_id
+
+
+Update logging_config to include the field.
+
+2. Validate All API Inputs with Pydantic Models
+Every FastAPI endpoint must:
+use request/response models
+
+
+have examples in schema
+
+
+include type hints everywhere
+
+
+
+3. Clean Up Codebase
+Perform:
+Dead code removal
+
+
+Remove unused imports
+
+
+Enforce consistent return types
+
+
+Remove commented code blocks
+
+
+Fix type hints across modules
+
+
+Introduce mypy.ini strict mode and fix violations where possible
+
+
+
+🚀 PHASE 3 — DOCS UPGRADE (BIG REWRITE)
+Update everything under /docs and root README:
+Create new files:
+DEPLOYMENT.md
+
+
+RUNBOOK.md
+
+
+ARCHITECTURE.md
+
+
+EXTENDING_ADAPTERS.md
+
+
+EXTENDING_STRATEGIES.md
+
+
+EXTENDING_RISK.md
+
+
+API.md (document all FastAPI endpoints)
+
+
+TROUBLESHOOTING.md
+
+
+Update existing:
+README.md (must include full architecture diagram, UI screenshots, deployment flow)
+
+
+QUICKSTART.md (unify with QUICK_START.md)
+
+
+CONTRIBUTING.md (add commit style and branching model)
+
+
+Add "Last updated" metadata on top of every doc file.
+
+
+
+🚀 PHASE 4 — FULL UI BUILD
+Build a complete frontend UI for the Betting Expert Advisor with these components:
+Technology stack:
+Prefer:
+Next.js 14 (App Router)
+
+
+TailwindCSS
+
+
+shadcn/ui
+
+
+Chart.js or Recharts
+
+
+SWR for data fetching
+
+
+FastAPI backend (existing)
+
+
+UI Pages required:
+
+1. Dashboard
+Total bankroll
+
+
+Daily P/L
+
+
+Monthly ROI
+
+
+Win rate
+
+
+Drawdown curve
+
+
+Strategy performance table
+
+
+Live metrics pulled from /metrics
+
+
+2. Live Odds & Fixture Browser
+Search fixtures
+
+
+View odds from different bookmakers
+
+
+Highlight value bets
+
+
+Auto-refresh mode
+
+
+3. Strategy Analytics
+EV curve
+
+
+Bet distribution heatmaps
+
+
+Strategy profit attribution
+
+
+Regime detection visualization
+
+
+4. Risk Management Panel
+Live drawdown
+
+
+Loss streaks
+
+
+Circuit breaker state
+
+
+Configurable thresholds (read-only or edit if allowed)
+
+
+5. Settings
+Environment variables (hidden or masked)
+
+
+Adapter health checks
+
+
+API quota status
+
+
+6. Backtest Runner
+Upload dataset or pick predefined dataset
+
+
+Run backtests
+
+
+Show:
+
+
+equity curve
+
+
+drawdown
+
+
+performance summary
+
+
+Export results as CSV
+
+
+
+UI must include:
+Dark mode
+
+
+Mobile support
+
+
+Skeleton loaders
+
+
+Error boundaries
+
+
+Toast notifications
+
+
+Full logging of UI events
+
+
+Clean UX matching trading dashboards
+
+
+
+🚀 PHASE 5 — DEPLOYMENT AUTOMATION
+Add full deployment pipeline:
+Docker
+Create production Dockerfile for backend
+
+
+Multi-stage build
+
+
+Health checks
+
+
+Gunicorn with Uvicorn workers
+
+
+Frontend Dockerfile
+Next.js production build
+
+
+Output → /build
+
+
+Serve with node server.js or Nginx
+
+
+Docker Compose
+backend
+
+
+frontend
+
+
+postgres
+
+
+grafana
+
+
+prometheus
+
+
+CI/CD
+Add GitHub Actions:
+run black, flake8, mypy, pytest
+
+
+build Docker images
+
+
+push to container registry
+
+
+deploy to selected environment
+
+
+
+🚀 PHASE 6 — FINAL TESTING & HARDENING
+Add:
+Load tests for API
+
+
+Backpressure tests for adapters
+
+
+Stress tests on DB
+
+
+Property-based tests for risk functions
+
+
+E2E test: Fixture → Odds → Strategy → Bet → DB → Metrics → Dashboard
+
+
+Ensure:
+90% test coverage minimum
+
+
+No blocking warnings
+
+
+No circular imports
+
+
+No unused dependencies
+
+
+
+🚀 PHASE 7 — FINAL OUTPUT
+When finished, produce:
+1. Complete diff of all modified files
+2. A tar.gz or zip artifact of:
+Updated backend
+
+
+New frontend
+
+
+Updated docs
+
+
+Docker setup
+
+
+Dev tools
+
+
+3. A PRODUCTION CHECKLIST REPORT including:
+Identified issues
+
+
+Applied fixes
+
+
+Remaining recommendations
+
+
+4. Screenshots of the UI (programmatically generated image files or mockups)
+5. Deployment instructions for:
+Docker Compose
+
+
+Railway
+
+
+Render
+
+
+Bare VM
+
+
+Kubernetes (optional)
+
+
+
+🎯 GOAL
+Transform the Betting Expert Advisor into a fully production-ready, tested, documented, deployable, and UI-powered professional trading system.
+
+If anything is unclear, ask clarifying questions before making changes.
+Begin now.
+
