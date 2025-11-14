@@ -40,4 +40,4 @@ externalPort = 3000
 
 [deployment]
 deploymentTarget = "vm"
-run = ["python", "-m", "src.main", "--mode", "serve", "--host", "0.0.0.0", "--port"]
+run = ["python", "-m", "src.main", "--mode", "serve", "--host", "0.0.0.0", "--port", "5000"]

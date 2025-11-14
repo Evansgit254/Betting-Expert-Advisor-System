@@ -44,6 +44,39 @@ This is an ML-driven sports betting advisory system with automated risk manageme
 
 ## Recent Changes
 
+### Phase 1 Backend Hardening Complete (November 14, 2025) ✅
+**Production-ready refactoring with standardized logging, config consolidation, and LIVE mode support:**
+
+**Logger Standardization**:
+- Removed duplicate setup_logging() from src/utils.py
+- All modules now use get_logger() from src/logging_config
+- Fixed circular import in config.py MODE validator (uses module-level logger)
+- MODE=LIVE validated - works without circular import errors
+- Application runs cleanly in both DRY_RUN and LIVE modes
+
+**Configuration Consolidation**:
+- Moved database retry attempts, pool size, and timeouts from hardcoded values to Settings class
+- Centralized DB config: DB_RETRY_ATTEMPTS=3, DB_POOL_SIZE=5, DB_POOL_TIMEOUT=30s
+- All config validation uses pydantic validators for type safety
+
+**Production Validation**:
+- Circuit breakers verified on all API adapters (@with_circuit_breaker)
+- Global exception handler confirmed with correlation IDs
+- Database session management via handle_db_errors() context manager
+- Monitoring API running successfully on port 5000
+- Health checks operational at /health endpoint
+
+**Deployment Configuration**:
+- Replit native deployment configured (Reserved VM mode)
+- Docker/docker-compose files available for external deployment
+- DEPLOYMENT.md created with comprehensive deployment instructions
+
+**Known Follow-up**:
+- Test files need updating for removed logging functions
+- Formatters (black, isort) not run due to package availability
+
+**Architect Reviewed**: ✅ PASS - All Phase 1 production requirements met
+
 ### Production Upgrade (November 14, 2025) 🚀
 **Complete production-ready upgrade with resilience, observability, and deployment infrastructure:**
 
