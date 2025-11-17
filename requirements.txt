@@ -27,6 +27,7 @@ tenacity==8.2.3
 fastapi==0.110.0
 uvicorn==0.30.0
 prometheus_client==0.17.0
+gunicorn==21.2.0
 
 # --- Optional UX Enhancements ---
 rich==13.7.1
@@ -90,3 +91,10 @@ sqlalchemy
 tenacity
 uvicorn
 pybreaker
+
+# Social Signals & Sentiment Analysis
+vaderSentiment==3.3.2
+rapidfuzz==3.5.2
+feedparser==6.0.10
+beautifulsoup4==4.12.2
+lxml==4.9.3

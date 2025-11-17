@@ -67,6 +67,10 @@ class Settings(BaseSettings):
     CIRCUIT_BREAKER_MAX_FAILURES: int = Field(default=5, ge=1, le=20)
     CIRCUIT_BREAKER_RESET_TIMEOUT: int = Field(default=60, ge=10, le=600)
     
+    # Cache TTLs
+    FIXTURES_CACHE_TTL_MINUTES: int = Field(default=60, ge=1, le=1440)
+    ODDS_CACHE_TTL_SECONDS: int = Field(default=300, ge=10, le=3600)
+
     # Backtest defaults
     BACKTEST_DEFAULT_DAYS: int = Field(default=90, ge=7, le=365)
     BACKTEST_INITIAL_BANKROLL: float = Field(default=10000.0, ge=100.0)
@@ -86,6 +90,35 @@ class Settings(BaseSettings):
     TELEGRAM_CHAT_ID: Optional[str] = Field(default=None)
 
     PAPER_TRADING_DAYS_REQUIRED: int = Field(default=30, ge=0, le=365)
+    
+    # Social Signals & Sentiment Analysis
+    ENABLE_SOCIAL_SIGNALS: bool = Field(default=False, description="Enable social sentiment analysis feature")
+    SOCIAL_SCRAPE_SOURCES: str = Field(default="twitter,reddit,blogs", description="Comma-separated list of sources")
+    SOCIAL_SCRAPE_INTERVAL_MINUTES: int = Field(default=10, ge=1, le=1440)
+    SOCIAL_DATA_RETENTION_DAYS: int = Field(default=30, ge=1, le=365)
+    SENTIMENT_MODEL: str = Field(default="vader", description="Sentiment model: vader or hf-distilbert")
+    MIN_MATCH_CONFIDENCE: float = Field(default=0.6, ge=0.0, le=1.0)
+    ARBITRAGE_COMMISSION_RATE: float = Field(default=0.02, ge=0.0, le=0.1)
+    MAX_POSTS_PER_MATCH: int = Field(default=200, ge=10, le=1000)
+    
+    # Social API credentials (optional)
+    TWITTER_BEARER_TOKEN: Optional[str] = Field(default=None)
+    REDDIT_CLIENT_ID: Optional[str] = Field(default=None)
+    REDDIT_CLIENT_SECRET: Optional[str] = Field(default=None)
+    REDDIT_USER_AGENT: str = Field(default="BettingAdvisorBot/0.1")
+    
+    # Sentiment Analysis Configuration
+    SENTIMENT_ENABLED: bool = Field(default=True, description="Enable sentiment analysis")
+    SENTIMENT_TWITTER_ENABLED: bool = Field(default=True)
+    SENTIMENT_REDDIT_ENABLED: bool = Field(default=True)
+    SENTIMENT_BLOG_ENABLED: bool = Field(default=True)
+    SENTIMENT_RATE_LIMIT_CALLS: int = Field(default=10, ge=1, le=100)
+    SENTIMENT_RATE_LIMIT_WINDOW: int = Field(default=60, ge=10, le=300)
+    
+    # Arbitrage Detection Configuration
+    ARBITRAGE_ENABLED: bool = Field(default=True, description="Enable arbitrage detection")
+    ARBITRAGE_MIN_PROFIT_MARGIN: float = Field(default=0.01, ge=0.001, le=0.1, description="Minimum 1% profit")
+    ARBITRAGE_MAX_STAKE: float = Field(default=10000.0, ge=100.0)
     
     # Database retry and connection pooling configuration
     DB_RETRY_ATTEMPTS: int = Field(default=3, ge=1, le=10, description="Number of retry attempts for DB operations")
