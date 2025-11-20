@@ -12,21 +12,40 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     ports:
-      - "5432:5432"
+      - "5433:5432"  # Use 5433 to avoid conflict with system PostgreSQL
     networks:
       - betting-network
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U betting_user"]
+      test: ["CMD-SHELL", "pg_isready -U betting_user -d betting_advisor"]
       interval: 10s
       timeout: 5s
       retries: 5
+    restart: unless-stopped
+
+  # Frontend Next.js dashboard
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        - NEXT_PUBLIC_API_BASE=http://localhost:8000
+    container_name: betting-advisor-frontend
+    depends_on:
+      - api
+    environment:
+      - NEXT_PUBLIC_API_BASE=http://localhost:8000
+    ports:
+      - "3000:3000"
+    networks:
+      - betting-network
+    restart: unless-stopped
 
   # Redis for caching
   redis:
     image: redis:7-alpine
     container_name: betting-advisor-redis
     ports:
-      - "6379:6379"
+      - "6380:6379"  # Use 6380 to avoid conflict with system Redis
     networks:
       - betting-network
     healthcheck:
@@ -34,54 +53,71 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+    restart: unless-stopped
 
-  # Main application
-  app:
+  # API Service (FastAPI with analytics and social signals)
+  api:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: betting-advisor-app
+    container_name: betting-advisor-api
     depends_on:
       db:
         condition: service_healthy
       redis:
         condition: service_healthy
+    env_file:
+      - .env
     environment:
       - ENV=development
-      - MODE=DRY_RUN
+      - MODE=LIVE
       - DB_URL=postgresql://betting_user:dev_password_change_in_prod@db:5432/betting_advisor
+      - ENABLE_SOCIAL_SIGNALS=True
       - DEFAULT_KELLY_FRACTION=0.2
       - MAX_STAKE_FRAC=0.05
       - DAILY_LOSS_LIMIT=1000
       - MAX_OPEN_BETS=10
       - LOG_LEVEL=INFO
+    ports:
+      - "8000:8000"
     volumes:
       - ./data:/app/data
       - ./models:/app/models
       - ./logs:/app/logs
+      - ./src:/app/src
+      - ./scripts:/app/scripts
+    command: ["uvicorn", "src.monitoring:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
     networks:
       - betting-network
+    restart: unless-stopped
 
-  # Monitoring/API service
-  monitoring:
+  # Scheduler (runs cron jobs for odds generation and ML training)
+  scheduler:
     build:
       context: .
-      dockerfile: Dockerfile
-    container_name: betting-advisor-monitoring
+      dockerfile: Dockerfile.scheduler
+    container_name: betting-advisor-scheduler
     depends_on:
       db:
         condition: service_healthy
+      api:
+        condition: service_started
+    env_file:
+      - .env
     environment:
       - ENV=development
-      - MODE=DRY_RUN
+      - MODE=LIVE
       - DB_URL=postgresql://betting_user:dev_password_change_in_prod@db:5432/betting_advisor
-    ports:
-      - "5000:5000"
+      - ENABLE_SOCIAL_SIGNALS=True
     volumes:
+      - ./data:/app/data
+      - ./models:/app/models
       - ./logs:/app/logs
-    command: ["python", "-m", "uvicorn", "src.monitoring:app", "--host", "0.0.0.0", "--port", "5000"]
+      - ./src:/app/src
+      - ./scripts:/app/scripts
     networks:
       - betting-network
+    restart: unless-stopped
 
 volumes:
   postgres_data:

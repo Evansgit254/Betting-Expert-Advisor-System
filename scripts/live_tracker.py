@@ -19,6 +19,7 @@ from pathlib import Path
 import pandas as pd
 
 from src.adapters.theodds_api import TheOddsAPIAdapter
+from src.adapters.betfair import BetfairAdapter
 from src.config import settings
 from src.data_fetcher import DataFetcher
 from src.executor import Executor
@@ -28,6 +29,8 @@ from src.model import ModelWrapper
 from src.monitoring import send_alert
 from src.paths import LIVE_OPPORTUNITIES_FILE
 from src.strategy import apply_bet_filters, find_value_bets
+from src.safety import SafetyManager
+from src.bot import TelegramBot
 
 logger = get_logger(__name__)
 
@@ -73,6 +76,10 @@ class LiveOddsTracker:
 
         # Initialize data fetcher with caching
         self.fetcher = DataFetcher(source=TheOddsAPIAdapter(api_key=settings.THEODDS_API_KEY))
+        
+        # Initialize Safety Manager and Telegram Bot
+        self.safety_manager = SafetyManager()
+        self.bot = TelegramBot()
 
     def _get_model_mtime(self) -> float:
         """Get model file modification time.
@@ -141,6 +148,11 @@ class LiveOddsTracker:
 
     def check_opportunities(self):
         """Check for current betting opportunities with error handling."""
+        # CRITICAL: Check Kill Switch
+        if self.safety_manager.is_kill_switch_active():
+            logger.warning("🚨 KILL SWITCH ACTIVE - Skipping analysis loop")
+            return []
+
         timestamp = datetime.now(timezone.utc)
 
         print(f"\n[{timestamp.strftime('%Y-%m-%d %H:%M:%S')}] Checking opportunities...")
@@ -149,93 +161,99 @@ class LiveOddsTracker:
             # CRITICAL FIX: Check for model updates
             self._check_and_reload_model()
 
-            # Fetch data (uses cache automatically)
-            fixtures = self.fetcher.get_fixtures()
-
-            if isinstance(fixtures, list):
-                fixtures = pd.DataFrame(fixtures)
-
-            odds = self.fetcher.get_odds(list(fixtures["market_id"]) if not fixtures.empty else [])
-
-            if isinstance(odds, list):
-                odds = pd.DataFrame(odds)
-
-            print(f"  📊 {len(fixtures)} fixtures, {len(odds)} odds")
-
-            if len(fixtures) == 0:
-                print("  ❌ No fixtures found.")
-                return []
-
-            if len(odds) == 0:
-                print("  ❌ No odds found.")
-                return []
-
-            # Build features
-            features = build_features(fixtures, odds)
-
-            # Make predictions
-            if self.model is None:
-                print("  ⚠️  No model - using normalized implied probabilities")
-
-                if "home_prob" not in features.columns:
-                    if "home_odds" in features.columns:
-                        features["home_prob"] = 1.0 / features["home_odds"]
-                    else:
-                        print("  ❌ Cannot calculate probabilities")
-                        return []
-            else:
-                print("  🤖 Using ML model predictions...")
-
-                X = features.drop(columns=["market_id", "result"], errors="ignore")
-                X_selected = select_features(X)
-
+            all_opportunities = []
+            
+            # Iterate through all active sports
+            for sport in settings.ACTIVE_SPORTS:
                 try:
-                    predictions = self.model.predict_proba(X_selected)
+                    logger.info(f"Fetching data for {sport}...")
+                    
+                    # Update fetcher sport
+                    if hasattr(self.fetcher.source, 'default_sport'):
+                        self.fetcher.source.default_sport = sport
+                    
+                    # Fetch data
+                    fixtures_list = self.fetcher.source.fetch_fixtures(
+                        start_date=datetime.now(timezone.utc),
+                        end_date=datetime.now(timezone.utc) + timedelta(days=7),
+                    )
+                    fixtures = pd.DataFrame(fixtures_list)
 
-                    if len(predictions.shape) > 1 and predictions.shape[1] > 1:
-                        features["home_prob"] = predictions[:, 1]
+                    if fixtures.empty:
+                        continue
+
+                    market_ids = fixtures["market_id"].tolist()
+                    if not market_ids:
+                        continue
+
+                    odds_list = self.fetcher.source.fetch_odds(market_ids)
+                    odds = pd.DataFrame(odds_list)
+                    
+                    if odds.empty:
+                        continue
+
+                    features = build_features(fixtures, odds)
+                    
+                    # Prediction logic
+                    if self.model is None:
+                        features["prob_home"] = features["implied_prob_home"]
                     else:
-                        features["home_prob"] = predictions
+                        try:
+                            X = features.drop(columns=["market_id", "result"], errors="ignore")
+                            X_selected = select_features(X)
+                            probs = self.model.predict_proba(X_selected)
+                            
+                            # Handle different prediction output formats
+                            if hasattr(probs, "shape") and len(probs.shape) > 1 and probs.shape[1] > 1:
+                                features["prob_home"] = probs[:, 1]
+                            else:
+                                features["prob_home"] = probs
+                        except Exception as e:
+                            logger.error(f"Prediction error for {sport}: {e}")
+                            # Fallback to implied probability
+                            if "implied_prob_home" in features.columns:
+                                features["prob_home"] = features["implied_prob_home"]
+                            elif "home_odds" in features.columns:
+                                features["prob_home"] = 1.0 / features["home_odds"]
+                            else:
+                                logger.warning(f"Could not calculate probability for {sport}")
+                                continue
 
-                    print(f"  ✅ Predictions: mean={features['home_prob'].mean():.3f}")
-
+                    # Find value bets
+                    bets = find_value_bets(
+                        features,
+                        proba_col="prob_home",
+                        odds_col="home_odds",
+                        min_ev=settings.MIN_EV,
+                        bank=10000,
+                    )
+                    
+                    if bets:
+                        logger.info(f"Found {len(bets)} value bets for {sport}")
+                        all_opportunities.extend(bets)
+                        
                 except Exception as e:
-                    print(f"  ⚠️  Model failed: {e}, using implied probs")
-                    logger.error(f"Model prediction error: {e}", exc_info=True)
+                    logger.error(f"Error processing {sport}: {e}", exc_info=True)
+                    continue
 
-                    if "home_odds" in features.columns:
-                        features["home_prob"] = 1.0 / features["home_odds"]
-
-            # Verify columns
-            if "home_odds" not in features.columns or "home_prob" not in features.columns:
-                print(f"  ❌ Missing required columns")
-                print(f"  Available: {list(features.columns)}")
+            if not all_opportunities:
+                logger.info("No value bets found across all sports")
                 return []
-
-            # Find value bets
-            print(f"  🔍 Searching for value bets...")
-
-            value_bets = find_value_bets(
-                features, proba_col="home_prob", odds_col="home_odds", bank=10000.0, min_ev=0.01
-            )
-
-            if not isinstance(value_bets, list):
-                value_bets = list(value_bets)
-
+            # Sort and filter
+            all_opportunities.sort(key=lambda x: x["ev"], reverse=True)
+            
             # Apply filters
-            filtered = apply_bet_filters(
-                value_bets, min_ev=0.001, min_confidence=0.50, max_total=10
+            opportunities = apply_bet_filters(
+                all_opportunities, 
+                min_ev=settings.MIN_EV, 
+                min_confidence=settings.MIN_CONFIDENCE, 
+                max_total=10
             )
-
-            if not isinstance(filtered, list):
-                filtered = list(filtered)
-
-            print(f"  ✅ {len(value_bets)} potential, {len(filtered)} after filters")
-
-            if len(filtered) > 0:
-                self.alert_opportunities(filtered)
-
-            return filtered
+            
+            if opportunities:
+                self.alert_opportunities(opportunities)
+                
+            return opportunities
 
         except Exception as e:
             logger.error(f"Error checking opportunities: {e}", exc_info=True)
@@ -256,11 +274,12 @@ class LiveOddsTracker:
         print("=" * 70 + "\n")
 
         batch_msgs = []
-        executor = Executor()
+        exec_results = []
         exec_results = []
 
         for i, bet in enumerate(opportunities, 1):
             print(f"{i}. {bet.get('home', 'TBD')} vs {bet.get('away', 'TBD')}")
+            print(f"   👉 BET: {bet.get('selection', 'UNKNOWN').upper()}")
             print(
                 f"   Odds: {bet['odds']:.2f} | Prob: {bet['p']:.1%} | "
                 f"Edge: {bet['ev']:.2f} | Stake: ${bet['stake']:.2f}"
@@ -269,6 +288,7 @@ class LiveOddsTracker:
 
             batch_msgs.append(
                 f"{i}. {bet.get('home', 'TBD')} vs {bet.get('away', 'TBD')}\n"
+                f"   👉 BET: {bet.get('selection', 'UNKNOWN').upper()}\n"
                 f"   Odds: {bet['odds']:.2f} | Prob: {bet['p']:.1%} | "
                 f"Edge: {bet['ev']:.2f} | Stake: ${bet['stake']:.2f}"
             )
@@ -313,6 +333,9 @@ class LiveOddsTracker:
         print(f"💾 Memory cleanup every {self._max_checks_before_gc} checks")
         print("\nPress Ctrl+C to stop\n")
 
+        # Start Telegram Bot
+        self.bot.start()
+
         try:
             while True:
                 self.check_opportunities()
@@ -354,6 +377,9 @@ class LiveOddsTracker:
             logger.error(f"Fatal error in tracker: {e}", exc_info=True)
             send_alert(f"🚨 Tracker crashed: {e}", level="critical")
             raise
+
+        finally:
+            self.bot.stop()
 
     def run_once(self):
         """Run single check."""

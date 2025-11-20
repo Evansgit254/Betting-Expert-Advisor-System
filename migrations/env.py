@@ -22,6 +22,12 @@ except ImportError:
     # These models may not exist yet
     pass
 
+# Include cache tables for autogenerate support
+try:
+    from src.cache import CachedFixture, CachedOdds
+except ImportError:
+    pass
+
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
 config = context.config

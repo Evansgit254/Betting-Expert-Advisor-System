@@ -1,118 +1,133 @@
 """Twitter/X scraper using official API."""
-import logging
 from datetime import datetime, timedelta
-from typing import List, Dict, Any, Optional
+from typing import Dict, List, Optional
 
 from src.config import settings
+from src.logging_config import get_logger
 
-logger = logging.getLogger(__name__)
+logger = get_logger(__name__)
 
 
 class TwitterScraper:
-    """Twitter scraper using official API (requires bearer token)."""
-    
+    """Twitter/X API scraper with sandbox mode."""
+
     def __init__(self, bearer_token: Optional[str] = None):
         """Initialize Twitter scraper.
-        
+
         Args:
-            bearer_token: Twitter API bearer token
+            bearer_token: Twitter API bearer token (optional, uses config if not provided)
         """
         self.bearer_token = bearer_token or settings.TWITTER_BEARER_TOKEN
-        self._client = None
-        
-        if self.bearer_token:
-            try:
-                import tweepy
-                self._client = tweepy.Client(bearer_token=self.bearer_token)
-                logger.info("Twitter scraper initialized with API access")
-            except ImportError:
-                logger.warning("tweepy not installed. Install with: pip install tweepy")
-            except Exception as e:
-                logger.error(f"Failed to initialize Twitter client: {e}")
-    
-    def is_available(self) -> bool:
-        """Check if Twitter scraper is available."""
-        return self._client is not None
-    
-    def scrape(self, query: str, limit: int = 100) -> List[Dict[str, Any]]:
-        """Scrape tweets matching query.
-        
+        self.base_url = "https://api.twitter.com/2"
+        self.enabled = bool(self.bearer_token)
+
+        if not self.enabled:
+            logger.warning("Twitter scraper disabled: No bearer token configured")
+
+    def search_tweets(
+        self, query: str, max_results: int = 100, hours_back: int = 24
+    ) -> List[Dict]:
+        """Search tweets matching query.
+
         Args:
-            query: Search query
-            limit: Maximum tweets to return
-        
+            query: Search query (e.g., "Manchester United")
+            max_results: Maximum tweets to return
+            hours_back: How many hours back to search
+
         Returns:
-            List of tweet dictionaries
+            List of tweet dicts with keys: id, text, author, created_at, url
         """
-        if not self.is_available():
-            logger.warning("Twitter scraper not available (no API credentials)")
-            return []
-        
+        if not self.enabled:
+            logger.info("Twitter scraper disabled, using sandbox data")
+            return self._get_sandbox_data(query, max_results)
+
         try:
-            # Search recent tweets (last 7 days)
-            tweets = self._client.search_recent_tweets(
-                query=query,
-                max_results=min(limit, 100),  # API limit
-                tweet_fields=['created_at', 'author_id', 'public_metrics'],
-                expansions=['author_id'],
-                user_fields=['username']
-            )
-            
-            if not tweets.data:
-                return []
-            
-            # Build user lookup
-            users = {user.id: user.username for user in tweets.includes.get('users', [])}
-            
-            results = []
-            for tweet in tweets.data:
-                results.append({
-                    'external_id': str(tweet.id),
-                    'author': users.get(tweet.author_id, 'unknown'),
-                    'text': tweet.text,
-                    'created_at': tweet.created_at,
-                    'url': f"https://twitter.com/i/web/status/{tweet.id}",
-                    'metadata': {
-                        'retweet_count': tweet.public_metrics.get('retweet_count', 0),
-                        'like_count': tweet.public_metrics.get('like_count', 0),
-                        'reply_count': tweet.public_metrics.get('reply_count', 0),
-                    }
+            import requests
+
+            # Calculate start time
+            start_time = datetime.utcnow() - timedelta(hours=hours_back)
+            start_time_str = start_time.strftime("%Y-%m-%dT%H:%M:%SZ")
+
+            # Build request
+            url = f"{self.base_url}/tweets/search/recent"
+            headers = {"Authorization": f"Bearer {self.bearer_token}"}
+            params = {
+                "query": query,
+                "max_results": min(max_results, 100),  # API limit
+                "start_time": start_time_str,
+                "tweet.fields": "created_at,author_id,public_metrics",
+                "expansions": "author_id",
+                "user.fields": "username",
+            }
+
+            response = requests.get(url, headers=headers, params=params, timeout=10)
+            response.raise_for_status()
+            data = response.json()
+
+            # Parse response
+            tweets = []
+            users = {u["id"]: u for u in data.get("includes", {}).get("users", [])}
+
+            for tweet in data.get("data", []):
+                author_id = tweet.get("author_id")
+                author = users.get(author_id, {}).get("username", "unknown")
+
+                tweets.append({
+                    "id": tweet["id"],
+                    "text": tweet["text"],
+                    "author": author,
+                    "created_at": tweet["created_at"],
+                    "url": f"https://twitter.com/{author}/status/{tweet['id']}",
+                    "metrics": tweet.get("public_metrics", {}),
                 })
-            
-            logger.info(f"Scraped {len(results)} tweets for query: {query}")
-            return results
-        
+
+            logger.info(f"Fetched {len(tweets)} tweets for query: {query}")
+            return tweets
+
         except Exception as e:
-            logger.error(f"Error scraping Twitter: {e}")
+            logger.error(f"Twitter API error: {e}")
             return []
-    
-    def scrape_sandbox(self, query: str, limit: int = 100) -> List[Dict[str, Any]]:
-        """Return mock data for testing without API access.
-        
+
+    def _get_sandbox_data(self, query: str, max_results: int) -> List[Dict]:
+        """Return mock data for testing without API credentials.
+
         Args:
             query: Search query
-            limit: Maximum tweets to return
-        
+            max_results: Maximum results
+
         Returns:
-            List of mock tweet dictionaries
+            List of mock tweet dicts
         """
-        logger.info(f"Using Twitter sandbox mode for query: {query}")
-        
-        # Generate mock tweets
+        # Generate realistic mock data
         mock_tweets = [
             {
-                'external_id': f'twitter_mock_{i}',
-                'author': f'user{i}',
-                'text': f'Mock tweet about {query}. This is a test post #{i}',
-                'created_at': datetime.utcnow() - timedelta(hours=i),
-                'url': f'https://twitter.com/mock/status/{i}',
-                'metadata': {
-                    'retweet_count': i * 10,
-                    'like_count': i * 50,
-                    'reply_count': i * 5,
-                }
+                "id": f"mock_tweet_{i}",
+                "text": f"Great performance by {query}! Looking forward to the next match. #football",
+                "author": f"fan_{i}",
+                "created_at": (datetime.utcnow() - timedelta(hours=i)).isoformat() + "Z",
+                "url": f"https://twitter.com/fan_{i}/status/mock_{i}",
+                "metrics": {"like_count": 10 + i, "retweet_count": 2 + i},
             }
-            for i in range(min(limit, 10))
+            for i in range(min(max_results, 10))
         ]
-        
+
+        logger.info(f"Generated {len(mock_tweets)} sandbox tweets for: {query}")
         return mock_tweets
+
+
+def search_football_tweets(
+    team_name: str, max_results: int = 100, hours_back: int = 24
+) -> List[Dict]:
+    """Convenience function to search football-related tweets.
+
+    Args:
+        team_name: Team name to search for
+        max_results: Maximum tweets to return
+        hours_back: Hours back to search
+
+    Returns:
+        List of tweet dicts
+    """
+    scraper = TwitterScraper()
+    query = f"{team_name} (football OR soccer OR match OR game) -is:retweet lang:en"
+    return scraper.search_tweets(query, max_results, hours_back)

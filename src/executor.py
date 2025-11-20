@@ -24,7 +24,7 @@ from src.db import (
     save_bet,
 )
 from src.logging_config import get_logger
-from src.monitoring import send_alert
+from src.alerts import send_alert
 from src.risk import check_risk_limits, validate_bet_parameters
 
 logger = get_logger(__name__)
@@ -83,7 +83,8 @@ class Executor:
 
         # CRITICAL FIX: Rate limiting
         self._bet_timestamps = deque(maxlen=100)
-        self._rate_limit_per_minute = 10
+        self._rate_limit_per_minute = settings.RATE_LIMIT_PER_MINUTE
+        self._rate_limit_window_seconds = settings.RATE_LIMIT_WINDOW_SECONDS
         self._rate_limit_lock = False
 
         logger.info(f"Executor initialized in {self.mode} mode")
@@ -98,17 +99,17 @@ class Executor:
         """
         now = time.time()
 
-        # Remove timestamps older than 1 minute
-        while self._bet_timestamps and now - self._bet_timestamps[0] > 60:
+        # Remove timestamps older than configured window
+        while self._bet_timestamps and now - self._bet_timestamps[0] > self._rate_limit_window_seconds:
             self._bet_timestamps.popleft()
 
         if len(self._bet_timestamps) >= self._rate_limit_per_minute:
-            wait_time = 60 - (now - self._bet_timestamps[0])
+            wait_time = self._rate_limit_window_seconds - (now - self._bet_timestamps[0])
 
             if wait_time > 0:
                 logger.warning(
-                    f"Rate limit reached ({self._rate_limit_per_minute}/min), "
-                    f"waiting {wait_time:.1f}s"
+                    f"Rate limit reached (max {self._rate_limit_per_minute}/"
+                    f"{self._rate_limit_window_seconds}s), waiting {wait_time:.1f}s"
                 )
                 send_alert(
                     f"⚠️ Rate limit protection: pausing for {wait_time:.1f}s", level="warning"

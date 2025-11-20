@@ -10,7 +10,7 @@ import numpy as np
 try:
     from src.backtest import Backtester
     from src.db import ModelMetadata, handle_db_errors
-    from src.feature import build_features
+    from src.feature import build_features, select_features
     from src.logging_config import get_logger
     from src.ml_pipeline import MLPipeline
     from src.model import ModelWrapper
@@ -23,7 +23,7 @@ except ModuleNotFoundError:  # pragma: no cover - fallback for direct script exe
 
     from src.backtest import Backtester
     from src.db import ModelMetadata, handle_db_errors
-    from src.feature import build_features
+    from src.feature import build_features, select_features
     from src.logging_config import get_logger
     from src.ml_pipeline import MLPipeline
     from src.model import ModelWrapper
@@ -53,10 +53,10 @@ class AutomatedPipeline:
         train_features["label"] = (train_features["result"] == "home").astype(int)
         train_features_clean = train_features.dropna(subset=["label"])
 
-        X_train = train_features_clean.drop(
+        # CRITICAL FIX: Use select_features to match live tracker
+        X_train_numeric = select_features(train_features_clean.drop(
             columns=["label", "market_id", "result"], errors="ignore"
-        )
-        X_train_numeric = X_train.select_dtypes(include=["number"]).fillna(0)
+        ))
         y_train = train_features_clean["label"].values
 
         return train_fixtures, train_odds, train_results, X_train_numeric, y_train
@@ -163,8 +163,10 @@ class AutomatedPipeline:
         test_features["label"] = (test_features["result"] == "home").astype(int)
         test_features_clean = test_features.dropna(subset=["label"])
 
-        X_test = test_features_clean.drop(columns=["label", "market_id", "result"], errors="ignore")
-        X_test_numeric = X_test.select_dtypes(include=["number"]).fillna(0)
+        # CRITICAL FIX: Use select_features to match live tracker
+        X_test_numeric = select_features(test_features_clean.drop(
+            columns=["label", "market_id", "result"], errors="ignore"
+        ))
         y_test = test_features_clean["label"].values
 
         # Handle both ModelWrapper and raw LightGBM Booster
@@ -269,6 +271,15 @@ class AutomatedPipeline:
             with open(model_path, "wb") as f:
                 pickle.dump(model, f)
         print(f"   ✅ Model saved: {model_path}")
+
+        # Update main model file for live tracker
+        main_model_path = self.output_dir.parent / "model.pkl"
+        if hasattr(model, "save"):
+            model.save(main_model_path)
+        else:
+            with open(main_model_path, "wb") as f:
+                pickle.dump(model, f)
+        print(f"   ✅ Main model updated: {main_model_path}")
 
         # Save results JSON
         results_path = self.output_dir / f"results_{timestamp}.json"

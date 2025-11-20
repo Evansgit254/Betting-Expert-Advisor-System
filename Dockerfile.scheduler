@@ -1,0 +1,42 @@
+# Scheduler Dockerfile for cron jobs
+FROM python:3.11-slim
+
+# Install cron and other dependencies
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    cron \
+    gcc \
+    g++ \
+    pkg-config \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+
+# Copy and install Python dependencies
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy application code
+COPY src/ ./src/
+COPY scripts/ ./scripts/
+COPY .env* ./
+
+# Create necessary directories
+RUN mkdir -p /app/data/analytics /app/models/social /app/logs
+
+# Create crontab file with jobs
+RUN echo '*/10 * * * * cd /app && python3 scripts/generate_daily_odds.py >> /app/logs/daily_odds.log 2>&1' > /etc/cron.d/betting-cron && \
+    echo '0 2 * * * cd /app && python3 scripts/automated_pipeline.py --days 180 >> /app/logs/ml_training.log 2>&1' >> /etc/cron.d/betting-cron && \
+    echo '0 2 * * 3,6 cd /app && python3 scripts/automated_retrain.py >> /app/logs/retrain.log 2>&1' >> /etc/cron.d/betting-cron && \
+    chmod 0644 /etc/cron.d/betting-cron && \
+    crontab /etc/cron.d/betting-cron
+
+# Create log files
+RUN touch /app/logs/daily_odds.log /app/logs/ml_training.log /app/logs/cron.log /app/logs/live_tracker.log /app/logs/retrain.log
+
+# Environment
+ENV PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONPATH=/app
+
+# Run cron in foreground AND start live tracker with 30-second interval
+CMD cron && python3 scripts/live_tracker.py --interval 30 >> /app/logs/live_tracker.log 2>&1 & tail -f /app/logs/live_tracker.log /app/logs/daily_odds.log /app/logs/ml_training.log

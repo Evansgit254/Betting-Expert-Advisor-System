@@ -48,17 +48,21 @@ def get_circuit_breaker(name: str) -> pybreaker.CircuitBreaker:
             """Called when circuit breaker enters half-open state."""
             logger.info("Circuit breaker '%s' HALF-OPEN (testing service)", name)
         
+        # Create custom listener class
+        class CustomListener(pybreaker.CircuitBreakerListener):
+            def state_change(self, cb, old_state, new_state):
+                if new_state.name == 'open':
+                    on_open(cb, cb._reset_timeout)
+                elif new_state.name == 'closed':
+                    on_close(cb)
+                elif new_state.name == 'half_open':
+                    on_half_open(cb)
+        
         _breakers[name] = pybreaker.CircuitBreaker(
             fail_max=settings.CIRCUIT_BREAKER_MAX_FAILURES,
-            timeout_duration=settings.CIRCUIT_BREAKER_RESET_TIMEOUT,
+            reset_timeout=settings.CIRCUIT_BREAKER_RESET_TIMEOUT,
             exclude=[KeyboardInterrupt, SystemExit],
-            listeners=[
-                pybreaker.CircuitBreakerListener(
-                    on_open=on_open,
-                    on_close=on_close,
-                    on_half_open=on_half_open,
-                )
-            ],
+            listeners=[CustomListener()],
             name=name,
         )
     
@@ -162,7 +166,7 @@ def get_circuit_breaker_status(name: Optional[str] = None) -> dict:
             "status": breaker.current_state,
             "fail_counter": breaker.fail_counter,
             "fail_max": breaker.fail_max,
-            "timeout_duration": breaker.timeout_duration,
+            "reset_timeout": breaker._reset_timeout,
         }
     
     # Return status for all breakers

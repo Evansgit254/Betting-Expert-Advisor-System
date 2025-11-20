@@ -3,6 +3,12 @@
 .env.local
 .env.production
 
+# Node
+node_modules/
+npm-debug.log
+yarn-error.log
+.next/
+
 # Python
 __pycache__/
 *.py[cod]

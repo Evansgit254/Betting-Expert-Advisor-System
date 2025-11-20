@@ -23,7 +23,7 @@ class SocialPost(Base):
     match_id = Column(String(255), index=True)  # Linked fixture/market ID
     match_confidence = Column(Float, default=0.0)  # Confidence of match linking
     url = Column(String(512))
-    metadata = Column(JSON)  # Additional source-specific data
+    post_metadata = Column(JSON)  # Additional source-specific data
 
     # Relationship
     sentiments = relationship("SocialSentiment", back_populates="post", cascade="all, delete-orphan")

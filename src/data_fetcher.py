@@ -218,6 +218,21 @@ class DataFetcher:
         # Cache miss or disabled - fetch from source
         logger.info("Fetching fresh fixtures from source")
         fixtures = self.source.fetch_fixtures(start_date, end_date)
+        
+        # CRITICAL FIX: Ensure fixtures is always a DataFrame IMMEDIATELY after fetching
+        if isinstance(fixtures, list):
+            if len(fixtures) == 0:
+                fixtures = pd.DataFrame()
+            else:
+                fixtures = pd.DataFrame(fixtures)
+        elif not isinstance(fixtures, pd.DataFrame):
+            logger.warning(f"Unexpected fixtures type from source: {type(fixtures)}, converting to DataFrame")
+            try:
+                fixtures = pd.DataFrame(fixtures)
+            except Exception as e:
+                logger.error(f"Failed to convert fixtures to DataFrame: {e}")
+                fixtures = pd.DataFrame()
+
         if not fixtures.empty and "start" in fixtures.columns:
             fixtures["start"] = pd.to_datetime(fixtures["start"], utc=True, errors="coerce")
 
@@ -249,7 +264,22 @@ class DataFetcher:
 
         # Cache miss or disabled - fetch from source
         logger.info(f"Fetching fresh odds for {len(market_ids)} markets from source")
-        odds = self.source.fetch_odds(market_ids)
+        # CRITICAL FIX: Pass market_ids as keyword argument to match TheOddsAPI signature
+        odds = self.source.fetch_odds(market_ids=market_ids)
+        
+        # CRITICAL FIX: Ensure odds is always a DataFrame (TheOddsAPI returns list)
+        if isinstance(odds, list):
+            if len(odds) == 0:
+                odds = pd.DataFrame()
+            else:
+                odds = pd.DataFrame(odds)
+        elif not isinstance(odds, pd.DataFrame):
+            logger.warning(f"Unexpected odds type from source: {type(odds)}, converting to DataFrame")
+            try:
+                odds = pd.DataFrame(odds)
+            except Exception as e:
+                logger.error(f"Failed to convert odds to DataFrame: {e}")
+                odds = pd.DataFrame()
 
         # Cache the results
         if self.use_cache and self.cache and not odds.empty:

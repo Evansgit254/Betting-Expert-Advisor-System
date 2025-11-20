@@ -1,0 +1,91 @@
+{
+  "pages": {
+    "/_not-found/page": [
+      "static/chunks/webpack-d757b501b8c835e1.js",
+      "static/chunks/fd9d1056-c0eafecf4f48d7e6.js",
+      "static/chunks/117-f64df7ef08a29c8e.js",
+      "static/chunks/main-app-923f4bfd96fe462f.js",
+      "static/chunks/app/_not-found/page-00f074ab28b60e38.js"
+    ],
+    "/layout": [
+      "static/chunks/webpack-d757b501b8c835e1.js",
+      "static/chunks/fd9d1056-c0eafecf4f48d7e6.js",
+      "static/chunks/117-f64df7ef08a29c8e.js",
+      "static/chunks/main-app-923f4bfd96fe462f.js",
+      "static/css/f3f24c0abd806b78.css",
+      "static/chunks/app/layout-c67d9f20c3110be4.js"
+    ],
+    "/analytics/page": [
+      "static/chunks/webpack-d757b501b8c835e1.js",
+      "static/chunks/fd9d1056-c0eafecf4f48d7e6.js",
+      "static/chunks/117-f64df7ef08a29c8e.js",
+      "static/chunks/main-app-923f4bfd96fe462f.js",
+      "static/chunks/app/analytics/page-ec025c3ecf68df7f.js"
+    ],
+    "/arbitrage/page": [
+      "static/chunks/webpack-d757b501b8c835e1.js",
+      "static/chunks/fd9d1056-c0eafecf4f48d7e6.js",
+      "static/chunks/117-f64df7ef08a29c8e.js",
+      "static/chunks/main-app-923f4bfd96fe462f.js",
+      "static/chunks/app/arbitrage/page-2c67dadb514452a8.js"
+    ],
+    "/bets/page": [
+      "static/chunks/webpack-d757b501b8c835e1.js",
+      "static/chunks/fd9d1056-c0eafecf4f48d7e6.js",
+      "static/chunks/117-f64df7ef08a29c8e.js",
+      "static/chunks/main-app-923f4bfd96fe462f.js",
+      "static/chunks/app/bets/page-fd2b116a7080a47e.js"
+    ],
+    "/fixtures/page": [
+      "static/chunks/webpack-d757b501b8c835e1.js",
+      "static/chunks/fd9d1056-c0eafecf4f48d7e6.js",
+      "static/chunks/117-f64df7ef08a29c8e.js",
+      "static/chunks/main-app-923f4bfd96fe462f.js",
+      "static/chunks/app/fixtures/page-081e19e6beb1610b.js"
+    ],
+    "/health/page": [
+      "static/chunks/webpack-d757b501b8c835e1.js",
+      "static/chunks/fd9d1056-c0eafecf4f48d7e6.js",
+      "static/chunks/117-f64df7ef08a29c8e.js",
+      "static/chunks/main-app-923f4bfd96fe462f.js",
+      "static/chunks/app/health/page-314c4aa9351d82c6.js"
+    ],
+    "/manual-betting/page": [
+      "static/chunks/webpack-d757b501b8c835e1.js",
+      "static/chunks/fd9d1056-c0eafecf4f48d7e6.js",
+      "static/chunks/117-f64df7ef08a29c8e.js",
+      "static/chunks/main-app-923f4bfd96fe462f.js",
+      "static/chunks/app/manual-betting/page-701c79956f124576.js"
+    ],
+    "/odds/page": [
+      "static/chunks/webpack-d757b501b8c835e1.js",
+      "static/chunks/fd9d1056-c0eafecf4f48d7e6.js",
+      "static/chunks/117-f64df7ef08a29c8e.js",
+      "static/chunks/main-app-923f4bfd96fe462f.js",
+      "static/chunks/app/odds/page-893f2cc334371d7c.js"
+    ],
+    "/page": [
+      "static/chunks/webpack-d757b501b8c835e1.js",
+      "static/chunks/fd9d1056-c0eafecf4f48d7e6.js",
+      "static/chunks/117-f64df7ef08a29c8e.js",
+      "static/chunks/main-app-923f4bfd96fe462f.js",
+      "static/chunks/app/page-7654d8c91891e7ad.js"
+    ],
+    "/social-signals/page": [
+      "static/chunks/webpack-d757b501b8c835e1.js",
+      "static/chunks/fd9d1056-c0eafecf4f48d7e6.js",
+      "static/chunks/117-f64df7ef08a29c8e.js",
+      "static/chunks/main-app-923f4bfd96fe462f.js",
+      "static/chunks/464-14a4a9243b7bb404.js",
+      "static/chunks/app/social-signals/page-ad679e69c633f020.js"
+    ],
+    "/strategy/page": [
+      "static/chunks/webpack-d757b501b8c835e1.js",
+      "static/chunks/fd9d1056-c0eafecf4f48d7e6.js",
+      "static/chunks/117-f64df7ef08a29c8e.js",
+      "static/chunks/main-app-923f4bfd96fe462f.js",
+      "static/chunks/514-f517bcfbb498891e.js",
+      "static/chunks/app/strategy/page-88168bd8268a932b.js"
+    ]
+  }
+}

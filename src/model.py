@@ -14,6 +14,7 @@ logger = get_logger(__name__)
 
 MODEL_DIR = Path("./models")
 MODEL_PATH = MODEL_DIR / "model.pkl"
+ENSEMBLE_PATH = MODEL_DIR / "ensemble"
 
 
 class ModelWrapper:
@@ -76,10 +77,26 @@ class ModelWrapper:
 
     def load(self, path: Optional[Path] = None) -> None:
         """Load model from disk.
+        
+        Tries to load ensemble model first, falls back to RandomForest.
 
         Args:
             path: Path to load model from (defaults to self.model_path)
         """
+        # Try loading ensemble first
+        ensemble_path = ENSEMBLE_PATH
+        if ensemble_path.exists() and (ensemble_path / "metadata.pkl").exists():
+            try:
+                from src.model_ensemble import EnsembleModel
+                logger.info("Loading ensemble model...")
+                self.model = EnsembleModel()
+                self.model.load(ensemble_path)
+                logger.info(f"Ensemble model loaded from {ensemble_path}")
+                return
+            except Exception as e:
+                logger.warning(f"Failed to load ensemble model: {e}. Falling back to RandomForest.")
+        
+        # Fall back to RandomForest
         load_path = path or self.model_path
 
         if not os.path.exists(load_path):

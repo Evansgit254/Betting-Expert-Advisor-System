@@ -13,7 +13,7 @@ from typing import Any, Dict, Optional
 from src.config import settings
 from src.db import get_consecutive_losses, get_current_bankroll, get_peak_bankroll, handle_db_errors
 from src.logging_config import get_logger
-from src.monitoring import send_alert
+from src.alerts import send_alert
 
 logger = get_logger(__name__)
 

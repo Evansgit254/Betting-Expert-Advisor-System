@@ -29,7 +29,7 @@ from tenacity import (
 
 from src.config import settings
 from src.logging_config import get_logger
-from src.monitoring import send_alert
+from src.alerts import send_alert
 from src.utils import utc_now
 
 logger = get_logger(__name__)
@@ -229,6 +229,14 @@ def init_db():
         import src.cache  # noqa: F401
     except ImportError:
         logger.warning("Cache module not available during DB init; proceeding without cache tables")
+    
+    # Import new models
+    try:
+        from src.sentiment.models import SentimentAnalysis, SentimentSource  # noqa: F401
+        from src.arbitrage_detector import ArbitrageSignal  # noqa: F401
+        logger.info("Sentiment and arbitrage models imported")
+    except ImportError as e:
+        logger.warning(f"Could not import sentiment/arbitrage models: {e}")
 
     Base.metadata.create_all(bind=engine)
 
@@ -470,30 +478,29 @@ def get_daily_loss(date: Optional[Union[datetime, date]] = None) -> float:
         except Exception as e:
             logger.warning(f"Could not set isolation level: {e}")
 
-        with session.begin():
-            # Query for settled bets with losses (negative profit_loss)
-            loss_expression = case(
-                (BetRecord.profit_loss < 0, -BetRecord.profit_loss),
-                (BetRecord.profit_loss >= 0, BetRecord.profit_loss),
-            )
+        # Query for settled bets with losses (negative profit_loss)
+        loss_expression = case(
+            (BetRecord.profit_loss < 0, -BetRecord.profit_loss),
+            (BetRecord.profit_loss >= 0, BetRecord.profit_loss),
+        )
 
-            total_loss = (
-                session.query(func.coalesce(func.sum(loss_expression), 0.0))
-                .filter(
-                    BetRecord.settled_at >= start_of_day,
-                    BetRecord.settled_at < end_of_day,
-                    BetRecord.is_dry_run.is_(False),
-                    BetRecord.profit_loss.isnot(None),
-                    BetRecord.result == "loss",
-                )
-                .scalar()
+        total_loss = (
+            session.query(func.coalesce(func.sum(loss_expression), 0.0))
+            .filter(
+                BetRecord.settled_at >= start_of_day,
+                BetRecord.settled_at < end_of_day,
+                BetRecord.is_dry_run.is_(False),
+                BetRecord.profit_loss.isnot(None),
+                BetRecord.result == "loss",
             )
+            .scalar()
+        )
 
-            logger.debug(
-                "Calculated daily loss for %s: %.2f", start_of_day.date(), float(total_loss)
-            )
+        logger.debug(
+            "Calculated daily loss for %s: %.2f", start_of_day.date(), float(total_loss)
+        )
 
-            return float(total_loss)
+        return float(total_loss)
 
 
 @db_retry(retry_on=(SQLAlchemyError,))
@@ -662,6 +669,9 @@ def get_consecutive_losses(session: Session, max_recent: int = 10) -> int:
     return consecutive
 
 
+
+
+
 def get_peak_bankroll(session: Session, days: int = 30) -> float:
     """Get peak bankroll in the last N days."""
     cutoff = datetime.now(timezone.utc) - timedelta(days=days)
@@ -673,3 +683,4 @@ def get_peak_bankroll(session: Session, days: int = 30) -> float:
     )
 
     return float(peak) if peak is not None else 0.0
+

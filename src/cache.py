@@ -1,18 +1,19 @@
 """Caching layer for API data to reduce external API calls."""
 from datetime import datetime, timedelta, timezone
-from typing import List, Optional
+from typing import List, Optional, Union
 
 import pandas as pd
 from sqlalchemy import Column, DateTime, Float, Index, Integer, String, Text
 
 from src.db import Base, handle_db_errors
+from src.config import settings
 from src.logging_config import get_logger
 
 logger = get_logger(__name__)
 
-# Cache TTL (Time To Live)
-FIXTURES_CACHE_TTL = timedelta(hours=1)  # Fixtures don't change often
-ODDS_CACHE_TTL = timedelta(minutes=5)  # Odds change frequently
+# Cache TTL (Time To Live) driven by settings
+FIXTURES_CACHE_TTL = timedelta(minutes=settings.FIXTURES_CACHE_TTL_MINUTES)
+ODDS_CACHE_TTL = timedelta(seconds=settings.ODDS_CACHE_TTL_SECONDS)
 
 
 class CachedFixture(Base):
@@ -293,3 +294,41 @@ class DataCache:
             }
 
             return stats
+
+
+def get_cached_odds(cache_key: Union[List[str], str, None]) -> Optional[list]:
+    """Module-level helper for circuit breaker fallback to cached odds.
+
+    This provides a minimal interface used by the circuit breaker when an external
+    API is unavailable and a cache-based fallback is enabled.
+
+    Args:
+        cache_key: Either a list of market IDs or a comma-separated string.
+
+    Returns:
+        A list of odds dicts matching the DataCache schema, or None if unavailable.
+    """
+    try:
+        if cache_key is None:
+            return None
+
+        # Normalize cache_key to a list of market IDs
+        if isinstance(cache_key, str):
+            market_ids = [s.strip() for s in cache_key.split(",") if s.strip()]
+        elif isinstance(cache_key, list):
+            market_ids = [str(s).strip() for s in cache_key if str(s).strip()]
+        else:
+            return None
+
+        if not market_ids:
+            return None
+
+        cache = DataCache()
+        df = cache.get_cached_odds(market_ids)
+        if df is None or df.empty:
+            return None
+        # Convert DataFrame to list of dicts for API parity
+        return df.to_dict(orient="records")
+    except Exception:
+        # Be conservative on fallback: never raise from cache helper
+        return None
