@@ -32,6 +32,16 @@ A professional-grade, AI-powered sports betting system designed for automated va
 - **Performance Metrics**: Track ROI, Win Rate, Sharpe Ratio, and Drawdown in real-time.
 - **Telegram Bot**: Receive instant alerts and control the system from your phone.
 
+## 📸 Interface
+
+### Dashboard Home
+Real-time overview of system performance, active bets, and bankroll status.
+![Dashboard Home](screenshots/dashboard_home.png)
+
+### Market Intelligence
+Live view of value opportunities, arbitrage detections, and market movements.
+![Market Intelligence](screenshots/market_intelligence.png)
+
 ---
 
 ## 🚀 Quick Start
