@@ -33,7 +33,7 @@ LEAGUES = [
     'soccer_uefa_europa_league', # Europa League
 ]
 
-API_KEY = '66c905085e910a6165abb27261bc2e48'
+API_KEY = os.getenv('THEODDS_API_KEY')
 BASE_URL = 'https://api.the-odds-api.com/v4'
 
 def fetch_all_fixtures():
