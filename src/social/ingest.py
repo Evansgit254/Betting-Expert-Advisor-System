@@ -3,6 +3,7 @@ import argparse
 from datetime import datetime
 from typing import Dict, List, Optional
 
+from dotenv import load_dotenv
 from src.config import settings
 from src.logging_config import get_logger
 from src.social.aggregator import aggregate_all_matches
@@ -15,6 +16,9 @@ from src.social.sentiment import analyze_text
 from src.db import handle_db_errors
 from src.data_fetcher import DataFetcher
 
+# Load environment variables
+load_dotenv()
+
 logger = get_logger(__name__)
 
 
@@ -24,7 +28,12 @@ class SocialIngestor:
     def __init__(self, sandbox_mode: bool = False):
         """Initialize ingestor."""
         self.sandbox_mode = sandbox_mode
-        self.data_fetcher = DataFetcher()
+        if sandbox_mode:
+            self.data_fetcher = DataFetcher()
+        else:
+            from src.adapters.theodds_api import TheOddsAPIAdapter
+            adapter = TheOddsAPIAdapter()
+            self.data_fetcher = DataFetcher(source=adapter)
 
     def scrape_all_sources(self, team_names: List[str], max_per_source: int = 50) -> List[Dict]:
         """Scrape all configured sources."""
@@ -94,10 +103,10 @@ class SocialIngestor:
             fixtures = []
             for _, row in fixtures_df.iterrows():
                 fixtures.append({
-                    "id": row.get("fixture_id", row.get("id")),
-                    "home_team": row.get("home_team"),
-                    "away_team": row.get("away_team"),
-                    "commence_time": row.get("commence_time"),
+                    "id": row.get("fixture_id", row.get("id") or row.get("market_id")),
+                    "home_team": row.get("home_team", row.get("home")),
+                    "away_team": row.get("away_team", row.get("away")),
+                    "commence_time": row.get("commence_time", row.get("start")),
                 })
             
             logger.info(f"Retrieved {len(fixtures)} active fixtures")

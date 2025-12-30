@@ -17,6 +17,7 @@ from src.logging_config import get_logger
 from src.social.ml_predictor import get_predictor
 from src.notifications.telegram import send_odds_alert, send_daily_report
 from src.analytics.stats import analytics
+from src.social.aggregator import get_match_sentiment
 
 logger = get_logger(__name__)
 
@@ -90,20 +91,36 @@ def analyze_fixture(fixture, predictor, max_hours=36):
                         for m in bookmakers if m['markets'] 
                         and len(m['markets'][0]['outcomes']) > 2], default=3.0)
         
-        # Mock sentiment data (in production, fetch from database)
-        # For now, use odds to infer sentiment
-        if best_home < best_away:
-            sentiment_score = 0.3 + (best_away - best_home) * 0.1
-        else:
-            sentiment_score = -0.3 - (best_home - best_away) * 0.1
+        # Try to get real-world sentiment from social signals
+        real_sentiment = get_match_sentiment(fixture['id'])
         
+        if real_sentiment:
+            sentiment_score = real_sentiment['aggregate_score']
+            positive_pct = real_sentiment['positive_pct']
+            negative_pct = real_sentiment['negative_pct']
+            neutral_pct = real_sentiment['neutral_pct']
+            sample_count = real_sentiment['sample_count']
+            logger.info(f"Using REAL sentiment for {fixture['home_team']} vs {fixture['away_team']} (score: {sentiment_score})")
+        else:
+            # Fallback to model defaults/odds-based sentiment if no social signals found
+            if best_home < best_away:
+                sentiment_score = 0.3 + (best_away - best_home) * 0.1
+            else:
+                sentiment_score = -0.3 - (best_home - best_away) * 0.1
+            
+            positive_pct = 50 + (sentiment_score * 30)
+            negative_pct = 50 - (sentiment_score * 30)
+            neutral_pct = 20
+            sample_count = 0
+            logger.debug(f"Using mock sentiment for {fixture['home_team']} vs {fixture['away_team']}")
+            
         # Prepare data for ML
         match_data = {
             'sentiment_score': sentiment_score,
-            'positive_pct': 50 + (sentiment_score * 30),
-            'negative_pct': 50 - (sentiment_score * 30),
-            'neutral_pct': 20,
-            'sample_count': 75,  # Mock
+            'positive_pct': positive_pct,
+            'negative_pct': negative_pct,
+            'neutral_pct': neutral_pct,
+            'sample_count': max(sample_count, 10),  # Baseline for ML model stability
             'home_odds': best_home,
             'away_odds': best_away,
             'draw_odds': best_draw,

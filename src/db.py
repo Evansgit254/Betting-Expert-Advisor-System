@@ -234,9 +234,10 @@ def init_db():
     try:
         from src.sentiment.models import SentimentAnalysis, SentimentSource  # noqa: F401
         from src.arbitrage_detector import ArbitrageSignal  # noqa: F401
-        logger.info("Sentiment and arbitrage models imported")
+        from src.social.models import SocialPost, SocialSentiment, SentimentAggregate  # noqa: F401
+        logger.info("Sentiment, social, and arbitrage models imported")
     except ImportError as e:
-        logger.warning(f"Could not import sentiment/arbitrage models: {e}")
+        logger.warning(f"Could not import sentiment/social/arbitrage models: {e}")
 
     Base.metadata.create_all(bind=engine)
 
