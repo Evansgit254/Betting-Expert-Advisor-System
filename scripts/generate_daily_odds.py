@@ -67,9 +67,15 @@ def fetch_all_fixtures():
     return all_fixtures
 
 
-def analyze_fixture(fixture, predictor):
-    """Analyze a fixture and generate recommendation."""
+def analyze_fixture(fixture, predictor, max_hours=36):
+    """Analyze a fixture and generate recommendation if within time window."""
     try:
+        # Check time window
+        commence_time = datetime.strptime(fixture['commence_time'], '%Y-%m-%dT%H:%M:%SZ')
+        now = datetime.utcnow()
+        if commence_time < now or commence_time > now + timedelta(hours=max_hours):
+            return None
+
         # Extract odds
         bookmakers = fixture.get('bookmakers', [])
         if not bookmakers:
