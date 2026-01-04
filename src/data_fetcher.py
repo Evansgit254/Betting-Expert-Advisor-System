@@ -23,10 +23,10 @@ class DataSourceInterface(ABC):
         """
 
     @abstractmethod
-    def fetch_odds(self, market_ids: List[str]) -> pd.DataFrame:
-        """Fetch current odds for given market IDs.
+    def fetch_odds(self, market_ids: List[str], markets: Optional[Any] = None) -> pd.DataFrame:
+        """Fetch current odds for given market IDs and market types.
 
-        Returns DataFrame with columns: market_id, selection, odds
+        Returns DataFrame with columns: market_id, selection, odds, market_type
         """
 
 
@@ -91,7 +91,7 @@ class MockDataSource(DataSourceInterface):
         logger.info(f"Fetched {len(df)} mock fixtures")
         return df
 
-    def fetch_odds(self, market_ids: List[str]) -> pd.DataFrame:
+    def fetch_odds(self, market_ids: List[str], markets: Optional[Any] = None) -> pd.DataFrame:
         """Generate synthetic odds for given markets."""
         logger.info(f"Fetching mock odds for {len(market_ids)} markets")
 
@@ -159,13 +159,52 @@ class DataFetcher:
         """Initialize with a data source.
 
         Args:
-            source: Data source implementation (defaults to MockDataSource)
+            source: Data source implementation (defaults to MockDataSource or TheOddsAPIAdapter based on MODE)
             use_cache: Enable caching to reduce API calls (default: True)
         """
-        self.source = source or MockDataSource()
+        if source is None:
+            from src.config import settings
+            if settings.MODE == "LIVE":
+                if settings.ODDS_API_PROVIDER == "api-football":
+                    from src.adapters.api_football import APIFootballAdapter
+                    logger.info("Using API-Football adapter")
+                    self.source = APIFootballAdapter()
+                else:
+                    from src.adapters.theodds_api import TheOddsAPIAdapter
+                    logger.info("Using TheOddsAPI adapter")
+                    self.source = TheOddsAPIAdapter()
+            else:
+                self.source = MockDataSource()
+        else:
+            self.source = source
+            
         self._custom_source = source is not None
         self.use_cache = False
         self.cache = None
+
+        # Try to enable caching
+        if use_cache and not self._custom_source:
+            try:
+                from src.cache import DataCache
+
+                self.cache = DataCache()
+                self.use_cache = True
+            except Exception as e:
+                logger.warning(f"Caching not available: {e}")
+                self.use_cache = False
+
+        logger.info(
+            "Initialized DataFetcher with %s (cache: %s)",
+            self.source.__class__.__name__,
+            self.use_cache,
+        )
+
+    def switch_to_scraper(self):
+        """Switch the current data source to the BBC web scraper."""
+        from src.adapters.bbc_scraper import BBCScraperSource
+        logger.warning(f"Switching data source from {self.source.__class__.__name__} to BBCScraperSource")
+        self.source = BBCScraperSource()
+        return self.source
 
         # Try to enable caching
         if use_cache and not self._custom_source:
@@ -242,11 +281,12 @@ class DataFetcher:
 
         return fixtures
 
-    def get_odds(self, market_ids: List[str], force_refresh: bool = False) -> pd.DataFrame:
+    def get_odds(self, market_ids: List[str], markets: Optional[Any] = None, force_refresh: bool = False) -> pd.DataFrame:
         """Fetch odds from the configured source with caching.
 
         Args:
             market_ids: List of market IDs to fetch odds for
+            markets: Specific market types to fetch (optional)
             force_refresh: Skip cache and fetch fresh data
 
         Returns:
@@ -265,7 +305,7 @@ class DataFetcher:
         # Cache miss or disabled - fetch from source
         logger.info(f"Fetching fresh odds for {len(market_ids)} markets from source")
         # CRITICAL FIX: Pass market_ids as keyword argument to match TheOddsAPI signature
-        odds = self.source.fetch_odds(market_ids=market_ids)
+        odds = self.source.fetch_odds(market_ids=market_ids, markets=markets)
         
         # CRITICAL FIX: Ensure odds is always a DataFrame (TheOddsAPI returns list)
         if isinstance(odds, list):

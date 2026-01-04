@@ -79,9 +79,13 @@ class MLPipeline:
 
         def objective(trial: optuna.Trial) -> float:
             """Optuna objective function."""
+            n_classes = len(np.unique(labels))
+            is_multiclass = n_classes > 2
+            
             params = {
-                "objective": "binary",
-                "metric": "binary_logloss",
+                "objective": "multiclass" if is_multiclass else "binary",
+                "metric": "multi_logloss" if is_multiclass else "binary_logloss",
+                "num_class": n_classes if is_multiclass else 1,
                 "verbosity": -1,
                 "boosting_type": "gbdt",
                 "learning_rate": trial.suggest_float("learning_rate", 0.01, 0.2, log=True),
@@ -138,10 +142,14 @@ class MLPipeline:
         logger.info(f"Best hyperparameters: {self.best_params}")
         logger.info(f"Best CV score (log loss): {best_loss:.4f}")
 
+        n_classes = len(np.unique(labels))
+        is_multiclass = n_classes > 2
+        
         # Train final model on all data with best parameters
         final_params = {
-            "objective": "binary",
-            "metric": "binary_logloss",
+            "objective": "multiclass" if is_multiclass else "binary",
+            "metric": "multi_logloss" if is_multiclass else "binary_logloss",
+            "num_class": n_classes if is_multiclass else 1,
             "verbosity": -1,
             "boosting_type": "gbdt",
             **self.best_params,
@@ -173,10 +181,13 @@ class MLPipeline:
             Trained model
         """
         X = self._prepare(df)
+        n_classes = len(np.unique(labels))
+        is_multiclass = n_classes > 2
 
         default_params = {
-            "objective": "binary",
-            "metric": "binary_logloss",
+            "objective": "multiclass" if is_multiclass else "binary",
+            "metric": "multi_logloss" if is_multiclass else "binary_logloss",
+            "num_class": n_classes if is_multiclass else 1,
             "verbosity": -1,
             "learning_rate": 0.05,
             "num_leaves": 31,

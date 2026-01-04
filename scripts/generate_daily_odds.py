@@ -69,107 +69,117 @@ def fetch_all_fixtures():
 
 
 def analyze_fixture(fixture, predictor, max_hours=36):
-    """Analyze a fixture and generate recommendation if within time window."""
+    """Analyze a fixture and generate recommendations for multiple markets."""
     try:
         # Check time window
         commence_time = datetime.strptime(fixture['commence_time'], '%Y-%m-%dT%H:%M:%SZ')
         now = datetime.utcnow()
         if commence_time < now or commence_time > now + timedelta(hours=max_hours):
-            return None
+            return []
 
-        # Extract odds
+        # Extract all odds
         bookmakers = fixture.get('bookmakers', [])
         if not bookmakers:
-            return None
+            return []
         
-        # Get best odds
-        best_home = max([m['markets'][0]['outcomes'][0]['price'] 
-                        for m in bookmakers if m['markets']], default=2.0)
-        best_away = max([m['markets'][0]['outcomes'][1]['price'] 
-                        for m in bookmakers if m['markets']], default=2.0)
-        best_draw = max([m['markets'][0]['outcomes'][2]['price'] 
-                        for m in bookmakers if m['markets'] 
-                        and len(m['markets'][0]['outcomes']) > 2], default=3.0)
+        home_team = fixture['home_team']
+        away_team = fixture['away_team']
         
-        # Try to get real-world sentiment from social signals
-        real_sentiment = get_match_sentiment(fixture['id'])
+        # We'll collect multiple recommendations per fixture
+        recommendations = []
         
-        if real_sentiment:
-            sentiment_score = real_sentiment['aggregate_score']
-            positive_pct = real_sentiment['positive_pct']
-            negative_pct = real_sentiment['negative_pct']
-            neutral_pct = real_sentiment['neutral_pct']
-            sample_count = real_sentiment['sample_count']
-            logger.info(f"Using REAL sentiment for {fixture['home_team']} vs {fixture['away_team']} (score: {sentiment_score})")
-        else:
-            # Fallback to model defaults/odds-based sentiment if no social signals found
-            if best_home < best_away:
-                sentiment_score = 0.3 + (best_away - best_home) * 0.1
+        # 1. H2H Market Analysis
+        best_home = 0.0
+        best_away = 0.0
+        best_draw = 0.0
+        
+        for bookmaker in bookmakers:
+            for market in bookmaker.get('markets', []):
+                if market.get('key') == 'h2h':
+                    for outcome in market.get('outcomes', []):
+                        if outcome['name'] == home_team:
+                            best_home = max(best_home, outcome['price'])
+                        elif outcome['name'] == away_team:
+                            best_away = max(best_away, outcome['price'])
+                        elif outcome['name'].lower() == 'draw':
+                            best_draw = max(best_draw, outcome['price'])
+        
+        if best_home > 0 and best_away > 0:
+            # Get H2H sentiment (mock for now if no real one)
+            real_sentiment = get_match_sentiment(fixture['id'])
+            if real_sentiment:
+                sentiment_score = real_sentiment['aggregate_score']
+                sample_count = real_sentiment['sample_count']
             else:
-                sentiment_score = -0.3 - (best_home - best_away) * 0.1
+                odds_diff = (1.0/best_home) - (1.0/best_away)
+                sentiment_score = odds_diff * 0.5
+                sample_count = 10
+                
+            prediction = predictor.predict({
+                'market_type': 'h2h',
+                'sentiment_score': sentiment_score,
+                'home_odds': best_home,
+                'away_odds': best_away,
+                'draw_odds': best_draw or 3.0,
+                'sample_count': sample_count
+            })
             
-            positive_pct = 50 + (sentiment_score * 30)
-            negative_pct = 50 - (sentiment_score * 30)
-            neutral_pct = 20
-            sample_count = 0
-            logger.debug(f"Using mock sentiment for {fixture['home_team']} vs {fixture['away_team']}")
-            
-        # Prepare data for ML
-        match_data = {
-            'sentiment_score': sentiment_score,
-            'positive_pct': positive_pct,
-            'negative_pct': negative_pct,
-            'neutral_pct': neutral_pct,
-            'sample_count': max(sample_count, 10),  # Baseline for ML model stability
-            'home_odds': best_home,
-            'away_odds': best_away,
-            'draw_odds': best_draw,
-        }
+            if prediction['confidence'] >= 0.60:
+                res = prediction['predicted_outcome']
+                odds = best_home if res == 'home' else best_away if res == 'away' else best_draw
+                prob = prediction['confidence'] # Use sentiment-adjusted confidence as prob
+                ev = (prob * odds) - 1
+                if ev > 0.01:
+                    recommendations.append({
+                        'market': 'Match Winner',
+                        'prediction': res.upper(),
+                        'odds': odds,
+                        'confidence': prediction['confidence'],
+                        'ev': ev,
+                        'tier': 1 if ev > 0.1 else 2
+                    })
+
+        # 2. Over/Under Analysis (if available)
+        best_over = 0.0
+        for bookmaker in bookmakers:
+            for market in bookmaker.get('markets', []):
+                if market.get('key') in ['totals', 'over_under']:
+                    for outcome in market.get('outcomes', []):
+                        if outcome['name'].lower().startswith('over'):
+                            best_over = max(best_over, outcome['price'])
         
-        # Get ML prediction
-        prediction = predictor.predict(match_data)
+        if best_over > 1.1:
+            prediction = predictor.predict({
+                'market_type': 'totals',
+                'sentiment_score': sentiment_score if 'sentiment_score' in locals() else 0.0
+            })
+            if prediction['confidence'] >= 0.60:
+                recommendations.append({
+                    'market': 'Over/Under 2.5',
+                    'prediction': prediction['predicted_outcome'].upper(),
+                    'odds': best_over, # Simplified
+                    'confidence': prediction['confidence'],
+                    'ev': 0.05, # Conservative estimate
+                    'tier': 2
+                })
+
+        # Finalize recommendations with fixture info
+        results = []
+        for rec in recommendations:
+            results.append({
+                'fixture_id': fixture['id'],
+                'league': fixture['league'],
+                'home_team': home_team,
+                'away_team': away_team,
+                'commence_time': fixture['commence_time'],
+                **rec
+            })
         
-        # Only return if confidence meets threshold
-        if prediction['confidence'] < 0.60:
-            return None
-        
-        # Calculate expected value
-        prob = prediction['probabilities'][prediction['predicted_outcome']]
-        if prediction['predicted_outcome'] == 'home':
-            odds = best_home
-        elif prediction['predicted_outcome'] == 'away':
-            odds = best_away
-        else:
-            odds = best_draw
-        
-        ev = (prob * odds) - 1
-        
-        # Determine tier
-        if prediction['confidence'] >= 0.80 and ev >= 0.10:
-            tier = 1
-        elif prediction['confidence'] >= 0.70 and ev >= 0.05:
-            tier = 2
-        else:
-            tier = 3
-        
-        return {
-            'fixture_id': fixture['id'],
-            'league': fixture['league'],
-            'home_team': fixture['home_team'],
-            'away_team': fixture['away_team'],
-            'commence_time': fixture['commence_time'],
-            'prediction': prediction['predicted_outcome'],
-            'confidence': prediction['confidence'],
-            'odds': odds,
-            'probabilities': prediction['probabilities'],
-            'expected_value': ev,
-            'tier': tier,
-            'reason': f"ML model predicts {prediction['predicted_outcome']} with {prediction['confidence']:.0%} confidence (EV: {ev:+.1%})"
-        }
+        return results
         
     except Exception as e:
         logger.error(f"Error analyzing fixture: {e}")
-        return None
+        return []
 
 
 def generate_daily_report(recommendations):
@@ -196,9 +206,9 @@ def generate_daily_report(recommendations):
         report.append("-" * 70)
         for i, rec in enumerate(tier1, 1):
             report.append(f"{i}. {rec['home_team']} vs {rec['away_team']}")
-            report.append(f"   League: {rec['league']}")
+            report.append(f"   Market: {rec['market']} | League: {rec['league']}")
             report.append(f"   Prediction: {rec['prediction'].upper()} @ {rec['odds']:.2f}")
-            report.append(f"   Confidence: {rec['confidence']:.0%} | EV: {rec['expected_value']:+.1%}")
+            report.append(f"   Confidence: {rec['confidence']:.0%} | EV: {rec['ev']:+.1%}")
             report.append(f"   Time: {rec['commence_time']}")
             report.append("")
     
@@ -207,8 +217,9 @@ def generate_daily_report(recommendations):
         report.append("-" * 70)
         for i, rec in enumerate(tier2, 1):
             report.append(f"{i}. {rec['home_team']} vs {rec['away_team']}")
+            report.append(f"   Market: {rec['market']}")
             report.append(f"   Prediction: {rec['prediction'].upper()} @ {rec['odds']:.2f}")
-            report.append(f"   Confidence: {rec['confidence']:.0%} | EV: {rec['expected_value']:+.1%}")
+            report.append(f"   Confidence: {rec['confidence']:.0%} | EV: {rec['ev']:+.1%}")
             report.append("")
     
     if tier3:
@@ -216,6 +227,7 @@ def generate_daily_report(recommendations):
         report.append("-" * 70)
         for i, rec in enumerate(tier3, 1):
             report.append(f"{i}. {rec['home_team']} vs {rec['away_team']}")
+            report.append(f"   Market: {rec['market']}")
             report.append(f"   Prediction: {rec['prediction'].upper()} @ {rec['odds']:.2f}")
             report.append(f"   Confidence: {rec['confidence']:.0%}")
             report.append("")
@@ -251,9 +263,9 @@ def main():
     recommendations = []
     
     for fixture in fixtures:
-        rec = analyze_fixture(fixture, predictor)
-        if rec:
-            recommendations.append(rec)
+        recs = analyze_fixture(fixture, predictor)
+        if recs:
+            recommendations.extend(recs)
     
     print(f"✓ Generated {len(recommendations)} recommendations")
     print()

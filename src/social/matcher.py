@@ -100,12 +100,8 @@ def link_post_to_fixture(
     Returns:
         Tuple of (match_id, confidence) if match found, None otherwise
     """
-    # Extract team names from post
-    post_teams = extract_team_names(post["text"])
-
-    if not post_teams:
-        return None
-
+    text_lower = post["text"].lower()
+    
     # Parse post time
     try:
         post_time = datetime.fromisoformat(post["created_at"].replace("Z", "+00:00"))
@@ -124,39 +120,34 @@ def link_post_to_fixture(
 
         # Check if post is within time window before match
         time_diff = (fixture_time - post_time).total_seconds() / 3600  # Hours
-        if time_diff < 0 or time_diff > time_window_hours:
+        if time_diff < -2 or time_diff > time_window_hours: # Allow 2 hours after kickoff
             continue
 
-        # Check if any extracted team matches fixture teams
         home_team = fixture["home_team"]
         away_team = fixture["away_team"]
+        
+        # Look for team mentions in text
+        home_match, home_score = fuzzy_match_team(home_team, text_lower)
+        away_match, away_score = fuzzy_match_team(away_team, text_lower)
 
-        for team in post_teams:
-            # Check home team
-            home_match, home_score = fuzzy_match_team(home_team, team)
-            if home_match:
-                confidence = home_score * 0.9  # Slight penalty for single team match
-                if confidence > best_confidence:
-                    best_match = fixture["id"]
-                    best_confidence = confidence
-
-            # Check away team
-            away_match, away_score = fuzzy_match_team(away_team, team)
-            if away_match:
-                confidence = away_score * 0.9
-                if confidence > best_confidence:
-                    best_match = fixture["id"]
-                    best_confidence = confidence
-
-            # Bonus if both teams mentioned
-            if home_match and away_match:
-                confidence = min(home_score, away_score) * 1.0  # Full confidence
-                if confidence > best_confidence:
-                    best_match = fixture["id"]
-                    best_confidence = confidence
+        # Basic confidence calculation
+        confidence = 0.0
+        if home_match and away_match:
+            confidence = 1.0 # High confidence if both mentioned
+        elif home_match or away_match:
+            confidence = 0.7 # Medium if only one mentioned
+            
+        if confidence > 0:
+            # Adjust confidence with fuzzy score
+            similarity = max(home_score, away_score)
+            confidence *= similarity
+            
+            if confidence > best_confidence:
+                best_match = fixture["id"]
+                best_confidence = confidence
 
     # Only return if confidence meets threshold
-    if best_match and best_confidence >= settings.MIN_MATCH_CONFIDENCE:
+    if best_match and best_confidence >= getattr(settings, "MIN_MATCH_CONFIDENCE", 0.6):
         logger.debug(f"Linked post to {best_match} with confidence {best_confidence:.2f}")
         return best_match, best_confidence
 

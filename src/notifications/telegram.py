@@ -75,8 +75,9 @@ def send_odds_alert(recommendations: List[Dict[str, Any]]) -> bool:
         lines.append("━━━━━━━━━━━━━━━━━━━━━━━━━━")
         for i, rec in enumerate(tier1[:3], 1):  # Top 3
             lines.append(f"{i}. <b>{rec['home_team']} vs {rec['away_team']}</b>")
-            lines.append(f"   🎲 Bet: <b>{rec['prediction'].upper()}</b> @ {rec['odds']:.2f}")
-            lines.append(f"   📈 Confidence: {rec['confidence']:.0%} | EV: {rec['expected_value']:+.1%}")
+            lines.append(f"   🎲 Market: {rec['market']}")
+            lines.append(f"   Bet: <b>{rec['prediction'].upper()}</b> @ {rec['odds']:.2f}")
+            lines.append(f"   📈 Confidence: {rec['confidence']:.0%} | EV: {rec.get('ev', 0):+.1%}")
             lines.append(f"   ⏰ {rec['commence_time'][:16]}")
             lines.append("")
     
@@ -85,7 +86,7 @@ def send_odds_alert(recommendations: List[Dict[str, Any]]) -> bool:
         lines.append("━━━━━━━━━━━━━━━━━━━━━━━━━━")
         for i, rec in enumerate(tier2[:2], 1):  # Top 2
             lines.append(f"{i}. {rec['home_team']} vs {rec['away_team']}")
-            lines.append(f"   🎲 {rec['prediction'].upper()} @ {rec['odds']:.2f} ({rec['confidence']:.0%})")
+            lines.append(f"   🎲 {rec['market']}: <b>{rec['prediction'].upper()}</b> @ {rec['odds']:.2f} ({rec['confidence']:.0%})")
             lines.append("")
     
     if tier3 and len(tier1) + len(tier2) < 5:

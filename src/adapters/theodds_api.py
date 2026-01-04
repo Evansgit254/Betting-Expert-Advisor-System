@@ -157,6 +157,7 @@ class TheOddsAPIAdapter:
         sport: Optional[str] = None,
         region: Optional[str] = None,
         market_ids: Optional[List[str]] = None,
+        markets: Optional[str] = "h2h,totals",
     ) -> List[Dict[str, Any]]:
         sport = sport or self.default_sport
         region = region or self.default_region
@@ -165,7 +166,7 @@ class TheOddsAPIAdapter:
         try:
             payload = _get(
                 f"/sports/{sport}/odds",
-                params={"regions": region, "markets": "h2h", "oddsFormat": "decimal"},
+                params={"regions": region, "markets": markets, "oddsFormat": "decimal"},
             )
         except RetryError:
             return []
@@ -184,19 +185,25 @@ class TheOddsAPIAdapter:
                 last_update = bookmaker.get("last_update")
 
                 for market in bookmaker.get("markets", []) or []:
-                    if market.get("key") != "h2h":
-                        continue
-
+                    market_key = market.get("key")
+                    
                     for outcome in market.get("outcomes", []) or []:
                         name = outcome.get("name")
                         price = outcome.get("price")
+                        point = outcome.get("point") # For totals and spreads
+                        
                         if not name or price is None:
                             continue
+
+                        selection = name.strip().lower()
+                        if point is not None:
+                            selection = f"{selection} {point}"
 
                         odds_rows.append(
                             {
                                 "market_id": market_id,
-                                "selection": name.strip().lower(),
+                                "market_type": market_key,
+                                "selection": selection,
                                 "odds": float(price),
                                 "provider": provider,
                                 "last_update": last_update,

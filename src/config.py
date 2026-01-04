@@ -105,7 +105,13 @@ class Settings(BaseSettings):
     # API configuration
     BOOKIE_API_KEY: Optional[str] = Field(default=None)
     BOOKIE_API_BASE_URL: Optional[str] = Field(default=None)
-    THEODDS_API_KEY: Optional[str] = Field(default=None)
+    # API Keys
+    THEODDS_API_KEY: str = ""
+    RAPIDAPI_KEY: str = ""
+    ODDS_API_PROVIDER: str = "theodds"  # "theodds" or "api-football"
+    
+    # Database
+    DATABASE_URL: str = "sqlite:///./betting_advisor.db"
     THEODDS_API_BASE: str = Field(default="https://api.the-odds-api.com/v4")
     BETFAIR_APP_KEY: Optional[str] = Field(default=None)
     BETFAIR_SESSION_TOKEN: Optional[str] = Field(default=None)

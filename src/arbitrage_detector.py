@@ -97,6 +97,10 @@ class ArbitrageDetector:
     def _detect_classic_arbitrage(self, market_id: str, odds: pd.DataFrame) -> Optional[Dict]:
         """Detect classic 3-way arbitrage (home/draw/away)."""
         try:
+            required_cols = ['home_odds', 'away_odds']
+            if not all(col in odds.columns for col in required_cols):
+                return None
+                
             # Get best odds for each outcome
             best_home = odds['home_odds'].max()
             best_away = odds['away_odds'].max()
@@ -173,6 +177,10 @@ class ArbitrageDetector:
     def _detect_two_way_arbitrage(self, market_id: str, odds: pd.DataFrame) -> Optional[Dict]:
         """Detect two-way arbitrage (home/away only)."""
         try:
+            required_cols = ['home_odds', 'away_odds']
+            if not all(col in odds.columns for col in required_cols):
+                return None
+
             # Get best odds
             best_home = odds['home_odds'].max()
             best_away = odds['away_odds'].max()

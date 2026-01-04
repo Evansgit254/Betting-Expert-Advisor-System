@@ -1,6 +1,12 @@
 """Main CLI entry point for Betting Expert Advisor."""
 import argparse
 import sys
+from pathlib import Path
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+project_root = Path(__file__).parent.parent
+load_dotenv(project_root / '.env')
 
 from src.config import settings
 from src.db import init_db
@@ -57,10 +63,14 @@ def cmd_train(args):
     # Now merge with results to get labels
     features = features.merge(results, on="market_id", how="left")
 
-    # Create binary labels (1 if home won, 0 otherwise)
-    # We need to match the selection in features with the result
-    # For now, let's predict if home wins
-    features["label"] = (features["result"] == "home").astype(int)
+    # Create multi-class labels (0=away, 1=draw, 2=home)
+    def label_outcome(res):
+        if res == "home": return 2
+        elif res == "draw": return 1
+        elif res == "away": return 0
+        return np.nan
+
+    features["label"] = features["result"].apply(label_outcome)
 
     # Remove rows with missing labels
     features = features.dropna(subset=["label"])

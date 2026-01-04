@@ -2,7 +2,7 @@
 import numpy as np
 import pandas as pd
 from datetime import datetime, timedelta
-from typing import Dict, List, Optional
+from typing import Dict, List, Optional, Any
 import joblib
 from pathlib import Path
 
@@ -60,12 +60,16 @@ class SocialMLPredictor:
         # Derived features
         features['sentiment_strength'] = abs(features['sentiment_score'])
         features['sentiment_confidence'] = max(features['positive_pct'], features['negative_pct'])
-        features['odds_favorite'] = 1.0 if features['home_odds'] < features['away_odds'] else 0.0
+        
+        # Symmetrical favorite flags
+        features['home_favorite'] = 1.0 if features['home_odds'] < features['away_odds'] else 0.0
+        features['away_favorite'] = 1.0 if features['away_odds'] < features['home_odds'] else 0.0
         features['odds_spread'] = abs(features['home_odds'] - features['away_odds'])
         
-        # Interaction features
+        # Interaction features (Symmetric)
         features['sentiment_x_volume'] = features['sentiment_score'] * np.log1p(features['sample_count'])
-        features['sentiment_x_odds'] = features['sentiment_score'] * (1.0 / features['home_odds'])
+        features['sentiment_x_home_odds'] = features['sentiment_score'] * (1.0 / features['home_odds'])
+        features['sentiment_x_away_odds'] = -features['sentiment_score'] * (1.0 / features['away_odds'])
         
         return features
     
@@ -155,14 +159,14 @@ class SocialMLPredictor:
         self.save_model()
     
     def predict(self, match_data: Dict) -> Dict[str, float]:
-        """Predict match outcome using ML model.
+        """Predict match outcome using ML model."""
+        market_type = match_data.get('market_type', 'h2h')
         
-        Args:
-            match_data: Match data with sentiment and odds
-            
-        Returns:
-            Dict with predictions and probabilities
-        """
+        if market_type != 'h2h':
+            # Currently ML model is only trained for h2h
+            # Fallback to specialized logic for other markets
+            return self._fallback_prediction(match_data)
+
         if self.model is None:
             logger.warning("Model not trained, loading from disk...")
             self.load_model()
@@ -192,33 +196,81 @@ class SocialMLPredictor:
                 'away': float(probabilities[0])
             },
             'model': 'gradient_boosting',
-            'features_used': len(features)
+            'features_used': len(features),
+            'market_type': 'h2h'
         }
         
-        logger.info(f"ML Prediction: {predicted_outcome} (confidence: {result['confidence']:.2%})")
-        
+        logger.info(f"ML Prediction (H2H): {predicted_outcome} (confidence: {result['confidence']:.2%})")
         return result
     
     def _fallback_prediction(self, match_data: Dict) -> Dict[str, float]:
-        """Fallback to rule-based prediction if ML model not available."""
+        """Fallback prediction logic for different market types."""
+        market_type = match_data.get('market_type', 'h2h')
         sentiment = match_data.get('sentiment_score', 0.0)
         
-        if sentiment > 0.3:
+        if market_type == 'totals':
+            return self._predict_totals(match_data)
+        elif market_type == 'corners':
+            return self._predict_corners(match_data)
+        
+        # Default H2H fallback
+        home_odds = match_data.get('home_odds', 2.0)
+        away_odds = match_data.get('away_odds', 2.0)
+        
+        home_prob = 1.0 / home_odds if home_odds > 0 else 0.0
+        away_prob = 1.0 / away_odds if away_odds > 0 else 0.0
+        draw_prob = 1.0 - home_prob - away_prob
+        
+        if home_prob > 0.5 or (home_prob > away_prob + 0.1):
             outcome = 'home'
-            confidence = 0.6 + (sentiment * 0.2)
-        elif sentiment < -0.3:
+            confidence = home_prob + (sentiment * 0.1 if sentiment > 0 else 0)
+        elif away_prob > 0.5 or (away_prob > home_prob + 0.1):
             outcome = 'away'
-            confidence = 0.6 + (abs(sentiment) * 0.2)
+            confidence = away_prob + (abs(sentiment) * 0.1 if sentiment < 0 else 0)
         else:
-            outcome = 'draw'
-            confidence = 0.5
+            if sentiment > 0.1:
+                outcome = 'home'
+                confidence = 0.5 + (sentiment * 0.2)
+            elif sentiment < -0.1:
+                outcome = 'away'
+                confidence = 0.5 + (abs(sentiment) * 0.2)
+            else:
+                outcome = 'draw'
+                confidence = max(0.34, draw_prob)
         
         return {
             'predicted_outcome': outcome,
-            'confidence': min(confidence, 0.95),
-            'probabilities': {'home': 0.33, 'draw': 0.34, 'away': 0.33},
-            'model': 'rule_based_fallback',
-            'features_used': 1
+            'confidence': min(max(confidence, 0.34), 0.98),
+            'probabilities': {'home': home_prob, 'draw': draw_prob, 'away': away_prob},
+            'model': 'odds_fallback',
+            'market_type': 'h2h'
+        }
+
+    def _predict_totals(self, match_data: Dict) -> Dict[str, Any]:
+        """Specialized prediction for Over/Under goals."""
+        sentiment = match_data.get('sentiment_score', 0.0)
+        # Higher positive sentiment often correlates with attacking football/over expectations
+        confidence = 0.5 + (abs(sentiment) * 0.3)
+        outcome = 'over' if sentiment > 0.1 else 'under' if sentiment < -0.1 else 'over'
+        
+        return {
+            'predicted_outcome': f"{outcome} 2.5",
+            'confidence': min(confidence, 0.90),
+            'model': 'sentiment_heuristic',
+            'market_type': 'totals'
+        }
+
+    def _predict_corners(self, match_data: Dict) -> Dict[str, Any]:
+        """Specialized prediction for Corner markets."""
+        sentiment = match_data.get('sentiment_score', 0.0)
+        confidence = 0.5 + (abs(sentiment) * 0.2)
+        outcome = 'over' if sentiment > 0.1 else 'under'
+        
+        return {
+            'predicted_outcome': f"{outcome} 9.5",
+            'confidence': min(confidence, 0.85),
+            'model': 'sentiment_heuristic',
+            'market_type': 'corners'
         }
     
     def save_model(self):
