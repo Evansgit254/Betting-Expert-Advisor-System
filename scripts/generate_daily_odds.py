@@ -40,6 +40,14 @@ def fetch_all_fixtures():
     """Fetch fixtures from all leagues."""
     all_fixtures = []
     
+
+    # Debug API Key (Masked)
+    if API_KEY:
+        masked_key = f"{API_KEY[:4]}...{API_KEY[-4:]}" if len(API_KEY) > 8 else "***"
+        logger.info(f"Using API Key: {masked_key} (Length: {len(API_KEY)})")
+    else:
+        logger.error("❌ API Key is MISSING or EMPTY")
+
     for league in LEAGUES:
         try:
             response = requests.get(
@@ -60,7 +68,7 @@ def fetch_all_fixtures():
                 all_fixtures.extend(fixtures)
                 logger.info(f"✓ {league}: {len(fixtures)} fixtures")
             else:
-                logger.warning(f"✗ {league}: {response.status_code}")
+                logger.warning(f"✗ {league}: {response.status_code} - {response.text}")
                 
         except Exception as e:
             logger.error(f"Error fetching {league}: {e}")
