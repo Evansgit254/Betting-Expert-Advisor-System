@@ -176,8 +176,19 @@ class SocialMLPredictor:
                 return self._fallback_prediction(match_data)
         
         # Extract features
-        features = self.extract_features(match_data)
-        X = np.array([list(features.values())])
+        features_dict = self.extract_features(match_data)
+        
+        if self.feature_names:
+            # Filter and order features to match model expectation
+            # This handles cases where code generates more features than the legacy model expects
+            ordered_features = []
+            for name in self.feature_names:
+                ordered_features.append(features_dict.get(name, 0.0))
+            X = np.array([ordered_features])
+        else:
+            # Fallback for legacy models without feature_names saved
+            # Note: This relies on dictionary order matching training order, which is risky
+            X = np.array([list(features_dict.values())])
         
         # Predict
         prediction = self.model.predict(X)[0]
