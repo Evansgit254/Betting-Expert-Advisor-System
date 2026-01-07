@@ -202,6 +202,7 @@ def analyze_fixture(fixture, predictor, max_hours=36):
                         'odds': odds,
                         'confidence': prediction['confidence'],
                         'ev': ev,
+                        'expected_value': ev,
                         'tier': 1 if ev > 0.1 else 2
                     })
 
@@ -226,6 +227,7 @@ def analyze_fixture(fixture, predictor, max_hours=36):
                     'odds': best_over, # Simplified
                     'confidence': prediction['confidence'],
                     'ev': 0.05, # Conservative estimate
+                    'expected_value': 0.05,
                     'tier': 2
                 })
 
