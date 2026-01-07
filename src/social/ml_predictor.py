@@ -207,7 +207,7 @@ class SocialMLPredictor:
                 'away': float(probabilities[0])
             },
             'model': 'gradient_boosting',
-            'features_used': len(features),
+            'features_used': len(features_dict),
             'market_type': 'h2h'
         }
         
