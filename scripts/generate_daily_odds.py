@@ -33,14 +33,70 @@ LEAGUES = [
     'soccer_uefa_europa_league', # Europa League
 ]
 
+from src.config import settings
+
 API_KEY = os.getenv('THEODDS_API_KEY')
 BASE_URL = 'https://api.the-odds-api.com/v4'
 
+def get_mock_fixtures():
+    """Generate mock fixtures for testing/dry-run."""
+    logger.info("🎭 Generating MOCK fixtures (DRY_RUN mode)")
+    now = datetime.utcnow()
+    
+    mock_data = []
+    # Create 8 mock fixtures (enough to meet the 5+ target)
+    for i in range(8):
+        start_time = now + timedelta(hours=2 + i)
+        
+        # Create varied odds to trigger different recommendations
+        home_odds = 1.8 + (i * 0.1)
+        away_odds = 4.0 - (i * 0.1)
+        draw_odds = 3.5
+        
+        fixture = {
+            "id": f"mock_{i}",
+            "sport_key": "soccer_epl",
+            "sport_title": "EPL",
+            "commence_time": start_time.strftime('%Y-%m-%dT%H:%M:%SZ'),
+            "home_team": f"Mock Home {i+1}",
+            "away_team": f"Mock Away {i+1}",
+            "league": "soccer_epl",
+            "bookmakers": [{
+                "key": "mock_bookie",
+                "title": "Mock Bookie",
+                "markets": [
+                    {
+                        "key": "h2h",
+                        "outcomes": [
+                            {"name": f"Mock Home {i+1}", "price": home_odds},
+                            {"name": f"Mock Away {i+1}", "price": away_odds},
+                            {"name": "Draw", "price": draw_odds}
+                        ]
+                    },
+                    {
+                        "key": "totals",
+                        "outcomes": [
+                            {"name": "Over 2.5", "price": 1.95},
+                            {"name": "Under 2.5", "price": 1.85}
+                        ]
+                    }
+                ]
+            }]
+        }
+        mock_data.append(fixture)
+        
+    return mock_data
+
+
 def fetch_all_fixtures():
     """Fetch fixtures from all leagues."""
+    # Check for DRY_RUN mode
+    if settings.MODE == "DRY_RUN":
+        logger.info("⚡ MODE is DRY_RUN: Using mock data instead of live API")
+        return get_mock_fixtures()
+
     all_fixtures = []
     
-
     # Debug API Key (Masked)
     if API_KEY:
         masked_key = f"{API_KEY[:4]}...{API_KEY[-4:]}" if len(API_KEY) > 8 else "***"
@@ -55,7 +111,7 @@ def fetch_all_fixtures():
                 params={
                     'apiKey': API_KEY,
                     'regions': 'uk,eu,us',
-                    'markets': 'h2h',
+                    'markets': 'h2h,totals', # Added totals for better mock parity
                     'oddsFormat': 'decimal'
                 },
                 timeout=10
@@ -67,6 +123,8 @@ def fetch_all_fixtures():
                     fixture['league'] = league
                 all_fixtures.extend(fixtures)
                 logger.info(f"✓ {league}: {len(fixtures)} fixtures")
+            elif response.status_code == 401:
+                logger.error(f"⛔ {league}: 401 Unauthorized - Check API Key/Quota. {response.text}")
             else:
                 logger.warning(f"✗ {league}: {response.status_code} - {response.text}")
                 
