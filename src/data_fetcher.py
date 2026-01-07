@@ -1,7 +1,7 @@
 """Data fetching module with adapters for multiple data sources."""
 from abc import ABC, abstractmethod
 from datetime import datetime, timezone
-from typing import List, Optional
+from typing import List, Optional, Any
 
 import pandas as pd
 
